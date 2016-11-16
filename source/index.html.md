@@ -1,15 +1,12 @@
 ---
-title: API Reference
+title: ShopSocially - API Reference
 
 language_tabs:
-  - shell
-  - ruby
-  - python
-  - javascript
+  - shell: Shell
+  - python: Python
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
+  - <a href='https://shopsocially.com' target="_blank">ShopSocially Home Page</a>
 
 includes:
   - errors
@@ -17,173 +14,158 @@ includes:
 search: true
 ---
 
-# Introduction
+# Overview
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the ShopSocially API documentation. You can use this API to access all our API endpoints, such as the **Loyalty API**, to build a common rewards program for all your sales channels.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+We have language bindings in Shell and Python! You can view code examples in the area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
 # Authentication
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
 
 ```python
-import kittn
+import requests
 
-api = kittn.authorize('meowmeowmeow')
+headers = {'partner-id': <your-partner-id>, 
+           'api-key': <your-api-key>}
+
+response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/transactions",
+                        headers = headers)
 ```
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+curl -H "partner-id: <your-partner-id>" 
+     -H "api-key: <your-api-key>" 
+     "https://api.shopsocially.com/v2/loyalty/transactions"
 ```
 
-```javascript
-const kittn = require('kittn');
 
-let api = kittn.authorize('meowmeowmeow');
-```
+The ShopSocially API exports sensitive data, so any call to the ShopSocially API needs to be authenticated. 
 
-> Make sure to replace `meowmeowmeow` with your API key.
+For authenticating an API call, you have to send your **Partner ID**, and an **API Key** in the HTTP header of each API request.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+To access **Partner ID**, and the **API Key**, please follow the steps given below:
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+* Login to your Merchant Center Console.
+* Navigate to **Basic Settings > General Information**, to find your **Partner ID**, and **API Key**. 
 
-`Authorization: meowmeowmeow`
+![alt text](/images/settings.png)
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+If you don't see the API Key on your dashboard, please write to support@shopsocially.com
 </aside>
 
-# Kittens
+* Send the keys in the HTTP header of each API request as given below :
 
-## Get All Kittens
+`'api-key': '<your-api-key'`
 
-```ruby
-require 'kittn'
+`'partner-id' : '<your-partner-id>'`
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+# Loyalty API
+
+The Loyalty API enables you to extend the loyalty program beyond your website.
+
+## Points
+
+The Points API lets you award, redeem and deduct points from a user's account.
+
+### Award
+
+```shell
+curl -X POST --header "partner-id: <your-partner-id>" 
+--header "api-key: <your-api-key>" 
+--data " user_email= <User’s email ID>" 
+--data " points_passed = <number of points to be awarded>" 
+--data " activity_id= <activity id>https://api.shopsocially.com/v2/loyalty/award
 ```
 
 ```python
-import kittn
+import requests
+import json
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+headers = {'partner-id': <your-partner-id>, 
+           'api-key': <your-api-key>}
+
+payload = json.dumps({"user_email": <Users email ID>,
+                      "points_passed": <number of points to be awarded>,
+                      "activity_id": <activity id>})
+
+response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/award",
+                        headers = headers, data = payload)
 ```
 
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "data": {
+          "user_id": "6176be2d5e",
+          "user_email": "bob@shopsocially.com",
+          "user_last_name": "Baker",
+          "user_first_name": "Bob",
+          "activity_id": "made_a_purchase",
+          "activity_name": "Made a Purchase",
+          "id": "54aeb7b4f283c6176be2d5ed",
+          "transaction_type":"award",
+          "points": 100,
+          "points_status": "auto_approved",
+          "partner_id": "69c62d683db96c7cabf8db0109be6bb1",
+          "created_time": "30-Mar-16 19:20:22"
+        },
+  "success":true
 }
 ```
 
-This endpoint retrieves a specific kitten.
+Award points to a user for any activity. 
+Points will be awarded based on the user's email address.
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+**HTTP Request**
 
-### HTTP Request
+`POST  https://api.shopsocially.com/v2/loyalty/award`
 
-`GET http://example.com/kittens/<ID>`
+**Query Parameters**
 
-### URL Parameters
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+user_email | String | Yes | The email of the user to whom points have to be awarded.
+points_passed | Number | No (if activity type is fixed) Yes (if activity type is bonus multiplier) | If the activity is configured to award fixed number of points, the points passed will override the value set in the configuration. If the activity is configured to use a multiplier to award points, this becomes a mandatory parameter as the points cannot be awarded without the base value.
+activity_id | String | Yes | The activity for which points needs to be awarded. The activity ID is available in the merchant center in the activity configuration.
+order_id | String | No | When points are being awarded for purchase activity, it is recommended to pass order ID of the purchase transaction .This ensures that points for a particular transaction are awarded only once. 
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+user_id   | string | Unique id generated for each user
+user_email| string | The person’s email address
+user_last_name| string | The person’s last name
+user_first_name| string | The person’s first name
+activity_id| string | The id of the activity for which the points were awarded
+activity_name| string | The name of the activity for which the points were awarded
+id| string | Internal id
+transaction_type| string | This will always be "award"
+points| integer | The number of points awarded
+points_status| string | The status of the award transaction
+partner_id| string | The id of the merchant
+created_time| string | The time when the record was created
+
+### Redeem
+
+### Deduct
+
+## Transactions
+
+## Users
+
+## Activities
+
+## Redemptions
+
+## Levels
+
+## Returns
 
