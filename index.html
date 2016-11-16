@@ -4,16 +4,13 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>ShopSocially - API Reference</title>
 
-    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
     <style>
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
 .highlight, .highlight .w {
-  color: #f8f8f2;
-  background-color: #272822;
+  color: #586e75;
 }
 .highlight .err {
   color: #151515;
@@ -88,10 +85,13 @@
   color: #90a959;
 }
     </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+    <link href="images/favicon.png" rel="icon" type="image/png" />
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;python&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -101,9 +101,8 @@
     <div class="tocify-wrapper">
       <img src="images/logo.png" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
+              <a href="#" data-language-name="shell">Shell</a>
+              <a href="#" data-language-name="python">Python</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -112,235 +111,326 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='https://shopsocially.com' target="_blank">ShopSocially Home Page</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="introduction">Introduction</h1>
+        <h1 id="overview">Overview</h1>
 
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Welcome to the ShopSocially API documentation. You can use this API to access all our API endpoints, such as the <strong>Loyalty API</strong>, to build a common rewards program for all your sales channels.</p>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
+<p>We have language bindings in Shell and Python! You can view code examples in the area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
 
 <h1 id="authentication">Authentication</h1>
 
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">partner</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/transactions"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 </code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+<pre class="highlight shell"><code>curl -H <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
+     -H <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
+     <span class="s2">"https://api.shopsocially.com/v2/loyalty/transactions"</span>
 </code></pre>
 
-<blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
-</blockquote>
+<p>The ShopSocially API exports sensitive data, so any call to the ShopSocially API needs to be authenticated. </p>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<p>For authenticating an API call, you have to send your <strong>Partner ID</strong>, and an <strong>API Key</strong> in the HTTP header of each API request.</p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>To access <strong>Partner ID</strong>, and the <strong>API Key</strong>, please follow the steps given below:</p>
 
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
+<ul>
+<li>Login to your Merchant Center Console.</li>
+<li>Navigate to <strong>Basic Settings &gt; General Information</strong>, to find your <strong>Partner ID</strong>, and <strong>API Key</strong>. </li>
+</ul>
+
+<p><img alt="alt text" src="images/settings.png" /></p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+If you don&rsquo;t see the API Key on your dashboard, please write to support@shopsocially.com
 </aside>
 
-<h1 id="kittens">Kittens</h1>
+<ul>
+<li>Send the keys in the HTTP header of each API request as given below :</li>
+</ul>
 
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<p><code class="prettyprint">&#39;api-key&#39;: &#39;&lt;your-api-key&#39;</code></p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<p><code class="prettyprint">&#39;partner-id&#39; : &#39;&lt;your-partner-id&gt;&#39;</code></p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+<h1 id="loyalty-api">Loyalty API</h1>
 
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+<p>The Loyalty API enables you to extend the loyalty program beyond your website.</p>
+
+<h2 id="points">Points</h2>
+
+<p>The Points API lets you award, redeem and deduct points from a user&rsquo;s account.</p>
+
+<h3 id="award">Award</h3>
+<pre class="highlight shell"><code>curl -X POST --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
+--header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
+--data <span class="s2">" user_email= &lt;User’s email ID&gt;"</span> 
+--data <span class="s2">" points_passed = &lt;number of points to be awarded&gt;"</span> 
+--data <span class="s2">" activity_id= &lt;activity id&gt;https://api.shopsocially.com/v2/loyalty/award
 </span></code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
 
-<p>This endpoint retrieves all kittens.</p>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">partner</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span><span class="p">}</span>
 
-<h3 id="http-request">HTTP Request</h3>
+<span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"user_email"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Users</span> <span class="n">email</span> <span class="n">ID</span><span class="o">&gt;</span><span class="p">,</span>
+                      <span class="s">"points_passed"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">number</span> <span class="n">of</span> <span class="n">points</span> <span class="n">to</span> <span class="n">be</span> <span class="n">awarded</span><span class="o">&gt;</span><span class="p">,</span>
+                      <span class="s">"activity_id"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">activity</span> <span class="nb">id</span><span class="o">&gt;</span><span class="p">})</span>
 
-<p><code class="prettyprint">GET http://example.com/api/kittens</code></p>
-
-<h3 id="query-parameters">Query Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/award"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">)</span>
 </code></pre>
 
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6176be2d5e"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"user_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bob@shopsocially.com"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"user_last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Baker"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"user_first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bob"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"made_a_purchase"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Made a Purchase"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"54aeb7b4f283c6176be2d5ed"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"transaction_type"</span><span class="p">:</span><span class="s2">"award"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"points"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"points_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auto_approved"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"partner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"69c62d683db96c7cabf8db0109be6bb1"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30-Mar-16 19:20:22"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves a specific kitten.</p>
+<p>Award points to a user for any activity. 
+Points will be awarded based on the user&rsquo;s email address.</p>
 
-<aside class="warning">Inside HTML code blocks like this one, you can&rsquo;t use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<p><strong>HTTP Request</strong></p>
 
-<h3 id="http-request">HTTP Request</h3>
+<p><code class="prettyprint">POST  https://api.shopsocially.com/v2/loyalty/award</code></p>
 
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
-
-<h3 id="url-parameters">URL Parameters</h3>
+<p><strong>Query Parameters</strong></p>
 
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>user_email</td>
+<td>String</td>
+<td>Yes</td>
+<td>The email of the user to whom points have to be awarded.</td>
+</tr>
+<tr>
+<td>points_passed</td>
+<td>Number</td>
+<td>No (if activity type is fixed) Yes (if activity type is bonus multiplier)</td>
+<td>If the activity is configured to award fixed number of points, the points passed will override the value set in the configuration. If the activity is configured to use a multiplier to award points, this becomes a mandatory parameter as the points cannot be awarded without the base value.</td>
+</tr>
+<tr>
+<td>activity_id</td>
+<td>String</td>
+<td>Yes</td>
+<td>The activity for which points needs to be awarded. The activity ID is available in the merchant center in the activity configuration.</td>
+</tr>
+<tr>
+<td>order_id</td>
+<td>String</td>
+<td>No</td>
+<td>When points are being awarded for purchase activity, it is recommended to pass order ID of the purchase transaction .This ensures that points for a particular transaction are awarded only once.</td>
 </tr>
 </tbody></table>
 
-          <h1 id="errors">Errors</h1>
-
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the `includes` folder and add them to the top of your `index.md`&rsquo;s frontmatter. Files are included in the order listed.</aside>
-
-<p>The Kittn API uses the following error codes:</p>
+<p><strong>Response Body</strong></p>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
+<td>user_id</td>
+<td>string</td>
+<td>Unique id generated for each user</td>
+</tr>
+<tr>
+<td>user_email</td>
+<td>string</td>
+<td>The person’s email address</td>
+</tr>
+<tr>
+<td>user_last_name</td>
+<td>string</td>
+<td>The person’s last name</td>
+</tr>
+<tr>
+<td>user_first_name</td>
+<td>string</td>
+<td>The person’s first name</td>
+</tr>
+<tr>
+<td>activity_id</td>
+<td>string</td>
+<td>The id of the activity for which the points were awarded</td>
+</tr>
+<tr>
+<td>activity_name</td>
+<td>string</td>
+<td>The name of the activity for which the points were awarded</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Internal id</td>
+</tr>
+<tr>
+<td>transaction_type</td>
+<td>string</td>
+<td>This will always be &ldquo;award&rdquo;</td>
+</tr>
+<tr>
+<td>points</td>
+<td>integer</td>
+<td>The number of points awarded</td>
+</tr>
+<tr>
+<td>points_status</td>
+<td>string</td>
+<td>The status of the award transaction</td>
+</tr>
+<tr>
+<td>partner_id</td>
+<td>string</td>
+<td>The id of the merchant</td>
+</tr>
+<tr>
+<td>created_time</td>
+<td>string</td>
+<td>The time when the record was created</td>
+</tr>
+</tbody></table>
+
+<h3 id="redeem">Redeem</h3>
+
+<h3 id="deduct">Deduct</h3>
+
+<h2 id="transactions">Transactions</h2>
+
+<h2 id="users">Users</h2>
+
+<h2 id="activities">Activities</h2>
+
+<h2 id="redemptions">Redemptions</h2>
+
+<h2 id="levels">Levels</h2>
+
+<h2 id="returns">Returns</h2>
+
+          <h1 id="errors">Errors</h1>
+
+<p>Our API returns standard HTTP success or error status codes. For errors, we will also include extra information about what went wrong encoded in the response as JSON. The various HTTP status codes we might return are listed below.</p>
+
+<h2 id="http-status-codes">HTTP Status codes</h2>
+
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Title</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>The request was successful.</td>
+</tr>
+<tr>
 <td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
+<td>Bad Request</td>
+<td>Bad request.</td>
 </tr>
 <tr>
 <td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+<td>Unauthorized</td>
+<td>Your API key is invalid.</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
+<td>Not Found</td>
+<td>The resource does not exist.</td>
 </tr>
 <tr>
-<td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
+<td>50X</td>
+<td>Internal Server Error</td>
+<td>An error occured with our API.</td>
+</tr>
+</tbody></table>
+
+<h2 id="error-types">Error types</h2>
+
+<blockquote>
+<p>Example error response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"missing parameters"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>All errors are returned in the form of JSON containing the error reason.</p>
+
+<table><thead>
+<tr>
+<th>Reason</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>authentication missing</td>
+<td>When the authentication fields are missing from the header of the API request.</td>
 </tr>
 <tr>
-<td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
+<td>authentication failure</td>
+<td>When the authentication fails due to a wrong combination of partner-id and api-key.</td>
 </tr>
 <tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
+<td>missing parameters</td>
+<td>When the required parameters in a API request are missing.</td>
 </tr>
 <tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+<td>unexpected date format</td>
+<td>When the date format in the parameters for the API request is not in the required format.</td>
 </tr>
 </tbody></table>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
+                <a href="#" data-language-name="shell">Shell</a>
+                <a href="#" data-language-name="python">Python</a>
           </div>
       </div>
     </div>
