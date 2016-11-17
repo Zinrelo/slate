@@ -179,7 +179,7 @@ If you don&rsquo;t see the API Key on your dashboard, please write to support@sh
 --header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
 --data <span class="s2">" user_email= &lt;User’s email ID&gt;"</span> 
 --data <span class="s2">" points_passed = &lt;number of points to be awarded&gt;"</span> 
---data <span class="s2">" activity_id= &lt;activity id&gt;https://api.shopsocially.com/v2/loyalty/award
+--data <span class="s2">" activity_id= &lt;activity ID&gt;https://api.shopsocially.com/v2/loyalty/award
 </span></code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -189,9 +189,9 @@ If you don&rsquo;t see the API Key on your dashboard, please write to support@sh
 
 <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"user_email"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Users</span> <span class="n">email</span> <span class="n">ID</span><span class="o">&gt;</span><span class="p">,</span>
                       <span class="s">"points_passed"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">number</span> <span class="n">of</span> <span class="n">points</span> <span class="n">to</span> <span class="n">be</span> <span class="n">awarded</span><span class="o">&gt;</span><span class="p">,</span>
-                      <span class="s">"activity_id"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">activity</span> <span class="nb">id</span><span class="o">&gt;</span><span class="p">})</span>
+                      <span class="s">"activity_id"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">activity</span> <span class="n">ID</span><span class="o">&gt;</span><span class="p">})</span>
 
-<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/award"</span><span class="p">,</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/award"</span><span class="p">,</span>
                         <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">)</span>
 </code></pre>
 
@@ -332,6 +332,159 @@ Points will be awarded based on the user&rsquo;s email address.</p>
 </tbody></table>
 
 <h3 id="redeem">Redeem</h3>
+<pre class="highlight shell"><code>curl -X POST --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
+--header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
+--data <span class="s2">" user_email= &lt;User’s email ID&gt;"</span> 
+--data <span class="s2">" redemption_id= &lt;redemption ID&gt;https://api.shopsocially.com/v2/loyalty/redeem
+</span></code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">partner</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"user_email"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Users</span> <span class="n">email</span> <span class="n">ID</span><span class="o">&gt;</span><span class="p">,</span>
+                      <span class="s">"redemption_id"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">redemption</span> <span class="n">ID</span><span class="o">&gt;</span><span class="p">})</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/redeem"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:{</span><span class="w">
+          </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6176be2d5e"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"user_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bob@shopsocially.com"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"user_last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Baker"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"user_first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bob"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"redemption_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$50_gift_card"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"redemption_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$50 Gift Card"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"redemption_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$50"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"54aeb7b4f283c6176be2d5ed"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"transaction_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redeem"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"points"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"points_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redeemed"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"coupon_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GET50OFF"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"partner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9c62d683db96c7cabf8db0109be6bb"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30-Mar-15 19:20:22"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Redeem points for a user. 
+Based on the redemption option chosen, points will be deducted from the user&rsquo;s account and a coupon code will be returned in the response.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">POST  https://api.shopsocially.com/v2/loyalty/redeem</code></p>
+
+<p><strong>Query Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>user_email</td>
+<td>String</td>
+<td>Yes</td>
+<td>The email of the user who wishes to redeem the points.</td>
+</tr>
+<tr>
+<td>redemption_id</td>
+<td>String</td>
+<td>Yes</td>
+<td>The ID of the desired redemption option. The redemption ID is available in the merchant center.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>user_id</td>
+<td>string</td>
+<td>Unique id generated for each user</td>
+</tr>
+<tr>
+<td>user_email</td>
+<td>string</td>
+<td>The person’s email address</td>
+</tr>
+<tr>
+<td>user_last_name</td>
+<td>string</td>
+<td>The person’s last name</td>
+</tr>
+<tr>
+<td>user_first_name</td>
+<td>string</td>
+<td>The person’s first name</td>
+</tr>
+<tr>
+<td>redemption_id</td>
+<td>string</td>
+<td>The id of the redemption option chosen</td>
+</tr>
+<tr>
+<td>redemption_name</td>
+<td>string</td>
+<td>The name of the redemption chosen option</td>
+</tr>
+<tr>
+<td>redemption_value</td>
+<td>string</td>
+<td>The amount of the redemption option chosen (in dollars)</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Internal id</td>
+</tr>
+<tr>
+<td>transaction_type</td>
+<td>string</td>
+<td>This will always be &ldquo;redeem&rdquo;</td>
+</tr>
+<tr>
+<td>points</td>
+<td>integer</td>
+<td>The number of points redeemed</td>
+</tr>
+<tr>
+<td>points_status</td>
+<td>string</td>
+<td>This will always be &ldquo;redeemed&rdquo;</td>
+</tr>
+<tr>
+<td>coupon_code</td>
+<td>string</td>
+<td>The coupon code to be used for successive transactions</td>
+</tr>
+<tr>
+<td>partner_id</td>
+<td>string</td>
+<td>The id of the merchant</td>
+</tr>
+<tr>
+<td>created_time</td>
+<td>string</td>
+<td>The time when the record was created</td>
+</tr>
+</tbody></table>
 
 <h3 id="deduct">Deduct</h3>
 
