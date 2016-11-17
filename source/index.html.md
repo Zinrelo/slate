@@ -78,7 +78,7 @@ curl -X POST --header "partner-id: <your-partner-id>"
 --header "api-key: <your-api-key>" 
 --data " user_email= <User’s email ID>" 
 --data " points_passed = <number of points to be awarded>" 
---data " activity_id= <activity id>https://api.shopsocially.com/v2/loyalty/award
+--data " activity_id= <activity ID>https://api.shopsocially.com/v2/loyalty/award
 ```
 
 ```python
@@ -90,9 +90,9 @@ headers = {'partner-id': <your-partner-id>,
 
 payload = json.dumps({"user_email": <Users email ID>,
                       "points_passed": <number of points to be awarded>,
-                      "activity_id": <activity id>})
+                      "activity_id": <activity ID>})
 
-response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/award",
+response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/award",
                         headers = headers, data = payload)
 ```
 
@@ -154,6 +154,86 @@ partner_id| string | The id of the merchant
 created_time| string | The time when the record was created
 
 ### Redeem
+
+```shell
+curl -X POST --header "partner-id: <your-partner-id>" 
+--header "api-key: <your-api-key>" 
+--data " user_email= <User’s email ID>" 
+--data " redemption_id= <redemption ID>https://api.shopsocially.com/v2/loyalty/redeem
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': <your-partner-id>, 
+           'api-key': <your-api-key>}
+
+payload = json.dumps({"user_email": <Users email ID>,
+                      "redemption_id": <redemption ID>})
+
+response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/redeem",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data":{
+          "user_id": "6176be2d5e",
+          "user_email": "bob@shopsocially.com",
+          "user_last_name": "Baker",
+          "user_first_name": "Bob",
+          "redemption_id": "$50_gift_card",
+          "redemption_name": "$50 Gift Card",
+          "redemption_value": "$50",
+          "id": "54aeb7b4f283c6176be2d5ed",
+          "transaction_type": "redeem",
+          "points": 1000,
+          "points_status": "redeemed",
+          "coupon_code": "GET50OFF",
+          "partner_id": "9c62d683db96c7cabf8db0109be6bb",
+          "created_time": "30-Mar-15 19:20:22"
+  },
+  "success":true
+}
+```
+
+Redeem points for a user. 
+Based on the redemption option chosen, points will be deducted from the user's account and a coupon code will be returned in the response.
+
+**HTTP Request**
+
+`POST  https://api.shopsocially.com/v2/loyalty/redeem`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+user_email | String | Yes | The email of the user who wishes to redeem the points.
+redemption_id | String | Yes | The ID of the desired redemption option. The redemption ID is available in the merchant center.
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+user_id   | string | Unique id generated for each user
+user_email| string | The person’s email address
+user_last_name| string | The person’s last name
+user_first_name| string | The person’s first name
+redemption_id| string | The id of the redemption option chosen
+redemption_name| string | The name of the redemption chosen option
+redemption_value | string | The amount of the redemption option chosen (in dollars)
+id| string | Internal id
+transaction_type| string | This will always be "redeem"
+points| integer | The number of points redeemed
+points_status| string | This will always be "redeemed"
+coupon_code| string | The coupon code to be used for successive transactions
+partner_id| string | The id of the merchant
+created_time| string | The time when the record was created
+
 
 ### Deduct
 
