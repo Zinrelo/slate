@@ -1,6 +1,6 @@
 ---
 title: ShopSocially - API Reference
-
+tags: [shopsocially, loyalty, award, redeem, deduct, user]
 language_tabs:
   - shell: Shell
   - python: Python
@@ -336,6 +336,83 @@ Work in Progress
 Work in Progress
 
 ## Returns
+```shell
+curl -X POST --header "partner-id: <your-partner-id>" 
+--header "api-key: <your-api-key>" 
+--data "order_id= <The order ID for which the return needs to be processed.>" 
+--data "returned_amount = <the amount will be subtracted from the actual value of the order>" 
+"https://api.shopsocially.com/v2/loyalty/transaction/return"
+```
 
-Work in Progress
+```python
+import requests
+import json
 
+headers = {'partner-id': <your-partner-id>, 
+           'api-key': <your-api-key>}
+
+payload = json.dumps({"order_id": <The order ID for which the return needs to be processed.>,
+                      "returned_amount": <the amount will be subtracted from the actual value of the order >})
+
+response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/transaction/return",
+                        headers = headers, data = payload)
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data":{
+          "user_id": "6176be2d5e",
+          "user_email": "bob@shopsocially.com",
+          "user_last_name": "Baker",
+          "user_first_name": "Bob",
+          "id": "54aeb7b4f283c6176be2d5ed",
+          "transaction_type": "deduct",
+          "points": 1000,
+          "points_status": "pending_deduction",
+	      "returned_for_order_id": "1254aeb7b4f"
+		  "reason": "Order Partially Returned",
+          "partner_id": "9c62d683db96c7cabf8db0109be6bb",
+          "created_time": "30-Mar-16 19:20:22",
+		  "approved_time": "15-Apr-16 19:20:22",
+	      "updated_time": "15-Apr-16 19:20:22",
+		  "auto_approval_date": "15-May-16 19:20:22",
+  },
+  "success":true
+}
+
+```
+This can be used to deduct points of a User when the user returns an order.
+
+**HTTP Request**
+
+`POST  https://api.shopsocially.com/v2/loyalty/transaction/return`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+order_id | String | Yes | The order ID for which the return needs to be processed.
+returned_amount | Number | Optional (If specified, the amount will be subtracted from the actual value of the order and remaining points will be awarded) | -  If returned_amount is not passed, it will be considered as complete order return. -  If returned_amount is specified and is a non-zero positive number, it will be processed as a partial return.
+
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+user_id   | string | Unique id generated for each user
+user_email| string | The person’s email address
+user_last_name| string | The person’s last name
+user_first_name| string | The person’s first name
+id| string | Internal id
+transaction_type| string | This will always be "deduct"
+points| integer | The number of points awarded
+points_status| string | The status of the award transaction
+returned_for_order_id| string | The order ID for which the return needs to be processed
+reason | string | the reason for return order
+partner_id| string | The id of the merchant
+created_time| string | The time when the record was created
+approved_time| string | The time when the record was approved
+updated_time| string | The time when the record was updated
+auto_approval_date| string | The date when the transaction schedules for auto approval
