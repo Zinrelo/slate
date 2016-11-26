@@ -654,8 +654,166 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 <p>Work in Progress</p>
 
 <h2 id="returns">Returns</h2>
+<pre class="highlight shell"><code>curl -X POST --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
+--header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
+--data <span class="s2">"order_id: &lt;order id for which the return needs to be processed&gt;"</span> 
+--data <span class="s2">"returned_amount: &lt;returned_amount&gt;"</span> 
+<span class="s2">"https://api.shopsocially.com/v2/loyalty/transaction/return"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
 
-<p>Work in Progress</p>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">partner</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"order_id"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">order</span> <span class="nb">id</span> <span class="k">for</span> <span class="n">which</span> <span class="n">the</span> <span class="k">return</span> <span class="n">needs</span> <span class="n">to</span> <span class="n">be</span> <span class="n">processed</span><span class="o">&gt;</span><span class="p">,</span>
+                      <span class="s">"returned_amount"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">returned_amount</span><span class="o">&gt;</span><span class="p">})</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/transaction/return"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:{</span><span class="w">
+          </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6176be2d5e"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"user_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bob@shopsocially.com"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"user_last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Baker"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"user_first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bob"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"54aeb7b4f283c6176be2d5ed"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"transaction_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deduct"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"points"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"points_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending_deduction"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"returned_for_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1254aeb7b4f"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Order Partially Returned"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"partner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9c62d683db96c7cabf8db0109be6bb"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30-Mar-16 19:20:22"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"approved_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15-Apr-16 19:20:22"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15-Apr-16 19:20:22"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"auto_approval_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15-May-16 19:20:22"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+
+<p>The Returns API can be used to deduct points of a user when the user returns an order.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">POST  https://api.shopsocially.com/v2/loyalty/transaction/return</code></p>
+
+<p><strong>Query Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order_id</td>
+<td>string</td>
+<td>Yes</td>
+<td>The order ID for which the return needs to be processed.</td>
+</tr>
+<tr>
+<td>returned_amount</td>
+<td>integer</td>
+<td>No</td>
+<td>If returned_amount is specified and is a non-zero positive number, it will be processed as a partial return. The amount will be subtracted from the actual value of the order and remaining points will be awarded.</br>If returned_amount is not passed, it will be considered as complete order return.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>user_id</td>
+<td>string</td>
+<td>Unique id generated for each user</td>
+</tr>
+<tr>
+<td>user_email</td>
+<td>string</td>
+<td>The person’s email address</td>
+</tr>
+<tr>
+<td>user_last_name</td>
+<td>string</td>
+<td>The person’s last name</td>
+</tr>
+<tr>
+<td>user_first_name</td>
+<td>string</td>
+<td>The person’s first name</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Internal id</td>
+</tr>
+<tr>
+<td>transaction_type</td>
+<td>string</td>
+<td>This will always be &ldquo;deduct&rdquo;</td>
+</tr>
+<tr>
+<td>points</td>
+<td>integer</td>
+<td>The number of points awarded</td>
+</tr>
+<tr>
+<td>points_status</td>
+<td>string</td>
+<td>The status of the award transaction</td>
+</tr>
+<tr>
+<td>returned_for_order_id</td>
+<td>string</td>
+<td>The order ID for which the return has been processed</td>
+</tr>
+<tr>
+<td>reason</td>
+<td>string</td>
+<td>The reason for returning the order</td>
+</tr>
+<tr>
+<td>partner_id</td>
+<td>string</td>
+<td>The id of the merchant</td>
+</tr>
+<tr>
+<td>created_time</td>
+<td>string</td>
+<td>The time when the record was created</td>
+</tr>
+<tr>
+<td>approved_time</td>
+<td>string</td>
+<td>The time when the record was approved</td>
+</tr>
+<tr>
+<td>updated_time</td>
+<td>string</td>
+<td>The time when the record was updated</td>
+</tr>
+<tr>
+<td>auto_approval_date</td>
+<td>string</td>
+<td>The date when the transaction is scheduled for auto approval</td>
+</tr>
+</tbody></table>
 
           <h1 id="errors">Errors</h1>
 
