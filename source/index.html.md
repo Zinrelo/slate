@@ -336,11 +336,12 @@ Work in Progress
 Work in Progress
 
 ## Returns
+
 ```shell
 curl -X POST --header "partner-id: <your-partner-id>" 
 --header "api-key: <your-api-key>" 
---data "order_id= <The order ID for which the return needs to be processed.>" 
---data "returned_amount = <the amount will be subtracted from the actual value of the order>" 
+--data "order_id: <order id for which the return needs to be processed>" 
+--data "returned_amount: <returned_amount>" 
 "https://api.shopsocially.com/v2/loyalty/transaction/return"
 ```
 
@@ -351,8 +352,8 @@ import json
 headers = {'partner-id': <your-partner-id>, 
            'api-key': <your-api-key>}
 
-payload = json.dumps({"order_id": <The order ID for which the return needs to be processed.>,
-                      "returned_amount": <the amount will be subtracted from the actual value of the order >})
+payload = json.dumps({"order_id": <order id for which the return needs to be processed>,
+                      "returned_amount": <returned_amount>})
 
 response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/transaction/return",
                         headers = headers, data = payload)
@@ -371,19 +372,19 @@ response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/transact
           "transaction_type": "deduct",
           "points": 1000,
           "points_status": "pending_deduction",
-	      "returned_for_order_id": "1254aeb7b4f"
-		  "reason": "Order Partially Returned",
+          "returned_for_order_id": "1254aeb7b4f",
+          "reason": "Order Partially Returned",
           "partner_id": "9c62d683db96c7cabf8db0109be6bb",
           "created_time": "30-Mar-16 19:20:22",
-		  "approved_time": "15-Apr-16 19:20:22",
-	      "updated_time": "15-Apr-16 19:20:22",
-		  "auto_approval_date": "15-May-16 19:20:22",
+          "approved_time": "15-Apr-16 19:20:22",
+          "updated_time": "15-Apr-16 19:20:22",
+          "auto_approval_date": "15-May-16 19:20:22"
   },
   "success":true
 }
 
 ```
-This can be used to deduct points of a User when the user returns an order.
+The Returns API can be used to deduct points of a user when the user returns an order.
 
 **HTTP Request**
 
@@ -393,8 +394,8 @@ This can be used to deduct points of a User when the user returns an order.
 
 Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
-order_id | String | Yes | The order ID for which the return needs to be processed.
-returned_amount | Number | Optional (If specified, the amount will be subtracted from the actual value of the order and remaining points will be awarded) | -  If returned_amount is not passed, it will be considered as complete order return. -  If returned_amount is specified and is a non-zero positive number, it will be processed as a partial return.
+order_id | string | Yes | The order ID for which the return needs to be processed.
+returned_amount | integer | No | If returned_amount is specified and is a non-zero positive number, it will be processed as a partial return. The amount will be subtracted from the actual value of the order and remaining points will be awarded.</br>If returned_amount is not passed, it will be considered as complete order return.
 
 
 **Response Body**
@@ -409,10 +410,10 @@ id| string | Internal id
 transaction_type| string | This will always be "deduct"
 points| integer | The number of points awarded
 points_status| string | The status of the award transaction
-returned_for_order_id| string | The order ID for which the return needs to be processed
-reason | string | the reason for return order
+returned_for_order_id| string | The order ID for which the return has been processed
+reason | string | The reason for returning the order
 partner_id| string | The id of the merchant
 created_time| string | The time when the record was created
 approved_time| string | The time when the record was approved
 updated_time| string | The time when the record was updated
-auto_approval_date| string | The date when the transaction schedules for auto approval
+auto_approval_date| string | The date when the transaction is scheduled for auto approval
