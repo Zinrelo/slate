@@ -643,7 +643,781 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 
 <h2 id="activities">Activities</h2>
 
-<p>Work in Progress</p>
+<p>The Activities API lets you create an activity, update activity configurations, get details of a particular activity and get the list of all activities for a merchant.</p>
+
+<h3 id="get-all-activities">Get All Activities</h3>
+<pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
+--header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
+<span class="s2">"https://api.shopsocially.com/v2/loyalty/activities"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">partner</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/activities"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"56655832418a580281c2c41c"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="s2">"shared_via_email"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="s2">"Share via Email"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="s2">"Earn points when you share our website with your friends via email."</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"approval_method"</span><span class="p">:</span><span class="s2">"immediate"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"bonus_multiplier"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"created_time"</span><span class="p">:</span><span class="s2">"07-Dec-2015 09:58:10"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"is_active"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"is_sale_activity"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"max_award_frequency"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"max_award_frequency_interval"</span><span class="p">:</span><span class="s2">"day"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="s2">"c75d9a44221ac904ddadb81766786b34"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"points_earning_url"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"points_per_activity"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"qualified_points"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"show_activity_in_user_dashboard"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"ss_internal"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="s2">"31-Aug-2016 05:10:21"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="err">...</span><span class="p">{}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This API can be used to view a list of all configured activities for which customers can earn loyalty points.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">GET  https://api.shopsocially.com/v2/loyalty/activities</code></p>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Internal id</td>
+</tr>
+<tr>
+<td>activity_id</td>
+<td>string</td>
+<td>Unique id generated for each activity</td>
+</tr>
+<tr>
+<td>activity_name</td>
+<td>string</td>
+<td>The name of the activity</td>
+</tr>
+<tr>
+<td>activity_description</td>
+<td>string</td>
+<td>The description about activity</td>
+</tr>
+<tr>
+<td>activity_type</td>
+<td>string</td>
+<td>Whether the activity should award fixed number of points or use a multiplier(fixed/bonus_multiplier).</td>
+</tr>
+<tr>
+<td>approval_method</td>
+<td>string</td>
+<td>User transaction approval method (immediate/manual/monthly).</td>
+</tr>
+<tr>
+<td>bonus_multiplier</td>
+<td>integer</td>
+<td>Multiplication factor to award points instead of awarding fixed points</td>
+</tr>
+<tr>
+<td>created_time</td>
+<td>string</td>
+<td>The time when the activity was created.</td>
+</tr>
+<tr>
+<td>is_active</td>
+<td>string</td>
+<td>Indicates if an activity is active or paused(True/False)</td>
+</tr>
+<tr>
+<td>is_sale_activity</td>
+<td>string</td>
+<td>Indicates if an activity is a sale activity (True/False)</td>
+</tr>
+<tr>
+<td>max_award_frequency</td>
+<td>integer</td>
+<td>The maximum number of times a user will be awarded points</td>
+</tr>
+<tr>
+<td>max_award_frequency_interval</td>
+<td>string</td>
+<td>The time interval constraint to the max_award_frequency number(day, week, month, year, lifetime).</td>
+</tr>
+<tr>
+<td>merchant_id</td>
+<td>string</td>
+<td>The id of the merchant</td>
+</tr>
+<tr>
+<td>points_earning_url</td>
+<td>string</td>
+<td>Merchant&rsquo;s website page url where the activity will be configured.</td>
+</tr>
+<tr>
+<td>point_per_activity</td>
+<td>integer</td>
+<td>Fixed number of points to be awarded for an activity</td>
+</tr>
+<tr>
+<td>qualified_points</td>
+<td>string</td>
+<td>Indicates if the activity is qualified for tier upgrade (true/false)</td>
+</tr>
+<tr>
+<td>show_activity_in_user_dashboard</td>
+<td>string</td>
+<td>Indicates if the activity is to be shown on the end user dashboard (true/false).</td>
+</tr>
+<tr>
+<td>ss_internal</td>
+<td>string</td>
+<td>Indicates whether an activity is an internal activity (true/false)</td>
+</tr>
+<tr>
+<td>updated_time</td>
+<td>string</td>
+<td>The time when activity configuration was last modified</td>
+</tr>
+</tbody></table>
+
+<h3 id="create-activity">Create Activity</h3>
+<pre class="highlight shell"><code>curl -X POST --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
+--header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
+--data <span class="s2">"activity_id= &lt;Activity ID&gt;"</span> 
+--data <span class="s2">"activity_name= &lt;Activity Name&gt;"</span>
+--data <span class="s2">"activity_description= &lt;Activity Description&gt;"</span>
+--data <span class="s2">"activity_type = &lt;Activity type&gt;"</span>
+--data <span class="s2">"max_award_frequency = &lt;Max Award Frequency&gt;"</span>
+--data <span class="s2">"max_award_frequency_interval = &lt;Max Award Frequency Interval&gt;"</span>
+--data <span class="s2">"is_active = &lt;Activity State&gt;"</span>
+--data <span class="s2">"approval_method = &lt;Award Approval Method&gt;"</span>
+--data <span class="s2">"points_per_activity = &lt;Points to be awarded&gt;"</span>
+--data <span class="s2">"bonus_multiplier = &lt;Bonus Multiplier&gt;"</span>
+--data <span class="s2">"is_sale_activity = &lt;Is sale activity&gt;"</span>
+--data <span class="s2">"qualified_points = &lt;Is qualified for Tier change&gt;"</span>
+--data <span class="s2">"show_activity_in_user_dashboard = &lt;Show in dashboard&gt;"</span>
+<span class="s2">"https://api.shopsocially.com/v2/loyalty/activities"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">partner</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"activity_id"</span> <span class="p">:</span> <span class="o">&lt;</span><span class="n">Activity</span> <span class="n">ID</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s">"activity_name"</span> <span class="p">:</span> <span class="o">&lt;</span><span class="n">Activity</span> <span class="n">Name</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s">"activity_description"</span> <span class="p">:</span> <span class="o">&lt;</span><span class="n">Activity</span> <span class="n">Description</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s">"activity_type"</span> <span class="p">:</span> <span class="o">&lt;</span><span class="n">Activity</span> <span class="nb">type</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s">"max_award_frequency"</span> <span class="p">:</span> <span class="o">&lt;</span><span class="n">Max</span> <span class="n">Award</span> <span class="n">Frequency</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s">"max_award_frequency_interval"</span> <span class="p">:</span> <span class="o">&lt;</span><span class="n">Max</span> <span class="n">Award</span> <span class="n">Frequency</span> <span class="n">Interval</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s">"is_active"</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Activity</span> <span class="n">State</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s">"approval_method"</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Award</span> <span class="n">Approval</span> <span class="n">Method</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s">"points_per_activity"</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Points</span> <span class="n">to</span> <span class="n">be</span> <span class="n">awarded</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s">"bonus_multiplier"</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Bonus</span> <span class="n">Multiplier</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s">"is_sale_activity"</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Is</span> <span class="n">sale</span> <span class="n">activity</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s">"qualified_points"</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Is</span> <span class="n">qualified</span> <span class="k">for</span> <span class="n">Tier</span> <span class="n">change</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s">"show_activity_in_user_dashboard"</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Show</span> <span class="ow">in</span> <span class="n">dashboard</span><span class="o">&gt;</span>
+    <span class="p">})</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/activities"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"56655832418a580281c2c41c"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="s2">"c75d9a44221ac904ddadb81766786b34"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="s2">"shared_via_email"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="s2">"Share via Email"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="s2">"Earn points when you share our website 
+          with your friends via email."</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"approval_method"</span><span class="p">:</span><span class="s2">"immediate"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"bonus_multiplier"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_time"</span><span class="p">:</span><span class="s2">"07-Dec-2015 09:58:10"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fixed_duration_period"</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_active"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_sale_activity"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"loyalty_activity_img"</span><span class="p">:</span><span class="s2">"https://d1qbqkkh49kht1.cloudfront.net/dc79fd08611160b9176d0d4b5c3f506f.png"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"max_award_frequency"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"max_award_frequency_interval"</span><span class="p">:</span><span class="s2">"day"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"points_earning_url"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"points_per_activity"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"qualified_points"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"show_activity_in_user_dashboard"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ss_internal"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="s2">"31-Aug-2016 05:10:21"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This API can be used to create a new activity which will earn loyalty points for customers.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">POST  https://api.shopsocially.com/v2/loyalty/activities</code></p>
+
+<p><strong>Query Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>activity_id</td>
+<td>string</td>
+<td>Yes</td>
+<td>The unique id of an <br>activity</td>
+</tr>
+<tr>
+<td>activity_name</td>
+<td>string</td>
+<td>Yes</td>
+<td>The name of the activity</td>
+</tr>
+<tr>
+<td>activity_description</td>
+<td>string</td>
+<td>Yes</td>
+<td>Description of the activity</td>
+</tr>
+<tr>
+<td>activity_type</td>
+<td>string</td>
+<td>Yes</td>
+<td>Whether the activity <br> should award fixed <br>number of points or <br>use a multiplier.<br>(fixed/bonus_multiplier)</td>
+</tr>
+<tr>
+<td>max_award_frequency</td>
+<td>integer</td>
+<td>Yes</td>
+<td>The maximum number <br>of times a user will <br>be awarded points</td>
+</tr>
+<tr>
+<td>max_award_frequency_interval</td>
+<td>string</td>
+<td>Yes</td>
+<td>The time interval <br>constraint to the max_award_frequency <br>number (day, week, month, year, lifetime)</td>
+</tr>
+<tr>
+<td>bonus_multiplier</td>
+<td>integer</td>
+<td>No</td>
+<td>Multiplication factor to <br>award points instead of <br>awarding fixed points<br>(defaults to 1)</td>
+</tr>
+<tr>
+<td>points_per_activity</td>
+<td>integer</td>
+<td>No</td>
+<td>Fixed number of points to be awarded for an activity<br>(defaults to 1)</td>
+</tr>
+<tr>
+<td>points_earning_url</td>
+<td>string</td>
+<td>No</td>
+<td>Merchant&rsquo;s website page url where the activity will be configured</td>
+</tr>
+<tr>
+<td>approval_method</td>
+<td>string</td>
+<td>Yes</td>
+<td>User transaction approval method (immediate/<br>manual/monthly)</td>
+</tr>
+<tr>
+<td>is_active</td>
+<td>string</td>
+<td>Yes</td>
+<td>Whether the activity should be active or paused<br>(defaults to 1)</td>
+</tr>
+<tr>
+<td>is_sale_activity</td>
+<td>string</td>
+<td>No</td>
+<td>Whether the activity should be a sale activity (defaults to false)</td>
+</tr>
+<tr>
+<td>qualified_points</td>
+<td>string</td>
+<td>No</td>
+<td>Whether the activity should be qualified for tier upgrade (defaults to true)</td>
+</tr>
+<tr>
+<td>show_activity_in_user_dashboard</td>
+<td>string</td>
+<td>No</td>
+<td>Whether the activity should be shown in user dashboard (defaults to true)</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Internal id</td>
+</tr>
+<tr>
+<td>merchant_id</td>
+<td>string</td>
+<td>The id of the merchant</td>
+</tr>
+<tr>
+<td>activity_id</td>
+<td>string</td>
+<td>Unique id generated for each activity</td>
+</tr>
+<tr>
+<td>activity_name</td>
+<td>string</td>
+<td>The name of the activity</td>
+</tr>
+<tr>
+<td>activity_description</td>
+<td>string</td>
+<td>The description of the activity</td>
+</tr>
+<tr>
+<td>activity_type</td>
+<td>string</td>
+<td>Whether the activity should award fixed number of points or use a multiplier (fixed/bonus_multiplier)</td>
+</tr>
+<tr>
+<td>approval_method</td>
+<td>string</td>
+<td>User transaction approval method (immediate/manual/monthly).</td>
+</tr>
+<tr>
+<td>bonus_multiplier</td>
+<td>integer</td>
+<td>Multiplication factor to award points instead of awarding fixed points</td>
+</tr>
+<tr>
+<td>created_time</td>
+<td>string</td>
+<td>The time when activity is created_time</td>
+</tr>
+<tr>
+<td>is_active</td>
+<td>string</td>
+<td>Indicates whether the activity is active or paused (true/false)</td>
+</tr>
+<tr>
+<td>is_sale_activity</td>
+<td>string</td>
+<td>Indicates if the activity is a purchase activity (true/false)</td>
+</tr>
+<tr>
+<td>loyalty_activity_img</td>
+<td>string</td>
+<td>The image url of an activity</td>
+</tr>
+<tr>
+<td>max_award_frequency</td>
+<td>integer</td>
+<td>The maximum number of times a user will be awarded points</td>
+</tr>
+<tr>
+<td>max_award_frequency_interval</td>
+<td>string</td>
+<td>The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)</td>
+</tr>
+<tr>
+<td>points_earning_url</td>
+<td>string</td>
+<td>Merchant&rsquo;s website page url where the activity will be configured</td>
+</tr>
+<tr>
+<td>point_per_activity</td>
+<td>integer</td>
+<td>Fixed number of points to be awarded for an activity</td>
+</tr>
+<tr>
+<td>qualified_points</td>
+<td>string</td>
+<td>Indicates if the activity is qualified for tier upgrade (true/false)</td>
+</tr>
+<tr>
+<td>show_activity_in_user_dashboard</td>
+<td>string</td>
+<td>Indicates if the activity is to be shown on the end user dashboard (true/false)</td>
+</tr>
+<tr>
+<td>ss_internal</td>
+<td>string</td>
+<td>Indicates whether an activity is an internal activity (true/false)</td>
+</tr>
+<tr>
+<td>updated_time</td>
+<td>string</td>
+<td>The time when activity configuration was last modified</td>
+</tr>
+</tbody></table>
+
+<h3 id="get-activity">Get Activity</h3>
+<pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
+--header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
+<span class="s2">"https://api.shopsocially.com/v2/loyalty/activities/{activity_id}"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">partner</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/activities/{activity_id}"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"56655832418a580281c2c41c"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="s2">"shared_via_email"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="s2">"Share via Email"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="s2">"Earn points when you share our website with your friends via email."</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"approval_method"</span><span class="p">:</span><span class="s2">"immediate"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"bonus_multiplier"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_time"</span><span class="p">:</span><span class="s2">"07-Dec-2015 09:58:10"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_active"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_sale_activity"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"loyalty_activity_img"</span><span class="p">:</span><span class="s2">"https://d1qbqkkh49kht1.cloudfront.net/dc79fd08611160b9176d0d4b5c3f506f.png"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"max_award_frequency"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"max_award_frequency_interval"</span><span class="p">:</span><span class="s2">"day"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="s2">"c75d9a44221ac904ddadb81766786b34"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"points_earning_url"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"points_per_activity"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"qualified_points"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"show_activity_in_user_dashboard"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"show_on_merchant_center"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ss_internal"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="s2">"31-Aug-2016 05:10:21"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This API can be used to view details about any activity. The activity ID will be used to fetch this data.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">GET  https://api.shopsocially.com/v2/loyalty/activities/{activity_id}</code></p>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Internal id</td>
+</tr>
+<tr>
+<td>activity_id</td>
+<td>string</td>
+<td>Unique id generated for each activity</td>
+</tr>
+<tr>
+<td>activity_name</td>
+<td>string</td>
+<td>The name of activity</td>
+</tr>
+<tr>
+<td>activity_description</td>
+<td>string</td>
+<td>The description of the activity</td>
+</tr>
+<tr>
+<td>activity_type</td>
+<td>string</td>
+<td>Whether the activity should award fixed number of points or use a multiplier (fixed/bonus_multiplier)</td>
+</tr>
+<tr>
+<td>approval_method</td>
+<td>string</td>
+<td>User transaction approval method (immediate/manual/monthly).</td>
+</tr>
+<tr>
+<td>bonus_multiplier</td>
+<td>integer</td>
+<td>Multiplication factor to award points instead of awarding fixed points</td>
+</tr>
+<tr>
+<td>created_time</td>
+<td>string</td>
+<td>The time when activity is created_time</td>
+</tr>
+<tr>
+<td>is_active</td>
+<td>string</td>
+<td>Indicates if activity is active or paused (true/false)</td>
+</tr>
+<tr>
+<td>is_sale_activity</td>
+<td>string</td>
+<td>Indicates if the activity is a purchase activity (true/false)</td>
+</tr>
+<tr>
+<td>loyalty_activity_img</td>
+<td>string</td>
+<td>The image url of an activity</td>
+</tr>
+<tr>
+<td>max_award_frequency</td>
+<td>integer</td>
+<td>The maximum number of times a user will be awarded points</td>
+</tr>
+<tr>
+<td>max_award_frequency_interval</td>
+<td>string</td>
+<td>The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)</td>
+</tr>
+<tr>
+<td>merchant_id</td>
+<td>string</td>
+<td>The id of the merchant</td>
+</tr>
+<tr>
+<td>points_earning_url</td>
+<td>string</td>
+<td>Merchant&rsquo;s website page url where the activity will be configured.</td>
+</tr>
+<tr>
+<td>points_per_activity</td>
+<td>integer</td>
+<td>Fixed number of points to be awarded for an activity</td>
+</tr>
+<tr>
+<td>qualified_points</td>
+<td>string</td>
+<td>Indicates if the activity is qualified for tier upgrade (true/false)</td>
+</tr>
+<tr>
+<td>show_activity_in_user_dashboard</td>
+<td>string</td>
+<td>Indicates if the activity is to be shown on the end user dashboard (true/false)</td>
+</tr>
+<tr>
+<td>ss_internal</td>
+<td>string</td>
+<td>Indicates whether an activity is an internal activity (true/false)</td>
+</tr>
+<tr>
+<td>updated_time</td>
+<td>string</td>
+<td>The time when the activity configuration was last modified</td>
+</tr>
+</tbody></table>
+
+<h3 id="update-activity">Update Activity</h3>
+<pre class="highlight shell"><code>curl -X PUT --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
+--header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
+<span class="s2">"https://api.shopsocially.com/v2/loyalty/activities/{activity_id}"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">partner</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/activities/{activity_id}"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"56655832418a580281c2c41c"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="s2">"shared_via_email"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="s2">"Share via Email"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="s2">"Earn points when you share our website with your friends via email."</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"approval_method"</span><span class="p">:</span><span class="s2">"immediate"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"bonus_multiplier"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_time"</span><span class="p">:</span><span class="s2">"07-Dec-2015 09:58:10"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fixed_duration_period"</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_active"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_sale_activity"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"loyalty_activity_img"</span><span class="p">:</span><span class="s2">"https://d1qbqkkh49kht1.cloudfront.net/dc79fd08611160b9176d0d4b5c3f506f.png"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"max_award_frequency"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"max_award_frequency_interval"</span><span class="p">:</span><span class="s2">"day"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="s2">"c75d9a44221ac904ddadb81766786b34"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"points_earning_url"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"points_per_activity"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"qualified_points"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"show_activity_in_user_dashboard"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"show_on_merchant_center"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ss_internal"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="s2">"31-Aug-2016 05:10:21"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>An activity configuration can be updated using this API by passing Activity ID</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">PUT  https://api.shopsocially.com/v2/loyalty/activities{activity_id}</code></p>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Internal id</td>
+</tr>
+<tr>
+<td>activity_id</td>
+<td>string</td>
+<td>Unique id generated for each activity</td>
+</tr>
+<tr>
+<td>activity_name</td>
+<td>string</td>
+<td>The name of activity</td>
+</tr>
+<tr>
+<td>activity_description</td>
+<td>string</td>
+<td>The description of the activity</td>
+</tr>
+<tr>
+<td>activity_type</td>
+<td>string</td>
+<td>Whether the activity should award fixed number of points or use a multiplier(fixed/bonus_multiplier).</td>
+</tr>
+<tr>
+<td>approval_method</td>
+<td>string</td>
+<td>User transaction approval method (immediate/manual/monthly).</td>
+</tr>
+<tr>
+<td>bonus_multiplier</td>
+<td>integer</td>
+<td>Multiplication factor to award points instead of awarding fixed points</td>
+</tr>
+<tr>
+<td>created_time</td>
+<td>string</td>
+<td>The time when activity is created_time</td>
+</tr>
+<tr>
+<td>is_active</td>
+<td>string</td>
+<td>Indicates whether the activity is active or paused (true/false)</td>
+</tr>
+<tr>
+<td>is_sale_activity</td>
+<td>string</td>
+<td>Indicates if the activity is a purchase activity (true/false)</td>
+</tr>
+<tr>
+<td>loyalty_activity_img</td>
+<td>string</td>
+<td>The image url of an activity</td>
+</tr>
+<tr>
+<td>max_award_frequency</td>
+<td>integer</td>
+<td>The maximum number of times a user will be awarded points</td>
+</tr>
+<tr>
+<td>max_award_frequency_interval</td>
+<td>string</td>
+<td>The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime).</td>
+</tr>
+<tr>
+<td>merchant_id</td>
+<td>string</td>
+<td>The id of the merchant</td>
+</tr>
+<tr>
+<td>points_earning_url</td>
+<td>string</td>
+<td>Merchant&rsquo;s website page url where the activity will be configured</td>
+</tr>
+<tr>
+<td>point_per_activity</td>
+<td>integer</td>
+<td>Fixed number of points to be awarded for an activity</td>
+</tr>
+<tr>
+<td>qualified_points</td>
+<td>string</td>
+<td>Indicates if the activity is qualified for tier upgrade (true/false)</td>
+</tr>
+<tr>
+<td>show_activity_in_user_dashboard</td>
+<td>string</td>
+<td>Indicates if the activity is to be shown in the end user dashboard (true/false)</td>
+</tr>
+<tr>
+<td>ss_internal</td>
+<td>string</td>
+<td>Indicates whether an activity is an internal activity (true/false)</td>
+</tr>
+<tr>
+<td>updated_time</td>
+<td>string</td>
+<td>The time when the activity configuration was last modified</td>
+</tr>
+</tbody></table>
 
 <h2 id="redemptions">Redemptions</h2>
 
