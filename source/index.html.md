@@ -324,7 +324,7 @@ Work in Progress
 Work in Progress
 
 ## Activities
-The Activities API let you create an activity, update activity configurations, get an activity details and get list of all activities for a merchant.
+The Activities API lets you create an activity, update activity configurations, get details of a particular activity and get the list of all activities for a merchant.
 
 ### Get All Activities
 ```shell
@@ -349,31 +349,31 @@ response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/activitie
 
 ```json
 {
-"data":[
-				{
-				"id":"56655832418a580281c2c41c",
-				"activity_id":"shared_via_email",
-				"activity_name":"Share via Email",
-				"activity_description":"Earn points when you share our website with your friends via email.",
-				"activity_type":"fixed",
-				"approval_method":"immediate",
-				"bonus_multiplier":1,
-				"created_time":"07-Dec-2015 09:58:10",
-				"is_active":true,
-				"is_sale_activity":false,
-				"max_award_frequency":100,
-				"max_award_frequency_interval":"day",
-				"merchant_id":"c75d9a44221ac904ddadb81766786b34",
-				"points_earning_url":"",
-				"points_per_activity":100,
-				"qualified_points":true,
-				"show_activity_in_user_dashboard":true,
-				"ss_internal":true,
-				"updated_time":"31-Aug-2016 05:10:21"
-				},
-				...{}
-       ],
-"success":true
+  "data":[
+			{
+			"id":"56655832418a580281c2c41c",
+			"activity_id":"shared_via_email",
+			"activity_name":"Share via Email",
+			"activity_description":"Earn points when you share our website with your friends via email.",
+			"activity_type":"fixed",
+			"approval_method":"immediate",
+			"bonus_multiplier":1,
+			"created_time":"07-Dec-2015 09:58:10",
+			"is_active":true,
+			"is_sale_activity":false,
+			"max_award_frequency":100,
+			"max_award_frequency_interval":"day",
+			"merchant_id":"c75d9a44221ac904ddadb81766786b34",
+			"points_earning_url":"",
+			"points_per_activity":100,
+			"qualified_points":true,
+			"show_activity_in_user_dashboard":true,
+			"ss_internal":true,
+			"updated_time":"31-Aug-2016 05:10:21"
+			},
+			...{}
+  ],
+  "success":true
 }
 ```
 This API can be used to view a list of all configured activities for which customers can earn loyalty points.
@@ -389,23 +389,23 @@ Attribute | Type | Description
 --------- | ---- | -----------
 id| string | Internal id
 activity_id| string | Unique id generated for each activity
-activity_name | string | The name of activity
+activity_name | string | The name of the activity
 activity_description | string | The description about activity
 activity_type | string | Whether the activity should award fixed number of points or use a multiplier(fixed/bonus_multiplier).
 approval_method | string | User transaction approval method (immediate/manual/monthly).
 bonus_multiplier | integer | Multiplication factor to award points instead of awarding fixed points 
-created_time | string | The time when activity is created_time
+created_time | string | The time when the activity was created.
 is_active | string | Indicates if an activity is active or paused(True/False)
-is_sale_activity | string | True, if activity is a sale activity
+is_sale_activity | string | Indicates if an activity is a sale activity (True/False)
 max_award_frequency | integer | The maximum number of times a user will be awarded points
 max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number(day, week, month, year, lifetime).
 merchant_id | string | The id of the merchant
 points_earning_url | string | Merchant's website page url where the activity will be configured.
 point_per_activity | integer | Fixed number of points to be awarded for an activity
-qualified_points | string | True, if activity is qualified for Tier upgrade(True/False)
-show_activity_in_user_dashboard | string | True, if activity is to be shown in end user dashboard(True/False).
-ss_internal | string | SS Activity(true/false)
-updated_time | string | The time when activity configuration last modified
+qualified_points | string | Indicates if the activity is qualified for tier upgrade (true/false)
+show_activity_in_user_dashboard | string | Indicates if the activity is to be shown on the end user dashboard (true/false).
+ss_internal | string | Indicates whether an activity is an internal activity (true/false)
+updated_time | string | The time when activity configuration was last modified
 
 
 ### Create Activity
@@ -460,30 +460,31 @@ response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/activiti
 
 ```json
 {
-"data":{
-				"id":"56655832418a580281c2c41c",
-				"activity_id":"shared_via_email",
-				"activity_name":"Share via Email",
-				"activity_description":"Earn points when you share our website with your friends via email.",
-				"activity_type":"fixed",
-				"approval_method":"immediate",
-				"bonus_multiplier":1,
-				"created_time":"07-Dec-2015 09:58:10",
-				"fixed_duration_period":30,
-				"is_active":true,
-				"is_sale_activity":false,
-				"loyalty_activity_img":"https://d1qbqkkh49kht1.cloudfront.net/dc79fd08611160b9176d0d4b5c3f506f.png",
-				"max_award_frequency":100,
-				"max_award_frequency_interval":"day",
-				"merchant_id":"c75d9a44221ac904ddadb81766786b34",
-				"points_earning_url":"",
-				"points_per_activity":100,
-				"qualified_points":true,
-				"show_activity_in_user_dashboard":true,
-				"ss_internal":true,
-				"updated_time":"31-Aug-2016 05:10:21"
-				},
-"success":true
+  "data":{
+		"id":"56655832418a580281c2c41c",
+        "merchant_id":"c75d9a44221ac904ddadb81766786b34",
+		"activity_id":"shared_via_email",
+		"activity_name":"Share via Email",
+		"activity_description":"Earn points when you share our website 
+          with your friends via email.",
+		"activity_type":"fixed",
+		"approval_method":"immediate",
+		"bonus_multiplier":1,
+		"created_time":"07-Dec-2015 09:58:10",
+		"fixed_duration_period":30,
+		"is_active":true,
+		"is_sale_activity":false,
+		"loyalty_activity_img":"https://d1qbqkkh49kht1.cloudfront.net/dc79fd08611160b9176d0d4b5c3f506f.png",
+		"max_award_frequency":100,
+		"max_award_frequency_interval":"day",
+		"points_earning_url":"",
+		"points_per_activity":100,
+		"qualified_points":true,
+		"show_activity_in_user_dashboard":true,
+		"ss_internal":true,
+		"updated_time":"31-Aug-2016 05:10:21"
+  },
+  "success":true
 }
 ```
 This API can be used to create a new activity which will earn loyalty points for customers.
@@ -497,20 +498,20 @@ This API can be used to create a new activity which will earn loyalty points for
 
 Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
-activity_id | string | Yes | The unique id of an activity.
+activity_id | string | Yes | The unique id of an <br>activity
 activity_name | string | Yes | The name of the activity
 activity_description | string | Yes | Description of the activity
-activity_type | string | Yes | Whether the activity should award fixed number of points or use a multiplier.(fixed/bonus_multiplier)
-max_award_frequency | integer | Yes| The maximum number of times a user will be awarded points
-max_award_frequency_interval | string | Yes | The time interval constraint to the max_award_frequency number(day, week, month, year, lifetime).
-bonus_multiplier | integer | No | Multiplication factor to award points instead of awarding fixed points(defaults to 1).
-points_per_activity | integer | No | Fixed number of points to be awarded for an activity(defaults to 1).
-points_earning_url | string | No | Merchant's website page url where the activity will be configured.
-approval_method | string | Yes | User transaction approval method(immediate/manual/monthly).
-is_active | string | Yes | Whether the activity should be active or paused(defaults to 1).
-is_sale_activity | string | No | Whether the activity should be a sale activity(defaults to false).
-qualified_points | string | No | Whether the activity should be qualified for Tier upgrade(defaults to true).
-show_activity_in_user_dashboard | string | no | Whether the activity should be shown in user dashboard(defaults to true).
+activity_type | string | Yes | Whether the activity <br> should award fixed <br>number of points or <br>use a multiplier.<br>(fixed/bonus_multiplier)
+max_award_frequency | integer | Yes| The maximum number <br>of times a user will <br>be awarded points
+max_award_frequency_interval | string | Yes | The time interval <br>constraint to the max_award_frequency <br>number (day, week, month, year, lifetime)
+bonus_multiplier | integer | No | Multiplication factor to <br>award points instead of <br>awarding fixed points<br>(defaults to 1)
+points_per_activity | integer | No | Fixed number of points to be awarded for an activity<br>(defaults to 1)
+points_earning_url | string | No | Merchant's website page url where the activity will be configured
+approval_method | string | Yes | User transaction approval method (immediate/<br>manual/monthly)
+is_active | string | Yes | Whether the activity should be active or paused<br>(defaults to 1)
+is_sale_activity | string | No | Whether the activity should be a sale activity (defaults to false)
+qualified_points | string | No | Whether the activity should be qualified for tier upgrade (defaults to true)
+show_activity_in_user_dashboard | string | No | Whether the activity should be shown in user dashboard (defaults to true)
 
 **Response Body**
 
@@ -519,23 +520,23 @@ Attribute | Type | Description
 id| string | Internal id
 merchant_id | string | The id of the merchant
 activity_id| string | Unique id generated for each activity
-activity_name | string | The name of activity
+activity_name | string | The name of the activity
 activity_description | string | The description of the activity
-activity_type | string | Whether the activity should award fixed number of points or use a multiplier(fixed/bonus_multiplier).
+activity_type | string | Whether the activity should award fixed number of points or use a multiplier (fixed/bonus_multiplier)
 approval_method | string | User transaction approval method (immediate/manual/monthly).
 bonus_multiplier | integer | Multiplication factor to award points instead of awarding fixed points 
 created_time | string | The time when activity is created_time
-is_active | string | Indicates whether the activity is active or paused(True/False)
-is_sale_activity | string | True if activity is a purchase activity
+is_active | string | Indicates whether the activity is active or paused (true/false)
+is_sale_activity | string | Indicates if the activity is a purchase activity (true/false)
 loyalty_activity_img | string | The image url of an activity
 max_award_frequency | integer | The maximum number of times a user will be awarded points
-max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number(day, week, month, year, lifetime).
-points_earning_url | string | Merchant's website page url where the activity will be configured.
+max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)
+points_earning_url | string | Merchant's website page url where the activity will be configured
 point_per_activity | integer | Fixed number of points to be awarded for an activity
-qualified_points | string | True, if activity is qualified for Tier upgrade(True/False)
-show_activity_in_user_dashboard | string | True, if activity is to be shown in end user dashboard.
-ss_internal | string | SS Activity(true/false)
-updated_time | string | The time when activity configuration last modified
+qualified_points | string | Indicates if the activity is qualified for tier upgrade (true/false)
+show_activity_in_user_dashboard | string | Indicates if the activity is to be shown on the end user dashboard (true/false)
+ss_internal | string | Indicates whether an activity is an internal activity (true/false)
+updated_time | string | The time when activity configuration was last modified
 
 
 ### Get Activity
@@ -561,30 +562,30 @@ response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/activitie
 
 ```json
 {
-"data":{
-				"id":"56655832418a580281c2c41c",
-				"activity_id":"shared_via_email",
-				"activity_name":"Share via Email",
-				"activity_description":"Earn points when you share our website with your friends via email.",
-				"activity_type":"fixed",
-				"approval_method":"immediate",
-				"bonus_multiplier":1,
-				"created_time":"07-Dec-2015 09:58:10",
-				"is_active":true,
-				"is_sale_activity":false,
-				"loyalty_activity_img":"https://d1qbqkkh49kht1.cloudfront.net/dc79fd08611160b9176d0d4b5c3f506f.png",
-				"max_award_frequency":100,
-				"max_award_frequency_interval":"day",
-				"merchant_id":"c75d9a44221ac904ddadb81766786b34",
-				"points_earning_url":"",
-				"points_per_activity":100,
-				"qualified_points":true,
-				"show_activity_in_user_dashboard":true,
-				"show_on_merchant_center":true,
-				"ss_internal":true,
-				"updated_time":"31-Aug-2016 05:10:21"
-				},
-"success":true
+  "data":{
+		"id":"56655832418a580281c2c41c",
+		"activity_id":"shared_via_email",
+		"activity_name":"Share via Email",
+		"activity_description":"Earn points when you share our website with your friends via email.",
+		"activity_type":"fixed",
+		"approval_method":"immediate",
+		"bonus_multiplier":1,
+		"created_time":"07-Dec-2015 09:58:10",
+		"is_active":true,
+		"is_sale_activity":false,
+		"loyalty_activity_img":"https://d1qbqkkh49kht1.cloudfront.net/dc79fd08611160b9176d0d4b5c3f506f.png",
+		"max_award_frequency":100,
+		"max_award_frequency_interval":"day",
+		"merchant_id":"c75d9a44221ac904ddadb81766786b34",
+		"points_earning_url":"",
+		"points_per_activity":100,
+		"qualified_points":true,
+		"show_activity_in_user_dashboard":true,
+		"show_on_merchant_center":true,
+		"ss_internal":true,
+		"updated_time":"31-Aug-2016 05:10:21"
+  },
+  "success":true
 }
 ```
 This API can be used to view details about any activity. The activity ID will be used to fetch this data.
@@ -602,22 +603,22 @@ id| string | Internal id
 activity_id| string | Unique id generated for each activity
 activity_name | string | The name of activity
 activity_description | string | The description of the activity
-activity_type | string | Whether the activity should award fixed number of points or use a multiplier(fixed/bonus_multiplier).
+activity_type | string | Whether the activity should award fixed number of points or use a multiplier (fixed/bonus_multiplier)
 approval_method | string | User transaction approval method (immediate/manual/monthly).
 bonus_multiplier | integer | Multiplication factor to award points instead of awarding fixed points 
 created_time | string | The time when activity is created_time
-is_active | string | Indicates if activity is active or paused(True/False)
-is_sale_activity | string | True if activity is a purchase activity
+is_active | string | Indicates if activity is active or paused (true/false)
+is_sale_activity | string | Indicates if the activity is a purchase activity (true/false)
 loyalty_activity_img | string | The image url of an activity
 max_award_frequency | integer | The maximum number of times a user will be awarded points
-max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number(day, week, month, year, lifetime).
+max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)
 merchant_id | string | The id of the merchant
 points_earning_url | string | Merchant's website page url where the activity will be configured.
-point_per_activity | integer | Fixed number of points to be awarded for an activity
-qualified_points | string | True, if activity is qualified for Tier upgrade(True/False)
-show_activity_in_user_dashboard | string | True, if activity is to be shown in end user dashboard.
-ss_internal | string | SS Activity(true/false)
-updated_time | string | The time when activity configuration last modified
+points_per_activity | integer | Fixed number of points to be awarded for an activity
+qualified_points | string | Indicates if the activity is qualified for tier upgrade (true/false)
+show_activity_in_user_dashboard | string | Indicates if the activity is to be shown on the end user dashboard (true/false)
+ss_internal | string | Indicates whether an activity is an internal activity (true/false)
+updated_time | string | The time when the activity configuration was last modified
 
 
 ### Update Activity
@@ -643,31 +644,31 @@ response = requests.put(url = "https://api.shopsocially.com/v2/loyalty/activitie
 
 ```json
 {
-"data":{
-					"id":"56655832418a580281c2c41c",
-					"activity_id":"shared_via_email",
-					"activity_name":"Share via Email",
-					"activity_description":"Earn points when you share our website with your friends via email.",
-					"activity_type":"fixed",
-					"approval_method":"immediate",
-					"bonus_multiplier":1,
-					"created_time":"07-Dec-2015 09:58:10",
-					"fixed_duration_period":30,
-					"is_active":true,
-					"is_sale_activity":false,
-					"loyalty_activity_img":"https://d1qbqkkh49kht1.cloudfront.net/dc79fd08611160b9176d0d4b5c3f506f.png",
-					"max_award_frequency":100,
-					"max_award_frequency_interval":"day",
-					"merchant_id":"c75d9a44221ac904ddadb81766786b34",
-					"points_earning_url":"",
-					"points_per_activity":100,
-					"qualified_points":true,
-					"show_activity_in_user_dashboard":true,
-					"show_on_merchant_center":true,
-					"ss_internal":true,
-					"updated_time":"31-Aug-2016 05:10:21"
-				},
-"success":true
+  "data":{
+		"id":"56655832418a580281c2c41c",
+		"activity_id":"shared_via_email",
+		"activity_name":"Share via Email",
+		"activity_description":"Earn points when you share our website with your friends via email.",
+		"activity_type":"fixed",
+		"approval_method":"immediate",
+		"bonus_multiplier":1,
+		"created_time":"07-Dec-2015 09:58:10",
+		"fixed_duration_period":30,
+		"is_active":true,
+		"is_sale_activity":false,
+		"loyalty_activity_img":"https://d1qbqkkh49kht1.cloudfront.net/dc79fd08611160b9176d0d4b5c3f506f.png",
+		"max_award_frequency":100,
+		"max_award_frequency_interval":"day",
+		"merchant_id":"c75d9a44221ac904ddadb81766786b34",
+		"points_earning_url":"",
+		"points_per_activity":100,
+		"qualified_points":true,
+		"show_activity_in_user_dashboard":true,
+		"show_on_merchant_center":true,
+		"ss_internal":true,
+		"updated_time":"31-Aug-2016 05:10:21"
+  },
+  "success":true
 }
 ```
 An activity configuration can be updated using this API by passing Activity ID
@@ -689,18 +690,18 @@ activity_type | string | Whether the activity should award fixed number of point
 approval_method | string | User transaction approval method (immediate/manual/monthly).
 bonus_multiplier | integer | Multiplication factor to award points instead of awarding fixed points 
 created_time | string | The time when activity is created_time
-is_active | string | Indicates whether the activity is active or paused(True/False)
-is_sale_activity | string | True if activity is a purchase activity
+is_active | string | Indicates whether the activity is active or paused (true/false)
+is_sale_activity | string | Indicates if the activity is a purchase activity (true/false)
 loyalty_activity_img | string | The image url of an activity
 max_award_frequency | integer | The maximum number of times a user will be awarded points
-max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number(day, week, month, year, lifetime).
+max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime).
 merchant_id | string | The id of the merchant
-points_earning_url | string | Merchant's website page url where the activity will be configured.
+points_earning_url | string | Merchant's website page url where the activity will be configured
 point_per_activity | integer | Fixed number of points to be awarded for an activity
-qualified_points | string | True, if activity is qualified for Tier upgrade(True/False)
-show_activity_in_user_dashboard | string | True, if activity is to be shown in end user dashboard.
-ss_internal | string | SS Activity(true/false)
-updated_time | string | The time when activity configuration last modified
+qualified_points | string | Indicates if the activity is qualified for tier upgrade (true/false)
+show_activity_in_user_dashboard | string | Indicates if the activity is to be shown in the end user dashboard (true/false)
+ss_internal | string | Indicates whether an activity is an internal activity (true/false)
+updated_time | string | The time when the activity configuration was last modified
 
 
 ## Redemptions
