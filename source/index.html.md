@@ -86,12 +86,12 @@ curl -X POST --header "partner-id: <your-partner-id>"
 import requests
 import json
 
-headers = {'partner-id': <your-partner-id>, 
-           'api-key': <your-api-key>}
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
 
-payload = json.dumps({"user_email": <Users email ID>,
-                      "points_passed": <number of points to be awarded>,
-                      "activity_id": <activity ID>})
+payload = json.dumps({"user_email": "bob@shopsocially.com",
+                      "points_passed": 100,
+                      "activity_id": "made_a_purchase"})
 
 response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/award",
                         headers = headers, data = payload)
@@ -168,11 +168,11 @@ curl -X POST --header "partner-id: <your-partner-id>"
 import requests
 import json
 
-headers = {'partner-id': <your-partner-id>, 
-           'api-key': <your-api-key>}
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
 
-payload = json.dumps({"user_email": <Users email ID>,
-                      "redemption_id": <redemption ID>})
+payload = json.dumps({"user_email": "bob@shopsocially.com",
+                      "redemption_id": "$50_gift_card"})
 
 response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/redeem",
                         headers = headers, data = payload)
@@ -252,12 +252,12 @@ curl -X POST --header "partner-id: <your-partner-id>"
 import requests
 import json
 
-headers = {'partner-id': <your-partner-id>, 
-           'api-key': <your-api-key>}
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
 
-payload = json.dumps({"user_email": <Users email ID>,
-                      "reason": <reason>,
-                      "points_passed": <points_passed>})
+payload = json.dumps({"user_email": "bob@shopsocially.com",
+                      "reason": "invalid transaction",
+                      "points_passed": 1000})
 
 response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/deduct",
                         headers = headers, data = payload)
@@ -317,8 +317,194 @@ created_time| string | The time when the record was created
 
 ## Transactions
 
-Work in Progress
+The Transactions API lets you fetch all or a single loyalty transaction.It also allows to update a specific transaction.
+### Get all transactions
 
+```shell
+curl -X GET --header "partner-id: <your-partner-id>" 
+--header "api-key: <your-api-key>" 
+--data "from_date= <The start date>" 
+--data "to_date = <The end date>" 
+--data "points_status= <transaction status>"
+--data "start_index= <index from where data needs to be fetched>"
+"https://api.shopsocially.com/v2/loyalty/transactions"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
+
+payload = json.dumps({"from_date": "01/01/2015",
+				      "to_date": "11/23/2015",	
+                      "points_status": '["approved","auto_approved"]',
+		              "start_index": 7})
+
+response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/transactions",
+                        headers = headers, params = payload)
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data":{
+            "total": 250,
+            "next_start_index":100,
+            "transactions":[
+              {
+              "activity_id":"Made_a_Purchase",
+              "activity_name":"Made a Purchase",
+              "user_id":"6176be2d5e",
+              "user_first_name":"Bob",
+              "user_last_name":"Baker",
+              "user_email":"bob@shopsocially.com",
+              "redemption_id":null,
+              "redemption_name":null,
+              "id":"550ff099fa0eaa0767086968",
+              "approved_time":"20-Mar-15 19:20:22",
+              "auto_approval_date":null,
+              "points_status":"approved",
+              "transaction_type":"award",
+              "coupon_code":null,
+              "points": 100,
+              "approved_by":"Jai",
+              "created_time":"20-Mar-15 19:20:22",
+              "updated_time":"30-Mar-15 19:20:22",
+              "merchant_id":"9c62d683db96c7cabf8db0109be6bb"
+              }, 
+		    ...{}
+            ],
+            "more":true
+         },
+  "success":true
+}
+```
+
+Gets list of all transactions in the given period
+
+**HTTP Request**
+
+`GET  https://api.shopsocially.com/v2/loyalty/transactions`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+from_date | string | Yes | The start date.(format is MM/DD/YYYY)
+to_date | string | Yes | The end date.(format is MM/DD/YYYY)
+points_status | list of strings | No | The status of the transaction( pending/approved/<br>auto_approved/auto_rejected/rejected/<br>pending/exhausted/<br>expired).
+start_index | integer | No | The index from where data<br> needs to be fetched.<br> (defaults to 0)
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+total | integer | total number of transactions
+next_start_index | integer | starting index of next batch of transactions
+transactions | list | list of transactions
+activity_id | string | Unique id for an activity
+activity_name | string | Name of the activity
+user_id   | string | Unique id generated for each user
+user_first_name| string | The person’s first name
+user_last_name| string | The person’s last name
+user_email| string | The person’s email address
+redemption_id | string | Unique id for an redemption
+redemption_name | string | Name of the redemption   
+id| string | Internal id
+approved_time | string | The time when transaction was approved
+auto_approval_date | string | The time when transaction was auto approved 
+points_status| string | Status of transaction (approved,auto_approved,exhausted,<br>pending,rejected,auto_rejected,expired)
+transaction_type| string | Type of transaction (award,deduct,redeem)
+coupon_code | string | Coupon code used in the transaction
+points| integer | The number of points involved in transaction
+approved_by | string | Name of admin who approved the transaction
+created_time| string | The time when the transaction was created
+updated_time| string | The time when the transaction was updated
+merchant_id| string | The id of the merchant
+
+
+### Get Transaction
+```shell
+curl -X GET --header "partner-id: <your-partner-id>" 
+--header "api-key: <your-api-key>" 
+"https://api.shopsocially.com/v2/loyalty/transactions/{transaction_id}"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
+
+response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/transactions/550ff099fa0eaa0767086968",
+                        headers = headers)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+"data":{
+            "activity_id":"Made_a_Purchase",
+            "activity_name":"Made a Purchase",
+            "user_id":"6176be2d5e",
+            "user_first_name":"Bob",
+            "user_last_name":"Baker",
+            "user_email":"bob@shopsocially.com",
+            "redemption_id":null,
+            "redemption_name":null,
+            "id":"550ff099fa0eaa0767086968",
+            "approved_time":"20-Mar-15 19:20:22",
+            "auto_approval_date":null,
+            "points_status":"approved",
+            "transaction_type":"award",
+            "coupon_code":null,
+            "points": 100,
+            "approved_by":"Jai",
+            "created_time":"20-Mar-15 19:20:22",
+            "updated_time":"30-Mar-15 19:20:22",
+            "partner_id":"9c62d683db96c7cabf8db0109be6bb"
+        },
+"success":true
+}
+```
+
+This API can be used to view details about any transaction. The transaction ID will be used to fetch this data.
+
+
+**HTTP Request**
+
+`GET  https://api.shopsocially.com/v2/loyalty/transactions/{transaction_id}`
+
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+activity_id | string | Unique id for an activity
+activity_name | string | Name of the activity
+user_id   | string | Unique id generated for each user
+user_first_name| string | The person’s first name
+user_last_name| string | The person’s last name
+user_email| string | The person’s email address
+redemption_id | string | Unique id for an redemption
+redemption_name | string | Name of the redemption   
+id| string | Internal id
+approved_time | string | The time when transaction was approved
+auto_approval_date | string | The time when transaction was auto approved 
+points_status| string | Status of transaction (approved,auto_approved,exhausted,<br>pending,rejected,auto_rejected,expired)
+transaction_type| string | Type of transaction (award,deduct,redeem)
+coupon_code | string | Coupon code used in the transaction
+points| integer | The number of points involved in transaction
+approved_by | string | Name of admin who approved the transaction
+created_time| string | The time when the transaction was created
+updated_time| string | The time when the transaction was updated
+partner_id| string | The id of the merchant
 ## Users
 
 Work in Progress
