@@ -635,7 +635,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 
 <h2 id="transactions">Transactions</h2>
 
-<p>The Transactions API lets you fetch all or a single loyalty transaction. It also allows to update a specific transaction.</p>
+<p>The Transactions API lets you fetch all or a single loyalty transaction.</p>
 
 <h3 id="get-all-transactions">Get all transactions</h3>
 <pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
@@ -718,25 +718,25 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 <td>from_date</td>
 <td>string</td>
 <td>Yes</td>
-<td>The start date.(format is MM/DD/YYYY)</td>
+<td>The start date (format is MM/DD/YYYY)</td>
 </tr>
 <tr>
 <td>to_date</td>
 <td>string</td>
 <td>Yes</td>
-<td>The end date.(format is MM/DD/YYYY)</td>
+<td>The end date (format is MM/DD/YYYY)</td>
 </tr>
 <tr>
 <td>points_status</td>
 <td>list of strings</td>
 <td>No</td>
-<td>The status of the transaction( pending/approved/<br>auto_approved/auto_rejected/rejected/<br>pending/exhausted/<br>expired).</td>
+<td>The status of the transaction (pending/approved/auto_approved/<br>auto_rejected/rejected/<br>pending/exhausted/expired)</td>
 </tr>
 <tr>
 <td>start_index</td>
 <td>integer</td>
 <td>No</td>
-<td>The index from where data<br> needs to be fetched.<br> (defaults to 0)</td>
+<td>The index from where data needs to be fetched (defaults to 0)</td>
 </tr>
 </tbody></table>
 
