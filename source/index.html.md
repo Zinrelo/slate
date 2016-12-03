@@ -317,7 +317,8 @@ created_time| string | The time when the record was created
 
 ## Transactions
 
-The Transactions API lets you fetch all or a single loyalty transaction. It also allows to update a specific transaction.
+The Transactions API lets you fetch all or a single loyalty transaction.
+
 ### Get all transactions
 
 ```shell
@@ -393,10 +394,10 @@ Gets list of all transactions in the given period
 
 Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
-from_date | string | Yes | The start date.(format is MM/DD/YYYY)
-to_date | string | Yes | The end date.(format is MM/DD/YYYY)
-points_status | list of strings | No | The status of the transaction( pending/approved/<br>auto_approved/auto_rejected/rejected/<br>pending/exhausted/<br>expired).
-start_index | integer | No | The index from where data<br> needs to be fetched.<br> (defaults to 0)
+from_date | string | Yes | The start date (format is MM/DD/YYYY)
+to_date | string | Yes | The end date (format is MM/DD/YYYY)
+points_status | list of strings | No | The status of the transaction (pending/approved/auto_approved/<br>auto_rejected/rejected/<br>pending/exhausted/expired)
+start_index | integer | No | The index from where data needs to be fetched (defaults to 0)
 
 **Response Body**
 
