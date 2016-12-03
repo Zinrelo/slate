@@ -317,7 +317,7 @@ created_time| string | The time when the record was created
 
 ## Transactions
 
-The Transactions API lets you fetch all or a single loyalty transaction.It also allows to update a specific transaction.
+The Transactions API lets you fetch all or a single loyalty transaction. It also allows to update a specific transaction.
 ### Get all transactions
 
 ```shell
@@ -375,7 +375,7 @@ response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/transacti
             "updated_time":"30-Mar-15 19:20:22",
             "merchant_id":"9c62d683db96c7cabf8db0109be6bb"
             }, 
-	         ...{}
+	        {...}
           ],
           "more":true
          },
@@ -557,7 +557,7 @@ response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/activitie
 			"ss_internal":true,
 			"updated_time":"31-Aug-2016 05:10:21"
 			},
-			...{}
+			{...}
   ],
   "success":true
 }
