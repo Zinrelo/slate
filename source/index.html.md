@@ -351,33 +351,33 @@ response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/transacti
 ```json
 {
   "data":{
-            "total": 250,
-            "next_start_index":100,
-            "transactions":[
-              {
-              "activity_id":"Made_a_Purchase",
-              "activity_name":"Made a Purchase",
-              "user_id":"6176be2d5e",
-              "user_first_name":"Bob",
-              "user_last_name":"Baker",
-              "user_email":"bob@shopsocially.com",
-              "redemption_id":null,
-              "redemption_name":null,
-              "id":"550ff099fa0eaa0767086968",
-              "approved_time":"20-Mar-15 19:20:22",
-              "auto_approval_date":null,
-              "points_status":"approved",
-              "transaction_type":"award",
-              "coupon_code":null,
-              "points": 100,
-              "approved_by":"Jai",
-              "created_time":"20-Mar-15 19:20:22",
-              "updated_time":"30-Mar-15 19:20:22",
-              "merchant_id":"9c62d683db96c7cabf8db0109be6bb"
-              }, 
-		    ...{}
-            ],
-            "more":true
+          "total": 250,
+          "next_start_index":100,
+          "transactions":[
+            {
+            "activity_id":"Made_a_Purchase",
+            "activity_name":"Made a Purchase",
+            "user_id":"6176be2d5e",
+            "user_first_name":"Bob",
+            "user_last_name":"Baker",
+            "user_email":"bob@shopsocially.com",
+            "redemption_id":null,
+            "redemption_name":null,
+            "id":"550ff099fa0eaa0767086968",
+            "approved_time":"20-Mar-15 19:20:22",
+            "auto_approval_date":null,
+            "points_status":"approved",
+            "transaction_type":"award",
+            "coupon_code":null,
+            "points": 100,
+            "approved_by":"Jai",
+            "created_time":"20-Mar-15 19:20:22",
+            "updated_time":"30-Mar-15 19:20:22",
+            "merchant_id":"9c62d683db96c7cabf8db0109be6bb"
+            }, 
+	         ...{}
+          ],
+          "more":true
          },
   "success":true
 }
@@ -450,25 +450,25 @@ response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/transacti
 ```json
 {
 "data":{
-            "activity_id":"Made_a_Purchase",
-            "activity_name":"Made a Purchase",
-            "user_id":"6176be2d5e",
-            "user_first_name":"Bob",
-            "user_last_name":"Baker",
-            "user_email":"bob@shopsocially.com",
-            "redemption_id":null,
-            "redemption_name":null,
-            "id":"550ff099fa0eaa0767086968",
-            "approved_time":"20-Mar-15 19:20:22",
-            "auto_approval_date":null,
-            "points_status":"approved",
-            "transaction_type":"award",
-            "coupon_code":null,
-            "points": 100,
-            "approved_by":"Jai",
-            "created_time":"20-Mar-15 19:20:22",
-            "updated_time":"30-Mar-15 19:20:22",
-            "partner_id":"9c62d683db96c7cabf8db0109be6bb"
+        "activity_id":"Made_a_Purchase",
+        "activity_name":"Made a Purchase",
+        "user_id":"6176be2d5e",
+        "user_first_name":"Bob",
+        "user_last_name":"Baker",
+        "user_email":"bob@shopsocially.com",
+        "redemption_id":null,
+        "redemption_name":null,
+        "id":"550ff099fa0eaa0767086968",
+        "approved_time":"20-Mar-15 19:20:22",
+        "auto_approval_date":null,
+        "points_status":"approved",
+        "transaction_type":"award",
+        "coupon_code":null,
+        "points": 100,
+        "approved_by":"Jai",
+        "created_time":"20-Mar-15 19:20:22",
+        "updated_time":"30-Mar-15 19:20:22",
+        "partner_id":"9c62d683db96c7cabf8db0109be6bb"
         },
 "success":true
 }
@@ -523,8 +523,8 @@ curl -X GET --header "partner-id: <your-partner-id>"
 import requests
 import json
 
-headers = {'partner-id': <your-partner-id>, 
-           'api-key': <your-api-key>}
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
 
 response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/activities",
                         headers = headers)
@@ -577,14 +577,14 @@ id| string | Internal id
 activity_id| string | Unique id generated for each activity
 activity_name | string | The name of the activity
 activity_description | string | The description about activity
-activity_type | string | Whether the activity should award fixed number of points or use a multiplier(fixed/bonus_multiplier).
+activity_type | string | Whether the activity should award fixed number of points or use a multiplier (fixed/bonus_multiplier)
 approval_method | string | User transaction approval method (immediate/manual/monthly).
 bonus_multiplier | integer | Multiplication factor to award points instead of awarding fixed points 
-created_time | string | The time when the activity was created.
-is_active | string | Indicates if an activity is active or paused(True/False)
-is_sale_activity | string | Indicates if an activity is a sale activity (True/False)
+created_time | string | The time when the activity was created
+is_active | string | Indicates if an activity is active or paused (true/false)
+is_sale_activity | string | Indicates if an activity is a sale activity (true/false)
 max_award_frequency | integer | The maximum number of times a user will be awarded points
-max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number(day, week, month, year, lifetime).
+max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)
 merchant_id | string | The id of the merchant
 points_earning_url | string | Merchant's website page url where the activity will be configured.
 point_per_activity | integer | Fixed number of points to be awarded for an activity
@@ -619,22 +619,24 @@ curl -X POST --header "partner-id: <your-partner-id>"
 import requests
 import json
 
-headers = {'partner-id': <your-partner-id>, 
-           'api-key': <your-api-key>}
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
 
-payload = json.dumps({"activity_id" : <Activity ID>,
-	"activity_name" : <Activity Name>,
-	"activity_description" : <Activity Description>,
-	"activity_type" : <Activity type>,
-	"max_award_frequency" : <Max Award Frequency>,
-	"max_award_frequency_interval" : <Max Award Frequency Interval>,
-	"is_active" = <Activity State>,
-	"approval_method" = <Award Approval Method>,
-	"points_per_activity" = <Points to be awarded>,
-	"bonus_multiplier" = <Bonus Multiplier>,
-	"is_sale_activity" = <Is sale activity>,
-	"qualified_points" = <Is qualified for Tier change>,
-	"show_activity_in_user_dashboard" = <Show in dashboard>
+payload = json.dumps({
+    "activity_id" : "shared_via_email",
+	"activity_name" : "Share via Email",
+	"activity_description" : "Earn points when you share our website 
+          with your friends via email.",
+	"activity_type" : "fixed",
+	"max_award_frequency" : 100,
+	"max_award_frequency_interval" : "day",
+	"is_active": true,
+	"approval_method": "immediate",
+	"points_per_activity": 100,
+	"bonus_multiplier": 1,
+	"is_sale_activity": false,
+	"qualified_points": true,
+	"show_activity_in_user_dashboard": true
 	})
 
 response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/activities",
@@ -694,7 +696,7 @@ bonus_multiplier | integer | No | Multiplication factor to <br>award points inst
 points_per_activity | integer | No | Fixed number of points to be awarded for an activity<br>(defaults to 1)
 points_earning_url | string | No | Merchant's website page url where the activity will be configured
 approval_method | string | Yes | User transaction approval method (immediate/<br>manual/monthly)
-is_active | string | Yes | Whether the activity should be active or paused<br>(defaults to 1)
+is_active | string | Yes | Whether the activity should be active or paused<br>(defaults to true)
 is_sale_activity | string | No | Whether the activity should be a sale activity (defaults to false)
 qualified_points | string | No | Whether the activity should be qualified for tier upgrade (defaults to true)
 show_activity_in_user_dashboard | string | No | Whether the activity should be shown in user dashboard (defaults to true)
@@ -736,8 +738,8 @@ curl -X GET --header "partner-id: <your-partner-id>"
 import requests
 import json
 
-headers = {'partner-id': <your-partner-id>, 
-           'api-key': <your-api-key>}
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
 
 response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/activities/{activity_id}",
                         headers = headers)
@@ -809,8 +811,17 @@ updated_time | string | The time when the activity configuration was last modifi
 
 ### Update Activity
 ```shell
-curl -X PUT --header "partner-id: <your-partner-id>" 
+curl -X PUT --header "partner-id: <your-partner-id>"
 --header "api-key: <your-api-key>" 
+--data "activity_name= <Activity Name>"
+--data "activity_description= <Activity Description>"
+--data "activity_type = <Activity type>"
+--data "max_award_frequency = <Max Award Frequency>"
+--data "max_award_frequency_interval = <Max Award Frequency Interval>"
+--data "bonus_multiplier = <Bonus Multiplier>"
+--data "points_per_activity = <Points to be awarded>"
+--data "approval_method = <Award Approval Method>"
+--data "is_active = <Activity State>"
 "https://api.shopsocially.com/v2/loyalty/activities/{activity_id}"
 ```
 
@@ -818,11 +829,24 @@ curl -X PUT --header "partner-id: <your-partner-id>"
 import requests
 import json
 
-headers = {'partner-id': <your-partner-id>, 
-           'api-key': <your-api-key>}
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
+
+payload = json.dumps({
+  "activity_name" : "Share via Email",
+  "activity_description" : "Earn points when you share our website 
+          with your friends via email.",
+  "activity_type" : "fixed",
+  "max_award_frequency" : 100,
+  "max_award_frequency_interval" : "day",
+  "bonus_multiplier": 1,
+  "points_per_activity": 100,
+  "approval_method": "immediate",
+  "is_active": true
+})
 
 response = requests.put(url = "https://api.shopsocially.com/v2/loyalty/activities/{activity_id}",
-                        headers = headers)
+                        headers = headers, data = payload)
 ```
 
 
@@ -857,12 +881,26 @@ response = requests.put(url = "https://api.shopsocially.com/v2/loyalty/activitie
   "success":true
 }
 ```
-An activity configuration can be updated using this API by passing Activity ID
+An activity configuration can be updated using this API by passing the activity ID.
+Any or all of the below listed fields (query parameters table) can be updated by passing in the adequate parameter.
 
 **HTTP Request**
 
-`PUT  https://api.shopsocially.com/v2/loyalty/activities{activity_id}`
+`PUT  https://api.shopsocially.com/v2/loyalty/activities/{activity_id}`
 
+**Query Parameters**
+
+Parameter | Type | Description
+--------- | ---- | -----------
+activity_name | string |  The name of the activity
+activity_description | string |  Description of the activity
+activity_type | string | Whether the activity should award fixed number of points or use a multiplier (fixed/bonus_multiplier)
+max_award_frequency | integer |  The maximum number of times a user will be awarded points
+max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)
+bonus_multiplier | integer | Multiplication factor to award points instead of awarding fixed points (defaults to 1)
+points_per_activity | integer | Fixed number of points to be awarded for an activity (defaults to 1)
+approval_method | string | User transaction approval method (immediate/manual/monthly)
+is_active | string | Whether the activity should be active or paused (defaults to true)
 
 **Response Body**
 
