@@ -698,7 +698,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Gets list of all transactions in the given period</p>
+<p>Fetch list of all transactions in the given period</p>
 
 <p><strong>HTTP Request</strong></p>
 
@@ -905,7 +905,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This API can be used to view details about any transaction. The transaction ID will be used to fetch this data.</p>
+<p>View details about any transaction. The transaction ID will be used to fetch this data.</p>
 
 <p><strong>HTTP Request</strong></p>
 
@@ -1025,165 +1025,6 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 
 <p>The Activities API lets you create an activity, update activity configurations, get details of a particular activity and get the list of all activities for a merchant.</p>
 
-<h3 id="get-all-activities">Get All Activities</h3>
-<pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
---header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
-<span class="s2">"https://api.shopsocially.com/v2/loyalty/activities"</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">json</span>
-
-<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="s">'9c62d683db96c7cabf8db0109be6bb'</span><span class="p">,</span> 
-           <span class="s">'api-key'</span><span class="p">:</span> <span class="s">'9a4cf9131sasaw21dsb53a29e1b13'</span><span class="p">}</span>
-
-<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/activities"</span><span class="p">,</span>
-                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"data"</span><span class="p">:[</span><span class="w">
-            </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"56655832418a580281c2c41c"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="s2">"shared_via_email"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="s2">"Share via Email"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="s2">"Earn points when you share our website with your friends via email."</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"approval_method"</span><span class="p">:</span><span class="s2">"immediate"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"bonus_multiplier"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"created_time"</span><span class="p">:</span><span class="s2">"07-Dec-2015 09:58:10"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"is_active"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"is_sale_activity"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"max_award_frequency"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"max_award_frequency_interval"</span><span class="p">:</span><span class="s2">"day"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="s2">"c75d9a44221ac904ddadb81766786b34"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"points_earning_url"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"points_per_activity"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"qualified_points"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"show_activity_in_user_dashboard"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"ss_internal"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="s2">"31-Aug-2016 05:10:21"</span><span class="w">
-            </span><span class="p">},</span><span class="w">
-            </span><span class="p">{</span><span class="err">...</span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>This API can be used to view a list of all configured activities for which customers can earn loyalty points.</p>
-
-<p><strong>HTTP Request</strong></p>
-
-<p><code class="prettyprint">GET  https://api.shopsocially.com/v2/loyalty/activities</code></p>
-
-<p><strong>Response Body</strong></p>
-
-<table><thead>
-<tr>
-<th>Attribute</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>string</td>
-<td>Internal id</td>
-</tr>
-<tr>
-<td>activity_id</td>
-<td>string</td>
-<td>Unique id generated for each activity</td>
-</tr>
-<tr>
-<td>activity_name</td>
-<td>string</td>
-<td>The name of the activity</td>
-</tr>
-<tr>
-<td>activity_description</td>
-<td>string</td>
-<td>The description about activity</td>
-</tr>
-<tr>
-<td>activity_type</td>
-<td>string</td>
-<td>Whether the activity should award fixed number of points or use a multiplier (fixed/bonus_multiplier)</td>
-</tr>
-<tr>
-<td>approval_method</td>
-<td>string</td>
-<td>User transaction approval method (immediate/manual/monthly).</td>
-</tr>
-<tr>
-<td>bonus_multiplier</td>
-<td>integer</td>
-<td>Multiplication factor to award points instead of awarding fixed points</td>
-</tr>
-<tr>
-<td>created_time</td>
-<td>string</td>
-<td>The time when the activity was created</td>
-</tr>
-<tr>
-<td>is_active</td>
-<td>string</td>
-<td>Indicates if an activity is active or paused (true/false)</td>
-</tr>
-<tr>
-<td>is_sale_activity</td>
-<td>string</td>
-<td>Indicates if an activity is a sale activity (true/false)</td>
-</tr>
-<tr>
-<td>max_award_frequency</td>
-<td>integer</td>
-<td>The maximum number of times a user will be awarded points</td>
-</tr>
-<tr>
-<td>max_award_frequency_interval</td>
-<td>string</td>
-<td>The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)</td>
-</tr>
-<tr>
-<td>merchant_id</td>
-<td>string</td>
-<td>The id of the merchant</td>
-</tr>
-<tr>
-<td>points_earning_url</td>
-<td>string</td>
-<td>Merchant&rsquo;s website page url where the activity will be configured.</td>
-</tr>
-<tr>
-<td>point_per_activity</td>
-<td>integer</td>
-<td>Fixed number of points to be awarded for an activity</td>
-</tr>
-<tr>
-<td>qualified_points</td>
-<td>string</td>
-<td>Indicates if the activity is qualified for tier upgrade (true/false)</td>
-</tr>
-<tr>
-<td>show_activity_in_user_dashboard</td>
-<td>string</td>
-<td>Indicates if the activity is to be shown on the end user dashboard (true/false).</td>
-</tr>
-<tr>
-<td>ss_internal</td>
-<td>string</td>
-<td>Indicates whether an activity is an internal activity (true/false)</td>
-</tr>
-<tr>
-<td>updated_time</td>
-<td>string</td>
-<td>The time when activity configuration was last modified</td>
-</tr>
-</tbody></table>
-
 <h3 id="create-activity">Create Activity</h3>
 <pre class="highlight shell"><code>curl -X POST --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
 --header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
@@ -1261,7 +1102,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This API can be used to create a new activity which will earn loyalty points for customers.</p>
+<p>Create a new activity which will earn loyalty points for customers.</p>
 
 <p><strong>HTTP Request</strong></p>
 
@@ -1339,25 +1180,25 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 </tr>
 <tr>
 <td>is_active</td>
-<td>string</td>
+<td>boolean</td>
 <td>Yes</td>
 <td>Whether the activity should be active or paused<br>(defaults to true)</td>
 </tr>
 <tr>
 <td>is_sale_activity</td>
-<td>string</td>
+<td>boolean</td>
 <td>No</td>
 <td>Whether the activity should be a sale activity (defaults to false)</td>
 </tr>
 <tr>
 <td>qualified_points</td>
-<td>string</td>
+<td>boolean</td>
 <td>No</td>
 <td>Whether the activity should be qualified for tier upgrade (defaults to true)</td>
 </tr>
 <tr>
 <td>show_activity_in_user_dashboard</td>
-<td>string</td>
+<td>boolean</td>
 <td>No</td>
 <td>Whether the activity should be shown in user dashboard (defaults to true)</td>
 </tr>
@@ -1419,12 +1260,12 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 </tr>
 <tr>
 <td>is_active</td>
-<td>string</td>
+<td>boolean</td>
 <td>Indicates whether the activity is active or paused (true/false)</td>
 </tr>
 <tr>
 <td>is_sale_activity</td>
-<td>string</td>
+<td>boolean</td>
 <td>Indicates if the activity is a purchase activity (true/false)</td>
 </tr>
 <tr>
@@ -1454,186 +1295,23 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 </tr>
 <tr>
 <td>qualified_points</td>
-<td>string</td>
+<td>boolean</td>
 <td>Indicates if the activity is qualified for tier upgrade (true/false)</td>
 </tr>
 <tr>
 <td>show_activity_in_user_dashboard</td>
-<td>string</td>
+<td>boolean</td>
 <td>Indicates if the activity is to be shown on the end user dashboard (true/false)</td>
 </tr>
 <tr>
 <td>ss_internal</td>
-<td>string</td>
+<td>boolean</td>
 <td>Indicates whether an activity is an internal activity (true/false)</td>
 </tr>
 <tr>
 <td>updated_time</td>
 <td>string</td>
 <td>The time when activity configuration was last modified</td>
-</tr>
-</tbody></table>
-
-<h3 id="get-activity">Get Activity</h3>
-<pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
---header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
-<span class="s2">"https://api.shopsocially.com/v2/loyalty/activities/{activity_id}"</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">json</span>
-
-<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="s">'9c62d683db96c7cabf8db0109be6bb'</span><span class="p">,</span> 
-           <span class="s">'api-key'</span><span class="p">:</span> <span class="s">'9a4cf9131sasaw21dsb53a29e1b13'</span><span class="p">}</span>
-
-<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/activities/{activity_id}"</span><span class="p">,</span>
-                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"data"</span><span class="p">:{</span><span class="w">
-        </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"56655832418a580281c2c41c"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="s2">"shared_via_email"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="s2">"Share via Email"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="s2">"Earn points when you share our website with your friends via email."</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"approval_method"</span><span class="p">:</span><span class="s2">"immediate"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"bonus_multiplier"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"created_time"</span><span class="p">:</span><span class="s2">"07-Dec-2015 09:58:10"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"is_active"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"is_sale_activity"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"loyalty_activity_img"</span><span class="p">:</span><span class="s2">"https://d1qbqkkh49kht1.cloudfront.net/dc79fd08611160b9176d0d4b5c3f506f.png"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"max_award_frequency"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"max_award_frequency_interval"</span><span class="p">:</span><span class="s2">"day"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="s2">"c75d9a44221ac904ddadb81766786b34"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"points_earning_url"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"points_per_activity"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"qualified_points"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"show_activity_in_user_dashboard"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"show_on_merchant_center"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"ss_internal"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="s2">"31-Aug-2016 05:10:21"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>This API can be used to view details about any activity. The activity ID will be used to fetch this data.</p>
-
-<p><strong>HTTP Request</strong></p>
-
-<p><code class="prettyprint">GET  https://api.shopsocially.com/v2/loyalty/activities/{activity_id}</code></p>
-
-<p><strong>Response Body</strong></p>
-
-<table><thead>
-<tr>
-<th>Attribute</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>string</td>
-<td>Internal id</td>
-</tr>
-<tr>
-<td>activity_id</td>
-<td>string</td>
-<td>Unique id generated for each activity</td>
-</tr>
-<tr>
-<td>activity_name</td>
-<td>string</td>
-<td>The name of activity</td>
-</tr>
-<tr>
-<td>activity_description</td>
-<td>string</td>
-<td>The description of the activity</td>
-</tr>
-<tr>
-<td>activity_type</td>
-<td>string</td>
-<td>Whether the activity should award fixed number of points or use a multiplier (fixed/bonus_multiplier)</td>
-</tr>
-<tr>
-<td>approval_method</td>
-<td>string</td>
-<td>User transaction approval method (immediate/manual/monthly).</td>
-</tr>
-<tr>
-<td>bonus_multiplier</td>
-<td>integer</td>
-<td>Multiplication factor to award points instead of awarding fixed points</td>
-</tr>
-<tr>
-<td>created_time</td>
-<td>string</td>
-<td>The time when activity is created_time</td>
-</tr>
-<tr>
-<td>is_active</td>
-<td>string</td>
-<td>Indicates if activity is active or paused (true/false)</td>
-</tr>
-<tr>
-<td>is_sale_activity</td>
-<td>string</td>
-<td>Indicates if the activity is a purchase activity (true/false)</td>
-</tr>
-<tr>
-<td>loyalty_activity_img</td>
-<td>string</td>
-<td>The image url of an activity</td>
-</tr>
-<tr>
-<td>max_award_frequency</td>
-<td>integer</td>
-<td>The maximum number of times a user will be awarded points</td>
-</tr>
-<tr>
-<td>max_award_frequency_interval</td>
-<td>string</td>
-<td>The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)</td>
-</tr>
-<tr>
-<td>merchant_id</td>
-<td>string</td>
-<td>The id of the merchant</td>
-</tr>
-<tr>
-<td>points_earning_url</td>
-<td>string</td>
-<td>Merchant&rsquo;s website page url where the activity will be configured.</td>
-</tr>
-<tr>
-<td>points_per_activity</td>
-<td>integer</td>
-<td>Fixed number of points to be awarded for an activity</td>
-</tr>
-<tr>
-<td>qualified_points</td>
-<td>string</td>
-<td>Indicates if the activity is qualified for tier upgrade (true/false)</td>
-</tr>
-<tr>
-<td>show_activity_in_user_dashboard</td>
-<td>string</td>
-<td>Indicates if the activity is to be shown on the end user dashboard (true/false)</td>
-</tr>
-<tr>
-<td>ss_internal</td>
-<td>string</td>
-<td>Indicates whether an activity is an internal activity (true/false)</td>
-</tr>
-<tr>
-<td>updated_time</td>
-<td>string</td>
-<td>The time when the activity configuration was last modified</td>
 </tr>
 </tbody></table>
 
@@ -1679,34 +1357,34 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"data"</span><span class="p">:{</span><span class="w">
-        </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"56655832418a580281c2c41c"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="s2">"shared_via_email"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="s2">"Share via Email"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="s2">"Earn points when you share our website with your friends via email."</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"approval_method"</span><span class="p">:</span><span class="s2">"immediate"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"bonus_multiplier"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"created_time"</span><span class="p">:</span><span class="s2">"07-Dec-2015 09:58:10"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"fixed_duration_period"</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"is_active"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"is_sale_activity"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"loyalty_activity_img"</span><span class="p">:</span><span class="s2">"https://d1qbqkkh49kht1.cloudfront.net/dc79fd08611160b9176d0d4b5c3f506f.png"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"max_award_frequency"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"max_award_frequency_interval"</span><span class="p">:</span><span class="s2">"day"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="s2">"c75d9a44221ac904ddadb81766786b34"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"points_earning_url"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"points_per_activity"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"qualified_points"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"show_activity_in_user_dashboard"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"show_on_merchant_center"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"ss_internal"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="s2">"31-Aug-2016 05:10:21"</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"56655832418a580281c2c41c"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="s2">"shared_via_email"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="s2">"Share via Email"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="s2">"Earn points when you share our website with your friends via email."</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"approval_method"</span><span class="p">:</span><span class="s2">"immediate"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"bonus_multiplier"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_time"</span><span class="p">:</span><span class="s2">"07-Dec-2015 09:58:10"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"fixed_duration_period"</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"is_active"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"is_sale_activity"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"loyalty_activity_img"</span><span class="p">:</span><span class="s2">"https://d1qbqkkh49kht1.cloudfront.net/dc79fd08611160b9176d0d4b5c3f506f.png"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"max_award_frequency"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"max_award_frequency_interval"</span><span class="p">:</span><span class="s2">"day"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="s2">"c75d9a44221ac904ddadb81766786b34"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"points_earning_url"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"points_per_activity"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"qualified_points"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"show_activity_in_user_dashboard"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"show_on_merchant_center"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"ss_internal"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="s2">"31-Aug-2016 05:10:21"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>An activity configuration can be updated using this API by passing the activity ID.
+<p>Update an activity configuration by passing the activity ID.
 Any or all of the below listed fields (query parameters table) can be updated by passing in the adequate parameter.</p>
 
 <p><strong>HTTP Request</strong></p>
@@ -1764,7 +1442,7 @@ Any or all of the below listed fields (query parameters table) can be updated by
 </tr>
 <tr>
 <td>is_active</td>
-<td>string</td>
+<td>boolean</td>
 <td>Whether the activity should be active or paused (defaults to true)</td>
 </tr>
 </tbody></table>
@@ -1820,12 +1498,12 @@ Any or all of the below listed fields (query parameters table) can be updated by
 </tr>
 <tr>
 <td>is_active</td>
-<td>string</td>
+<td>boolean</td>
 <td>Indicates whether the activity is active or paused (true/false)</td>
 </tr>
 <tr>
 <td>is_sale_activity</td>
-<td>string</td>
+<td>boolean</td>
 <td>Indicates if the activity is a purchase activity (true/false)</td>
 </tr>
 <tr>
@@ -1860,17 +1538,17 @@ Any or all of the below listed fields (query parameters table) can be updated by
 </tr>
 <tr>
 <td>qualified_points</td>
-<td>string</td>
+<td>boolean</td>
 <td>Indicates if the activity is qualified for tier upgrade (true/false)</td>
 </tr>
 <tr>
 <td>show_activity_in_user_dashboard</td>
-<td>string</td>
+<td>boolean</td>
 <td>Indicates if the activity is to be shown in the end user dashboard (true/false)</td>
 </tr>
 <tr>
 <td>ss_internal</td>
-<td>string</td>
+<td>boolean</td>
 <td>Indicates whether an activity is an internal activity (true/false)</td>
 </tr>
 <tr>
@@ -1880,13 +1558,1281 @@ Any or all of the below listed fields (query parameters table) can be updated by
 </tr>
 </tbody></table>
 
+<h3 id="get-activity">Get Activity</h3>
+<pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
+--header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
+<span class="s2">"https://api.shopsocially.com/v2/loyalty/activities/{activity_id}"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="s">'9c62d683db96c7cabf8db0109be6bb'</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="s">'9a4cf9131sasaw21dsb53a29e1b13'</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/activities/{activity_id}"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"56655832418a580281c2c41c"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="s2">"shared_via_email"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="s2">"Share via Email"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="s2">"Earn points when you share our website with your friends via email."</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"approval_method"</span><span class="p">:</span><span class="s2">"immediate"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"bonus_multiplier"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_time"</span><span class="p">:</span><span class="s2">"07-Dec-2015 09:58:10"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_active"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_sale_activity"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"loyalty_activity_img"</span><span class="p">:</span><span class="s2">"https://d1qbqkkh49kht1.cloudfront.net/dc79fd08611160b9176d0d4b5c3f506f.png"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"max_award_frequency"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"max_award_frequency_interval"</span><span class="p">:</span><span class="s2">"day"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="s2">"c75d9a44221ac904ddadb81766786b34"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"points_earning_url"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"points_per_activity"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"qualified_points"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"show_activity_in_user_dashboard"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"show_on_merchant_center"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ss_internal"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="s2">"31-Aug-2016 05:10:21"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>View details about any activity. The activity ID will be used to fetch this data.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">GET  https://api.shopsocially.com/v2/loyalty/activities/{activity_id}</code></p>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Internal id</td>
+</tr>
+<tr>
+<td>activity_id</td>
+<td>string</td>
+<td>Unique id generated for each activity</td>
+</tr>
+<tr>
+<td>activity_name</td>
+<td>string</td>
+<td>The name of activity</td>
+</tr>
+<tr>
+<td>activity_description</td>
+<td>string</td>
+<td>The description of the activity</td>
+</tr>
+<tr>
+<td>activity_type</td>
+<td>string</td>
+<td>Whether the activity should award fixed number of points or use a multiplier (fixed/bonus_multiplier)</td>
+</tr>
+<tr>
+<td>approval_method</td>
+<td>string</td>
+<td>User transaction approval method (immediate/manual/monthly).</td>
+</tr>
+<tr>
+<td>bonus_multiplier</td>
+<td>integer</td>
+<td>Multiplication factor to award points instead of awarding fixed points</td>
+</tr>
+<tr>
+<td>created_time</td>
+<td>string</td>
+<td>The time when activity is created_time</td>
+</tr>
+<tr>
+<td>is_active</td>
+<td>boolean</td>
+<td>Indicates if activity is active or paused (true/false)</td>
+</tr>
+<tr>
+<td>is_sale_activity</td>
+<td>boolean</td>
+<td>Indicates if the activity is a purchase activity (true/false)</td>
+</tr>
+<tr>
+<td>loyalty_activity_img</td>
+<td>string</td>
+<td>The image url of an activity</td>
+</tr>
+<tr>
+<td>max_award_frequency</td>
+<td>integer</td>
+<td>The maximum number of times a user will be awarded points</td>
+</tr>
+<tr>
+<td>max_award_frequency_interval</td>
+<td>string</td>
+<td>The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)</td>
+</tr>
+<tr>
+<td>merchant_id</td>
+<td>string</td>
+<td>The id of the merchant</td>
+</tr>
+<tr>
+<td>points_earning_url</td>
+<td>string</td>
+<td>Merchant&rsquo;s website page url where the activity will be configured.</td>
+</tr>
+<tr>
+<td>points_per_activity</td>
+<td>integer</td>
+<td>Fixed number of points to be awarded for an activity</td>
+</tr>
+<tr>
+<td>qualified_points</td>
+<td>boolean</td>
+<td>Indicates if the activity is qualified for tier upgrade (true/false)</td>
+</tr>
+<tr>
+<td>show_activity_in_user_dashboard</td>
+<td>boolean</td>
+<td>Indicates if the activity is to be shown on the end user dashboard (true/false)</td>
+</tr>
+<tr>
+<td>ss_internal</td>
+<td>boolean</td>
+<td>Indicates whether an activity is an internal activity (true/false)</td>
+</tr>
+<tr>
+<td>updated_time</td>
+<td>string</td>
+<td>The time when the activity configuration was last modified</td>
+</tr>
+</tbody></table>
+
+<h3 id="get-all-activities">Get All Activities</h3>
+<pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
+--header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
+<span class="s2">"https://api.shopsocially.com/v2/loyalty/activities"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="s">'9c62d683db96c7cabf8db0109be6bb'</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="s">'9a4cf9131sasaw21dsb53a29e1b13'</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/activities"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"56655832418a580281c2c41c"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="s2">"shared_via_email"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="s2">"Share via Email"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="s2">"Earn points when you share our website with your friends via email."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"approval_method"</span><span class="p">:</span><span class="s2">"immediate"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"bonus_multiplier"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"created_time"</span><span class="p">:</span><span class="s2">"07-Dec-2015 09:58:10"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"is_active"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"is_sale_activity"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"max_award_frequency"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"max_award_frequency_interval"</span><span class="p">:</span><span class="s2">"day"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="s2">"c75d9a44221ac904ddadb81766786b34"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"points_earning_url"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"points_per_activity"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"qualified_points"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"show_activity_in_user_dashboard"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ss_internal"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="s2">"31-Aug-2016 05:10:21"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="err">...</span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>View a list of all configured activities for which customers can earn loyalty points.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">GET  https://api.shopsocially.com/v2/loyalty/activities</code></p>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Internal id</td>
+</tr>
+<tr>
+<td>activity_id</td>
+<td>string</td>
+<td>Unique id generated for each activity</td>
+</tr>
+<tr>
+<td>activity_name</td>
+<td>string</td>
+<td>The name of the activity</td>
+</tr>
+<tr>
+<td>activity_description</td>
+<td>string</td>
+<td>The description about activity</td>
+</tr>
+<tr>
+<td>activity_type</td>
+<td>string</td>
+<td>Whether the activity should award fixed number of points or use a multiplier (fixed/bonus_multiplier)</td>
+</tr>
+<tr>
+<td>approval_method</td>
+<td>string</td>
+<td>User transaction approval method (immediate/manual/monthly).</td>
+</tr>
+<tr>
+<td>bonus_multiplier</td>
+<td>integer</td>
+<td>Multiplication factor to award points instead of awarding fixed points</td>
+</tr>
+<tr>
+<td>created_time</td>
+<td>string</td>
+<td>The time when the activity was created</td>
+</tr>
+<tr>
+<td>is_active</td>
+<td>boolean</td>
+<td>Indicates if an activity is active or paused (true/false)</td>
+</tr>
+<tr>
+<td>is_sale_activity</td>
+<td>boolean</td>
+<td>Indicates if an activity is a sale activity (true/false)</td>
+</tr>
+<tr>
+<td>max_award_frequency</td>
+<td>integer</td>
+<td>The maximum number of times a user will be awarded points</td>
+</tr>
+<tr>
+<td>max_award_frequency_interval</td>
+<td>string</td>
+<td>The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)</td>
+</tr>
+<tr>
+<td>merchant_id</td>
+<td>string</td>
+<td>The id of the merchant</td>
+</tr>
+<tr>
+<td>points_earning_url</td>
+<td>string</td>
+<td>Merchant&rsquo;s website page url where the activity will be configured.</td>
+</tr>
+<tr>
+<td>point_per_activity</td>
+<td>integer</td>
+<td>Fixed number of points to be awarded for an activity</td>
+</tr>
+<tr>
+<td>qualified_points</td>
+<td>boolean</td>
+<td>Indicates if the activity is qualified for tier upgrade (true/false)</td>
+</tr>
+<tr>
+<td>show_activity_in_user_dashboard</td>
+<td>boolean</td>
+<td>Indicates if the activity is to be shown on the end user dashboard (true/false).</td>
+</tr>
+<tr>
+<td>ss_internal</td>
+<td>boolean</td>
+<td>Indicates whether an activity is an internal activity (true/false)</td>
+</tr>
+<tr>
+<td>updated_time</td>
+<td>string</td>
+<td>The time when activity configuration was last modified</td>
+</tr>
+</tbody></table>
+
 <h2 id="redemptions">Redemptions</h2>
 
-<p>Work in Progress</p>
+<p>The Redemptions API lets you create a redemption, update redemption configurations, get details of a particular redemption and get the list of all redemptions for a merchant.</p>
 
-<h2 id="levels">Levels</h2>
+<h3 id="create-redemption">Create Redemption</h3>
+<pre class="highlight shell"><code>curl -X POST --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
+--header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
+--data <span class="s2">"redemption_id: &lt;redemption_id&gt;"</span> 
+--data <span class="s2">"redemption_name: &lt;redemption_name&gt;"</span> 
+--data <span class="s2">"is_active: &lt;redemption_status&gt;"</span> 
+--data <span class="s2">"allowed_redeem_points: &lt;allowed_redeem_points&gt;"</span> 
+--data <span class="s2">"redemption_value: &lt;redemption_value&gt;"</span> 
+--data <span class="s2">"giftcard_description: &lt;giftcard_description&gt;"</span> 
+--data <span class="s2">"terms_and_conds_text: &lt;terms_and_conds_text&gt;"</span> 
+--data <span class="s2">"redemption_instructions: &lt;redemption_instructions&gt;"</span> 
+--data <span class="s2">"giftcard_coupon_codes: &lt;giftcard_coupon_codes&gt;"</span> 
+--data <span class="s2">"coupon_expiry: &lt;coupon_expiry&gt;"</span> 
+<span class="s2">"https://api.shopsocially.com/v2/loyalty/redemptions"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
 
-<p>Work in Progress</p>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">partner</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+<span class="s">"redemption_id"</span><span class="p">:</span> <span class="s">"&lt;redemption_id&gt;"</span><span class="p">,</span>
+<span class="s">"redemption_name"</span><span class="p">:</span> <span class="s">"&lt;redemption_name&gt;"</span><span class="p">,</span>
+<span class="s">"is_active"</span><span class="p">:</span> <span class="s">"&lt;redemption_status&gt;"</span><span class="p">,</span>
+<span class="s">"allowed_redeem_points"</span><span class="p">:</span> <span class="s">"&lt;allowed_redeem_points&gt;"</span><span class="p">,</span>
+<span class="s">"redemption_value"</span><span class="p">:</span> <span class="s">"&lt;redemption_value&gt;"</span><span class="p">,</span>
+<span class="s">"giftcard_description"</span><span class="p">:</span> <span class="s">"&lt;giftcard_description&gt;"</span><span class="p">,</span>
+<span class="s">"terms_and_conds_text"</span><span class="p">:</span> <span class="s">"&lt;terms_and_conds_text&gt;"</span><span class="p">,</span>
+<span class="s">"redemption_instructions"</span><span class="p">:</span> <span class="s">"&lt;redemption_instructions&gt;"</span><span class="p">,</span>
+<span class="s">"giftcard_coupon_codes"</span><span class="p">:</span> <span class="s">"&lt;giftcard_coupon_codes&gt;"</span><span class="p">,</span>
+<span class="s">"coupon_expiry"</span><span class="p">:</span> <span class="s">"&lt;coupon_expiry&gt;"</span><span class="p">})</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/transaction/return"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"redemption_email_html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;div style=\"border:solid 1px rgba(0,0,0,0.2);font-family:'Source Sans Pro', 'Helvetica Neue', 'Lucida Sans', sans-serif;\"&gt;&lt;img src=\"https://d1qbqkkh49kht1.cloudfront.net/c66c2dc1d96e2ac46b9722b1a2524c10.png\" style=\"width:100%\"&gt;&lt;div style=\"text-align:left;margin-top:10px;font-size: 15px;padding:0px 30px 0px 30px\"&gt;Hi,&lt;br&gt;&lt;div style=\"margin-top: 10px;\"&gt;You have redeemed _POINTS_REDEEMED_ loyalty points from your account at &lt;a href=\"_MERCHANT_WEB_URL_\" target=\"_blank\"&gt;_MERCHANT_NAME_&lt;/a&gt;.&lt;br&gt;&lt;br&gt;&lt;a href=\"_USER_DASHBOARD_URL_\" target=\"_blank\"&gt;Click here&lt;/a&gt; to log in and check your loyalty points status and to redeem more points.&lt;/div&gt;&lt;div style=\"text-align:left;margin-top: 15px;font-size:15px;\"&gt;Thank you.&lt;br&gt;&lt;br&gt;Thanks,&lt;br&gt;_MERCHANT_NAME_ Team&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"loyalty_redemption_card_img"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d1qbqkkh49kht1.cloudfront.net/b32b7803e9bbcf6b8e9b8d8ce1be7224.png"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07-Dec-2016 12:17:02"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"giftcard_coupon_codes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a,b,c,d,e,f,g,h,i"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5847fdbeb0207a60ce2facf1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"giftcard_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"giftcard_description"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"terms_and_conds_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terms_and_conds_text"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"after_redemption_html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;div class=\"coupon_code_div\"&gt;_COUPON_CODE_&lt;/div&gt;&lt;div style=\"margin-top: 15px;\"&gt; A copy of the code has been emailed to _USER_EMAIL_.&lt;/div&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"associated_levels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"all"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"send_redemption_email"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"coupon_expiry_trigger"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"enable_coupon_based_incentive"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redemption_instructions"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_email_subject"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Redemption Confirmation Receipt - _MERCHANT_NAME_ Loyalty Program"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"coupon_expiry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01-Jan-2018"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c75d9a44221ac904ddadb81766786b34"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"show_redemption_in_user_dashboard"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"show_on_merchant_center"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redemption_name"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"coupon_expiry_delta"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"allowed_redeem_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07-Dec-2016 12:17:03"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_redemption"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+
+<p>Create a redemption option.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">POST  https://api.shopsocially.com/v2/loyalty/redemptions</code></p>
+
+<p><strong>Query Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>redemption_id</td>
+<td>string</td>
+<td>Yes</td>
+<td>Redemption ID.</td>
+</tr>
+<tr>
+<td>redemption_name</td>
+<td>integer</td>
+<td>Yes</td>
+<td>The name of the redemption which will be displayed to the user</td>
+</tr>
+<tr>
+<td>is_active</td>
+<td>boolean</td>
+<td>No</td>
+<td>Should the redemption option be active or paused<br>(defaults to false)</td>
+</tr>
+<tr>
+<td>allowed_redeem_points</td>
+<td>number</td>
+<td>Yes</td>
+<td>The number of points to be deducted when user redeems</td>
+</tr>
+<tr>
+<td>redemption_value</td>
+<td>number</td>
+<td>Yes</td>
+<td>The monetary value associated with the redemption</td>
+</tr>
+<tr>
+<td>giftcard_description</td>
+<td>string</td>
+<td>Yes</td>
+<td>The description of the giftcard/ coupon which will be shown to the user</td>
+</tr>
+<tr>
+<td>terms_and_conds_text</td>
+<td>string</td>
+<td>Yes</td>
+<td>The terms and conditions text users have to agree to at the time of redemption</td>
+</tr>
+<tr>
+<td>redemption_instructions</td>
+<td>string</td>
+<td>No</td>
+<td>The redemption instructions displayed to the users</td>
+</tr>
+<tr>
+<td>giftcard_coupon_codes</td>
+<td>string</td>
+<td>Yes</td>
+<td>One time coupon codes to be issued when user redeems<br>(comma separated)</td>
+</tr>
+<tr>
+<td>coupon_expiry</td>
+<td>string</td>
+<td>Yes</td>
+<td>The expiry date of the coupons<br>(DD-MMM-YYYY)</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>redemption_email_html</td>
+<td>string</td>
+<td>Redemption Email HTML</td>
+</tr>
+<tr>
+<td>loyalty_redemption_card_img</td>
+<td>string</td>
+<td>Loyalty Redemption Card Image</td>
+</tr>
+<tr>
+<td>created_time</td>
+<td>string</td>
+<td>Redemption creation time</td>
+</tr>
+<tr>
+<td>giftcard_coupon_codes</td>
+<td>string</td>
+<td>Giftcard Coupons entered</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Internal ID</td>
+</tr>
+<tr>
+<td>giftcard_description</td>
+<td>string</td>
+<td>Giftcard Description</td>
+</tr>
+<tr>
+<td>terms_and_conds_text</td>
+<td>string</td>
+<td>Terms and Conditions</td>
+</tr>
+<tr>
+<td>after_redemption_html</td>
+<td>string</td>
+<td>After redemption HTML</td>
+</tr>
+<tr>
+<td>associated_levels</td>
+<td>array</td>
+<td>Levels Associated with the Redemption</td>
+</tr>
+<tr>
+<td>send_redemption_email</td>
+<td>boolean</td>
+<td>Indicates whether the redemption email was sent or not (true/false)</td>
+</tr>
+<tr>
+<td>redemption_value</td>
+<td>number</td>
+<td>Points to be deducted after redemption</td>
+</tr>
+<tr>
+<td>coupon_expiry_trigger</td>
+<td>string</td>
+<td>Coupon Expiry Trigger</td>
+</tr>
+<tr>
+<td>is_active</td>
+<td>boolean</td>
+<td>Indicates whether the Redemption Option is active or not (true/false)</td>
+</tr>
+<tr>
+<td>enable_coupon_based_incentive</td>
+<td>boolean</td>
+<td>Indicates whether coupon based incentive is enabled or not (true/false)</td>
+</tr>
+<tr>
+<td>redemption_instructions</td>
+<td>string</td>
+<td>Redemption instructions</td>
+</tr>
+<tr>
+<td>redemption_email_subject</td>
+<td>string</td>
+<td>Redemption Email Subject</td>
+</tr>
+<tr>
+<td>coupon_expiry</td>
+<td>string</td>
+<td>The expiry date of the coupons</td>
+</tr>
+<tr>
+<td>merchant_id</td>
+<td>string</td>
+<td>Merchant ID</td>
+</tr>
+<tr>
+<td>show_redemption_in_user_dashboard</td>
+<td>boolean</td>
+<td>Indicates whether the redemption option is shown on the user dashboard (true/false)</td>
+</tr>
+<tr>
+<td>show_on_merchant_center</td>
+<td>boolean</td>
+<td>Indicates whether the redemption option is shown in the merchant center (true/false)</td>
+</tr>
+<tr>
+<td>redemption_name</td>
+<td>string</td>
+<td>The name of the redemption</td>
+</tr>
+<tr>
+<td>coupon_expiry_delta</td>
+<td>number</td>
+<td>Number of days before coupon expires</td>
+</tr>
+<tr>
+<td>allowed_redeem_points</td>
+<td>string</td>
+<td>Allowed Redeem points</td>
+</tr>
+<tr>
+<td>updated_time</td>
+<td>string</td>
+<td>Redemption option updation time</td>
+</tr>
+<tr>
+<td>redemption_id</td>
+<td>string</td>
+<td>Redemption ID</td>
+</tr>
+</tbody></table>
+
+<h3 id="update-redemption">Update Redemption</h3>
+<pre class="highlight shell"><code>curl -X PUT --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
+--header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
+--data <span class="s2">"redemption_name: &lt;redemption_name&gt;"</span> 
+--data <span class="s2">"is_active: &lt;redemption_status&gt;"</span> 
+--data <span class="s2">"allowed_redeem_points: &lt;allowed_redeem_points&gt;"</span> 
+--data <span class="s2">"redemption_value: &lt;redemption_value&gt;"</span> 
+--data <span class="s2">"giftcard_description: &lt;giftcard_description&gt;"</span> 
+--data <span class="s2">"terms_and_conds_text: &lt;terms_and_conds_text&gt;"</span> 
+--data <span class="s2">"redemption_instructions: &lt;redemption_instructions&gt;"</span> 
+--data <span class="s2">"giftcard_coupon_codes: &lt;giftcard_coupon_codes&gt;"</span> 
+--data <span class="s2">"coupon_expiry: &lt;coupon_expiry&gt;"</span> 
+<span class="s2">"https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">partner</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+<span class="s">"redemption_name"</span><span class="p">:</span> <span class="s">"&lt;redemption_name&gt;"</span><span class="p">,</span>
+<span class="s">"is_active"</span><span class="p">:</span> <span class="s">"&lt;redemption_status&gt;"</span><span class="p">,</span>
+<span class="s">"allowed_redeem_points"</span><span class="p">:</span> <span class="s">"&lt;allowed_redeem_points&gt;"</span><span class="p">,</span>
+<span class="s">"redemption_value"</span><span class="p">:</span> <span class="s">"&lt;redemption_value&gt;"</span><span class="p">,</span>
+<span class="s">"giftcard_description"</span><span class="p">:</span> <span class="s">"&lt;giftcard_description&gt;"</span><span class="p">,</span>
+<span class="s">"terms_and_conds_text"</span><span class="p">:</span> <span class="s">"&lt;terms_and_conds_text&gt;"</span><span class="p">,</span>
+<span class="s">"redemption_instructions"</span><span class="p">:</span> <span class="s">"&lt;redemption_instructions&gt;"</span><span class="p">,</span>
+<span class="s">"giftcard_coupon_codes"</span><span class="p">:</span> <span class="s">"&lt;giftcard_coupon_codes&gt;"</span><span class="p">,</span>
+<span class="s">"coupon_expiry"</span><span class="p">:</span> <span class="s">"&lt;coupon_expiry&gt;"</span><span class="p">})</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"redemption_email_html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;div style=\"border:solid 1px rgba(0,0,0,0.2);font-family:'Source Sans Pro', 'Helvetica Neue', 'Lucida Sans', sans-serif;\"&gt;&lt;img src=\"https://d1qbqkkh49kht1.cloudfront.net/c66c2dc1d96e2ac46b9722b1a2524c10.png\" style=\"width:100%\"&gt;&lt;div style=\"text-align:left;margin-top:10px;font-size: 15px;padding:0px 30px 0px 30px\"&gt;Hi,&lt;br&gt;&lt;div style=\"margin-top: 10px;\"&gt;You have redeemed _POINTS_REDEEMED_ loyalty points from your account at &lt;a href=\"_MERCHANT_WEB_URL_\" target=\"_blank\"&gt;_MERCHANT_NAME_&lt;/a&gt;.&lt;br&gt;&lt;br&gt;&lt;a href=\"_USER_DASHBOARD_URL_\" target=\"_blank\"&gt;Click here&lt;/a&gt; to log in and check your loyalty points status and to redeem more points.&lt;/div&gt;&lt;div style=\"text-align:left;margin-top: 15px;font-size:15px;\"&gt;Thank you.&lt;br&gt;&lt;br&gt;Thanks,&lt;br&gt;_MERCHANT_NAME_ Team&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"loyalty_redemption_card_img"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d1qbqkkh49kht1.cloudfront.net/b32b7803e9bbcf6b8e9b8d8ce1be7224.png"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07-Dec-2016 12:17:02"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"giftcard_coupon_codes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a,b,c,d,e,f,g,h,i"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5847fdbeb0207a60ce2facf1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"giftcard_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"giftcard_description"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"terms_and_conds_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terms_and_conds_text"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"after_redemption_html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;div class=\"coupon_code_div\"&gt;_COUPON_CODE_&lt;/div&gt;&lt;div style=\"margin-top: 15px;\"&gt; A copy of the code has been emailed to _USER_EMAIL_.&lt;/div&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"associated_levels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"all"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"send_redemption_email"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"coupon_expiry_trigger"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"enable_coupon_based_incentive"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redemption_instructions"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_email_subject"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Redemption Confirmation Receipt - _MERCHANT_NAME_ Loyalty Program"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"coupon_expiry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01-Jan-2018"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c75d9a44221ac904ddadb81766786b34"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"show_redemption_in_user_dashboard"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"show_on_merchant_center"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redemption_name"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"coupon_expiry_delta"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"allowed_redeem_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07-Dec-2016 12:17:03"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_redemption"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+
+<p>Update any of the configured redemption options using the Redemption option ID. Any or all of the below listed fields (query parameters table) can be updated by passing in the adequate parameter.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">PUT  https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}</code></p>
+
+<p><strong>Query Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>redemption_name</td>
+<td>integer</td>
+<td>No</td>
+<td>The name of the redemption which will be displayed to the user</td>
+</tr>
+<tr>
+<td>is_active</td>
+<td>boolean</td>
+<td>No</td>
+<td>Should the redemption option be active or paused<br>(defaults to false)</td>
+</tr>
+<tr>
+<td>allowed_redeem_points</td>
+<td>number</td>
+<td>No</td>
+<td>The number of points to be deducted when user redeems</td>
+</tr>
+<tr>
+<td>redemption_value</td>
+<td>number</td>
+<td>No</td>
+<td>The monetary value associated with the redemption</td>
+</tr>
+<tr>
+<td>giftcard_description</td>
+<td>string</td>
+<td>No</td>
+<td>The description of the giftcard/ coupon which will be shown to the user</td>
+</tr>
+<tr>
+<td>terms_and_conds_text</td>
+<td>string</td>
+<td>No</td>
+<td>The terms and conditions text users have to agree to at the time of redemption</td>
+</tr>
+<tr>
+<td>redemption_instructions</td>
+<td>string</td>
+<td>No</td>
+<td>The redemption instructions displayed to the users</td>
+</tr>
+<tr>
+<td>giftcard_coupon_codes</td>
+<td>string</td>
+<td>No</td>
+<td>One time coupon codes to be issued when user redeems<br>(comma separated)</td>
+</tr>
+<tr>
+<td>coupon_expiry</td>
+<td>string</td>
+<td>No</td>
+<td>The expiry date of the coupons<br>(DD-MMM-YYYY)</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>redemption_email_html</td>
+<td>string</td>
+<td>Redemption Email HTML</td>
+</tr>
+<tr>
+<td>loyalty_redemption_card_img</td>
+<td>string</td>
+<td>Loyalty Redemption Card Image</td>
+</tr>
+<tr>
+<td>created_time</td>
+<td>string</td>
+<td>Redemption creation time</td>
+</tr>
+<tr>
+<td>giftcard_coupon_codes</td>
+<td>string</td>
+<td>Giftcard Coupons entered</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Internal ID</td>
+</tr>
+<tr>
+<td>giftcard_description</td>
+<td>string</td>
+<td>Giftcard Description</td>
+</tr>
+<tr>
+<td>terms_and_conds_text</td>
+<td>string</td>
+<td>Terms and Conditions</td>
+</tr>
+<tr>
+<td>after_redemption_html</td>
+<td>string</td>
+<td>After redemption HTML</td>
+</tr>
+<tr>
+<td>associated_levels</td>
+<td>array</td>
+<td>Levels Associated with the Redemption</td>
+</tr>
+<tr>
+<td>send_redemption_email</td>
+<td>boolean</td>
+<td>Indicates whether the redemption email is to be sent or not (true/false)</td>
+</tr>
+<tr>
+<td>redemption_value</td>
+<td>number</td>
+<td>Points to be deducted after redemption</td>
+</tr>
+<tr>
+<td>coupon_expiry_trigger</td>
+<td>string</td>
+<td>Coupon Expiry Trigger</td>
+</tr>
+<tr>
+<td>is_active</td>
+<td>boolean</td>
+<td>Indicates whether the redemption option is active or not (true/false)</td>
+</tr>
+<tr>
+<td>enable_coupon_based_incentive</td>
+<td>boolean</td>
+<td>Indicates whether coupon based incentive is enabled or not (true/false)</td>
+</tr>
+<tr>
+<td>redemption_instructions</td>
+<td>string</td>
+<td>Redemption instructions</td>
+</tr>
+<tr>
+<td>redemption_email_subject</td>
+<td>string</td>
+<td>Redemption Email Subject</td>
+</tr>
+<tr>
+<td>coupon_expiry</td>
+<td>string</td>
+<td>Coupon Expiry</td>
+</tr>
+<tr>
+<td>merchant_id</td>
+<td>string</td>
+<td>Merchant ID</td>
+</tr>
+<tr>
+<td>show_redemption_in_user_dashboard</td>
+<td>boolean</td>
+<td>Indicates whether the redemption option is to be shown on the user dashboard (true/false)</td>
+</tr>
+<tr>
+<td>show_on_merchant_center</td>
+<td>boolean</td>
+<td>Indicates whether the redemption option is to be shown on the merchant center (true/false)</td>
+</tr>
+<tr>
+<td>redemption_name</td>
+<td>string</td>
+<td>Redemption Name</td>
+</tr>
+<tr>
+<td>coupon_expiry_delta</td>
+<td>number</td>
+<td>Number of days before coupon expires</td>
+</tr>
+<tr>
+<td>allowed_redeem_points</td>
+<td>string</td>
+<td>Allowed Redeem points</td>
+</tr>
+<tr>
+<td>updated_time</td>
+<td>string</td>
+<td>Redemption option updation time</td>
+</tr>
+<tr>
+<td>redemption_id</td>
+<td>string</td>
+<td>Redemption ID</td>
+</tr>
+</tbody></table>
+
+<h3 id="get-redemption">Get Redemption</h3>
+<pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
+--header <span class="s2">"api-key: &lt;your-api-key&gt;"</span>
+<span class="s2">"https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">partner</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span><span class="p">}</span>
+
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"redemption_email_html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;div style=\"border:solid 1px rgba(0,0,0,0.2);font-family:'Source Sans Pro', 'Helvetica Neue', 'Lucida Sans', sans-serif;\"&gt;&lt;img src=\"https://d1qbqkkh49kht1.cloudfront.net/c66c2dc1d96e2ac46b9722b1a2524c10.png\" style=\"width:100%\"&gt;&lt;div style=\"text-align:left;margin-top:10px;font-size: 15px;padding:0px 30px 0px 30px\"&gt;Hi,&lt;br&gt;&lt;div style=\"margin-top: 10px;\"&gt;You have redeemed _POINTS_REDEEMED_ loyalty points from your account at &lt;a href=\"_MERCHANT_WEB_URL_\" target=\"_blank\"&gt;_MERCHANT_NAME_&lt;/a&gt;.&lt;br&gt;&lt;br&gt;&lt;a href=\"_USER_DASHBOARD_URL_\" target=\"_blank\"&gt;Click here&lt;/a&gt; to log in and check your loyalty points status and to redeem more points.&lt;/div&gt;&lt;div style=\"text-align:left;margin-top: 15px;font-size:15px;\"&gt;Thank you.&lt;br&gt;&lt;br&gt;Thanks,&lt;br&gt;_MERCHANT_NAME_ Team&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"loyalty_redemption_card_img"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d1qbqkkh49kht1.cloudfront.net/b32b7803e9bbcf6b8e9b8d8ce1be7224.png"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07-Dec-2016 12:17:02"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"giftcard_coupon_codes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a,b,c,d,e,f,g,h,i"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5847fdbeb0207a60ce2facf1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"giftcard_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"giftcard_description"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"terms_and_conds_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terms_and_conds_text"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"after_redemption_html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;div class=\"coupon_code_div\"&gt;_COUPON_CODE_&lt;/div&gt;&lt;div style=\"margin-top: 15px;\"&gt; A copy of the code has been emailed to _USER_EMAIL_.&lt;/div&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"associated_levels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"all"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"send_redemption_email"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"coupon_expiry_trigger"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"enable_coupon_based_incentive"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redemption_instructions"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_email_subject"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Redemption Confirmation Receipt - _MERCHANT_NAME_ Loyalty Program"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"coupon_expiry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01-Jan-2018"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c75d9a44221ac904ddadb81766786b34"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"show_redemption_in_user_dashboard"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"show_on_merchant_center"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redemption_name"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"coupon_expiry_delta"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"allowed_redeem_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07-Dec-2016 12:17:03"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_redemption"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+
+<p>View details about a particular redemption option using the Redemption Option ID.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">GET  https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}</code></p>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>redemption_email_html</td>
+<td>string</td>
+<td>Redemption Email HTML</td>
+</tr>
+<tr>
+<td>loyalty_redemption_card_img</td>
+<td>string</td>
+<td>Loyalty Redemption Card Image</td>
+</tr>
+<tr>
+<td>created_time</td>
+<td>string</td>
+<td>Redemption creation time</td>
+</tr>
+<tr>
+<td>giftcard_coupon_codes</td>
+<td>string</td>
+<td>Giftcard Coupons entered</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Internal ID</td>
+</tr>
+<tr>
+<td>giftcard_description</td>
+<td>string</td>
+<td>Giftcard Description</td>
+</tr>
+<tr>
+<td>terms_and_conds_text</td>
+<td>string</td>
+<td>Terms and Conditions</td>
+</tr>
+<tr>
+<td>after_redemption_html</td>
+<td>string</td>
+<td>After redemption HTML</td>
+</tr>
+<tr>
+<td>associated_levels</td>
+<td>array</td>
+<td>Levels Associated with the Redemption</td>
+</tr>
+<tr>
+<td>send_redemption_email</td>
+<td>boolean</td>
+<td>Indicates whether the redemption email is to be sent or not (true/false)</td>
+</tr>
+<tr>
+<td>redemption_value</td>
+<td>number</td>
+<td>Points to be deducted after redemption</td>
+</tr>
+<tr>
+<td>coupon_expiry_trigger</td>
+<td>string</td>
+<td>Coupon Expiry Trigger</td>
+</tr>
+<tr>
+<td>is_active</td>
+<td>boolean</td>
+<td>Indicates whether the redemption option is active or not (true/false)</td>
+</tr>
+<tr>
+<td>enable_coupon_based_incentive</td>
+<td>boolean</td>
+<td>Indicates whether coupon based incentive is enabled or not (true/false)</td>
+</tr>
+<tr>
+<td>redemption_instructions</td>
+<td>string</td>
+<td>Redemption instructions</td>
+</tr>
+<tr>
+<td>redemption_email_subject</td>
+<td>string</td>
+<td>Redemption Email Subject</td>
+</tr>
+<tr>
+<td>coupon_expiry</td>
+<td>string</td>
+<td>Coupon Expiry</td>
+</tr>
+<tr>
+<td>merchant_id</td>
+<td>string</td>
+<td>Merchant ID</td>
+</tr>
+<tr>
+<td>show_redemption_in_user_dashboard</td>
+<td>boolean</td>
+<td>Indicates whether the redemption option is to be shown on the user dashboard (true/false)</td>
+</tr>
+<tr>
+<td>show_on_merchant_center</td>
+<td>boolean</td>
+<td>Indicates whether the redemption option is to be shown on the merchant center (true/false)</td>
+</tr>
+<tr>
+<td>coupon_expiry_delta</td>
+<td>number</td>
+<td>Number of days before coupon expires</td>
+</tr>
+<tr>
+<td>allowed_redeem_points</td>
+<td>string</td>
+<td>Allowed Redeem points</td>
+</tr>
+<tr>
+<td>updated_time</td>
+<td>string</td>
+<td>Redemption option updation time</td>
+</tr>
+<tr>
+<td>redemption_id</td>
+<td>string</td>
+<td>Redemption ID</td>
+</tr>
+</tbody></table>
+
+<h3 id="get-all-redemptions">Get All Redemptions</h3>
+<pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
+--header <span class="s2">"api-key: &lt;your-api-key&gt;"</span> 
+<span class="s2">"https://api.shopsocially.com/v2/loyalty/redemptions"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">partner</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/redemptions"</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"redemption_email_html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;div style=\"border:solid 1px rgba(0,0,0,0.2);font-family:'Source Sans Pro', 'Helvetica Neue', 'Lucida Sans', sans-serif;\"&gt;&lt;img src=\"https://d1qbqkkh49kht1.cloudfront.net/c66c2dc1d96e2ac46b9722b1a2524c10.png\" style=\"width:100%\"&gt;&lt;div style=\"text-align:left;margin-top:10px;font-size: 15px;padding:0px 30px 0px 30px\"&gt;Hi,&lt;br&gt;&lt;div style=\"margin-top: 10px;\"&gt;You have redeemed _POINTS_REDEEMED_ loyalty points from your account at &lt;a href=\"_MERCHANT_WEB_URL_\" target=\"_blank\"&gt;_MERCHANT_NAME_&lt;/a&gt;.&lt;br&gt;&lt;br&gt;&lt;a href=\"_USER_DASHBOARD_URL_\" target=\"_blank\"&gt;Click here&lt;/a&gt; to log in and check your loyalty points status and to redeem more points.&lt;/div&gt;&lt;div style=\"text-align:left;margin-top: 15px;font-size:15px;\"&gt;Thank you.&lt;br&gt;&lt;br&gt;Thanks,&lt;br&gt;_MERCHANT_NAME_ Team&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"loyalty_redemption_card_img"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d1qbqkkh49kht1.cloudfront.net/b32b7803e9bbcf6b8e9b8d8ce1be7224.png"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07-Dec-2016 12:17:02"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"giftcard_coupon_codes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a,b,c,d,e,f,g,h,i"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5847fdbeb0207a60ce2facf1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"giftcard_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"giftcard_description"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"terms_and_conds_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terms_and_conds_text"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"after_redemption_html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;div class=\"coupon_code_div\"&gt;_COUPON_CODE_&lt;/div&gt;&lt;div style=\"margin-top: 15px;\"&gt; A copy of the code has been emailed to _USER_EMAIL_.&lt;/div&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"associated_levels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"all"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"send_redemption_email"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"coupon_expiry_trigger"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"enable_coupon_based_incentive"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redemption_instructions"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_email_subject"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Redemption Confirmation Receipt - _MERCHANT_NAME_ Loyalty Program"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"coupon_expiry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01-Jan-2018"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c75d9a44221ac904ddadb81766786b34"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"show_redemption_in_user_dashboard"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"show_on_merchant_center"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redemption_name"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"coupon_expiry_delta"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"allowed_redeem_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07-Dec-2016 12:17:03"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redemption_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_redemption"</span><span class="w">
+  </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+
+<p>View a list of all the redemption options that are currently configured.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">GET  https://api.shopsocially.com/v2/loyalty/redemptions</code></p>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>redemption_email_html</td>
+<td>string</td>
+<td>Redemption Email HTML</td>
+</tr>
+<tr>
+<td>loyalty_redemption_card_img</td>
+<td>string</td>
+<td>Loyalty Redemption Card Image</td>
+</tr>
+<tr>
+<td>created_time</td>
+<td>string</td>
+<td>Redemption creation time</td>
+</tr>
+<tr>
+<td>giftcard_coupon_codes</td>
+<td>string</td>
+<td>Giftcard Coupons entered</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Internal ID</td>
+</tr>
+<tr>
+<td>giftcard_description</td>
+<td>string</td>
+<td>Giftcard Description</td>
+</tr>
+<tr>
+<td>terms_and_conds_text</td>
+<td>string</td>
+<td>Terms and Conditions</td>
+</tr>
+<tr>
+<td>after_redemption_html</td>
+<td>string</td>
+<td>After redemption HTML</td>
+</tr>
+<tr>
+<td>associated_levels</td>
+<td>array</td>
+<td>Levels Associated with the Redemption</td>
+</tr>
+<tr>
+<td>send_redemption_email</td>
+<td>boolean</td>
+<td>Indicates whether the redemption email is to be sent or not (true/false)</td>
+</tr>
+<tr>
+<td>redemption_value</td>
+<td>number</td>
+<td>Points to be deducted after redemption</td>
+</tr>
+<tr>
+<td>coupon_expiry_trigger</td>
+<td>string</td>
+<td>Coupon Expiry Trigger</td>
+</tr>
+<tr>
+<td>is_active</td>
+<td>boolean</td>
+<td>Indicates whether the redemption option is active or not (true/false)</td>
+</tr>
+<tr>
+<td>enable_coupon_based_incentive</td>
+<td>boolean</td>
+<td>Indicates whether coupon based incentive is enabled or not (true/false)</td>
+</tr>
+<tr>
+<td>redemption_instructions</td>
+<td>string</td>
+<td>Redemption instructions</td>
+</tr>
+<tr>
+<td>redemption_email_subject</td>
+<td>string</td>
+<td>Redemption Email Subject</td>
+</tr>
+<tr>
+<td>coupon_expiry</td>
+<td>string</td>
+<td>Coupon Expiry</td>
+</tr>
+<tr>
+<td>merchant_id</td>
+<td>string</td>
+<td>Merchant ID</td>
+</tr>
+<tr>
+<td>show_redemption_in_user_dashboard</td>
+<td>boolean</td>
+<td>Indicates whether the redemption option is to be shown on the user dashboard (true/false)</td>
+</tr>
+<tr>
+<td>show_on_merchant_center</td>
+<td>boolean</td>
+<td>Indicates whether the redemption option is to be shown on the merchant center (true/false)</td>
+</tr>
+<tr>
+<td>coupon_expiry_delta</td>
+<td>number</td>
+<td>Number of days before coupon expires</td>
+</tr>
+<tr>
+<td>allowed_redeem_points</td>
+<td>string</td>
+<td>Allowed Redeem points</td>
+</tr>
+<tr>
+<td>updated_time</td>
+<td>string</td>
+<td>Redemption option updation time</td>
+</tr>
+<tr>
+<td>redemption_id</td>
+<td>string</td>
+<td>Redemption ID</td>
+</tr>
+</tbody></table>
 
 <h2 id="returns">Returns</h2>
 <pre class="highlight shell"><code>curl -X POST --header <span class="s2">"partner-id: &lt;your-partner-id&gt;"</span> 
@@ -1934,7 +2880,7 @@ Any or all of the below listed fields (query parameters table) can be updated by
 
 </span></code></pre>
 
-<p>The Returns API can be used to deduct points of a user when the user returns an order.</p>
+<p>Deduct points of a user when the user returns an order.</p>
 
 <p><strong>HTTP Request</strong></p>
 
