@@ -930,12 +930,468 @@ updated_time | string | The time when the activity configuration was last modifi
 
 
 ## Redemptions
+The Activities API lets you create an redemption, update redemption configurations, get details of a particular redemption and get the list of all redemptions for a merchant.
 
-Work in Progress
+### Create Redemption
 
-## Levels
+```shell
+curl -X POST --header "partner-id: <your-partner-id>" 
+--header "api-key: <your-api-key>" 
+--data "redemption_id: <redemption_id>" 
+--data "redemption_name: <redemption_name>" 
+--data "is_active: <redemption_status>" 
+--data "allowed_redeem_points: <allowed_redeem_points>" 
+--data "redemption_value: <redemption_value>" 
+--data "giftcard_description: <giftcard_description>" 
+--data "terms_and_conds_text: <terms_and_conds_text>" 
+--data "redemption_instructions: <redemption_instructions>" 
+--data "giftcard_coupon_codes: <giftcard_coupon_codes>" 
+--data "coupon_expiry: <coupon_expiry>" 
+--data "returned_amount: <returned_amount>" 
+"https://api.shopsocially.com/v2/loyalty/redemptions"
+```
 
-Work in Progress
+```python
+import requests
+import json
+
+headers = {'partner-id': <your-partner-id>, 
+           'api-key': <your-api-key>}
+
+payload = json.dumps({
+"redemption_id": "<redemption_id>",
+"redemption_name": "<redemption_name>",
+"is_active": "<redemption_status>",
+"allowed_redeem_points": "<allowed_redeem_points>",
+"redemption_value": "<redemption_value>",
+"giftcard_description": "<giftcard_description>",
+"terms_and_conds_text": "<terms_and_conds_text>",
+"redemption_instructions": "<redemption_instructions>",
+"giftcard_coupon_codes": "<giftcard_coupon_codes>",
+"coupon_expiry": "<coupon_expiry>",
+"returned_amount": "<returned_amount>"})
+
+response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/transaction/return",
+                        headers = headers, data = payload)
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+    "redemption_email_html": "<div style=\"border:solid 1px rgba(0,0,0,0.2);font-family:'Source Sans Pro', 'Helvetica Neue', 'Lucida Sans', sans-serif;\"><img src=\"https://d1qbqkkh49kht1.cloudfront.net/c66c2dc1d96e2ac46b9722b1a2524c10.png\" style=\"width:100%\"><div style=\"text-align:left;margin-top:10px;font-size: 15px;padding:0px 30px 0px 30px\">Hi,<br><div style=\"margin-top: 10px;\">You have redeemed _POINTS_REDEEMED_ loyalty points from your account at <a href=\"_MERCHANT_WEB_URL_\" target=\"_blank\">_MERCHANT_NAME_</a>.<br><br><a href=\"_USER_DASHBOARD_URL_\" target=\"_blank\">Click here</a> to log in and check your loyalty points status and to redeem more points.</div><div style=\"text-align:left;margin-top: 15px;font-size:15px;\">Thank you.<br><br>Thanks,<br>_MERCHANT_NAME_ Team<br><br></div></div>",
+    "loyalty_redemption_card_img": "https://d1qbqkkh49kht1.cloudfront.net/b32b7803e9bbcf6b8e9b8d8ce1be7224.png",
+    "created_time": "07-Dec-2016 12:17:02",
+    "giftcard_coupon_codes": "a,b,c,d,e,f,g,h,i",
+    "id": "5847fdbeb0207a60ce2facf1",
+    "giftcard_description": "giftcard_description",
+    "terms_and_conds_text": "terms_and_conds_text",
+    "after_redemption_html": "<div class=\"coupon_code_div\">_COUPON_CODE_</div><div style=\"margin-top: 15px;\"> A copy of the code has been emailed to _USER_EMAIL_.</div>",
+    "associated_levels": [
+      "all"
+    ],
+    "send_redemption_email": true,
+    "redemption_value": "10",
+    "coupon_expiry_trigger": 0,
+    "is_active": false,
+    "enable_coupon_based_incentive": true,
+    "redemption_instructions": "redemption_instructions",
+    "redemption_email_subject": "Redemption Confirmation Receipt - _MERCHANT_NAME_ Loyalty Program",
+    "coupon_expiry": "01-Jan-2018",
+    "merchant_id": "c75d9a44221ac904ddadb81766786b34",
+    "show_redemption_in_user_dashboard": true,
+    "show_on_merchant_center": true,
+    "redemption_name": "redemption_name",
+    "coupon_expiry_delta": 7,
+    "allowed_redeem_points": 100,
+    "updated_time": "07-Dec-2016 12:17:03",
+    "redemption_id": "test_redemption"
+  },
+  "success": true
+}
+
+```
+The Create Redemption API can be used to create a redemtion options.
+
+**HTTP Request**
+
+`POST  https://api.shopsocially.com/v2/loyalty/redemptions`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+redemption_id | string | Yes | Redemption ID.
+redemption_name | integer | Yes | The name of the redemption which will be displayed to the user.
+is_active | boolean | No | Should the redemption option be active or paused.<br>(Input as true/false.Default value is false)
+allowed_redeem_points | number | Yes | The number of points to be deducted when user redeems.
+redemption_value | number | Yes | The monetary value associated with the redemption.
+giftcard_description | string | Yes | The description of the giftcard/ coupon which will be shown to the user.
+terms_and_conds_text | string | Yes | The terms and conditions text users have to agree to at the time of redemption.
+redemption_instructions | string | No | The redemption instructions displayed to the users.
+giftcard_coupon_codes | string | Yes | One time coupon codes to be issued when user redeems.<br>(comma separated)
+coupon_expiry | string | Yes | The expiry date of the coupons.<br>(Format:DD-MMM-YYYY)
+
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+redemption_email_html| string | Redemption Email HTML
+loyalty_redemption_card_img| string | Loyalty Redemption Card Image
+created_time| string | Redemption creation time
+giftcard_coupon_codes| string | Giftcard Coupons entered
+id| string | Internal ID
+giftcard_description| string | Giftcard Description
+terms_and_conds_text| string | Terms and Conditions
+after_redemption_html| string | After redemption HTML
+associated_levels| array | Levels Associated with the Redemption
+send_redemption_email| boolean | Send Redemption Email
+redemption_value| number | Points to be deducted of redemption
+coupon_expiry_trigger| string | Coupon Expiry Trigger
+is_active| boolean | Notifies if the Redemption Option is active or not
+enable_coupon_based_incentive| boolean | Coupon based incentive is enabled or not
+redemption_instructions| string | Redemption instructions
+redemption_email_subject| string | Redemption Email Subject
+coupon_expiry| string | Coupon Expiry
+merchant_id| string | Merchant ID
+show_redemption_in_user_dashboard| boolean | To show the redemption option in the user dashboard
+show_on_merchant_center| boolean | To show the redemption option in the merchant center
+redemption_name| string | Redemption Name
+coupon_expiry_delta| number | Number of days before coupon expires
+allowed_redeem_points| string | Allowed Redeem points
+updated_time| string | Redemption option updation time
+redemption_id| string | Redemption ID
+
+
+### Update Redemption
+
+```shell
+curl -X PUT --header "partner-id: <your-partner-id>" 
+--header "api-key: <your-api-key>" 
+--data "redemption_name: <redemption_name>" 
+--data "is_active: <redemption_status>" 
+--data "allowed_redeem_points: <allowed_redeem_points>" 
+--data "redemption_value: <redemption_value>" 
+--data "giftcard_description: <giftcard_description>" 
+--data "terms_and_conds_text: <terms_and_conds_text>" 
+--data "redemption_instructions: <redemption_instructions>" 
+--data "giftcard_coupon_codes: <giftcard_coupon_codes>" 
+--data "coupon_expiry: <coupon_expiry>" 
+--data "returned_amount: <returned_amount>" 
+"https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': <your-partner-id>, 
+           'api-key': <your-api-key>}
+
+payload = json.dumps({
+"redemption_name": "<redemption_name>",
+"is_active": "<redemption_status>",
+"allowed_redeem_points": "<allowed_redeem_points>",
+"redemption_value": "<redemption_value>",
+"giftcard_description": "<giftcard_description>",
+"terms_and_conds_text": "<terms_and_conds_text>",
+"redemption_instructions": "<redemption_instructions>",
+"giftcard_coupon_codes": "<giftcard_coupon_codes>",
+"coupon_expiry": "<coupon_expiry>",
+"returned_amount": "<returned_amount>"})
+
+response = requests.put(url = "https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}",
+                        headers = headers, data = payload)
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+    "redemption_email_html": "<div style=\"border:solid 1px rgba(0,0,0,0.2);font-family:'Source Sans Pro', 'Helvetica Neue', 'Lucida Sans', sans-serif;\"><img src=\"https://d1qbqkkh49kht1.cloudfront.net/c66c2dc1d96e2ac46b9722b1a2524c10.png\" style=\"width:100%\"><div style=\"text-align:left;margin-top:10px;font-size: 15px;padding:0px 30px 0px 30px\">Hi,<br><div style=\"margin-top: 10px;\">You have redeemed _POINTS_REDEEMED_ loyalty points from your account at <a href=\"_MERCHANT_WEB_URL_\" target=\"_blank\">_MERCHANT_NAME_</a>.<br><br><a href=\"_USER_DASHBOARD_URL_\" target=\"_blank\">Click here</a> to log in and check your loyalty points status and to redeem more points.</div><div style=\"text-align:left;margin-top: 15px;font-size:15px;\">Thank you.<br><br>Thanks,<br>_MERCHANT_NAME_ Team<br><br></div></div>",
+    "loyalty_redemption_card_img": "https://d1qbqkkh49kht1.cloudfront.net/b32b7803e9bbcf6b8e9b8d8ce1be7224.png",
+    "created_time": "07-Dec-2016 12:17:02",
+    "giftcard_coupon_codes": "a,b,c,d,e,f,g,h,i",
+    "id": "5847fdbeb0207a60ce2facf1",
+    "giftcard_description": "giftcard_description",
+    "terms_and_conds_text": "terms_and_conds_text",
+    "after_redemption_html": "<div class=\"coupon_code_div\">_COUPON_CODE_</div><div style=\"margin-top: 15px;\"> A copy of the code has been emailed to _USER_EMAIL_.</div>",
+    "associated_levels": [
+      "all"
+    ],
+    "send_redemption_email": true,
+    "redemption_value": "10",
+    "coupon_expiry_trigger": 0,
+    "is_active": false,
+    "enable_coupon_based_incentive": true,
+    "redemption_instructions": "redemption_instructions",
+    "redemption_email_subject": "Redemption Confirmation Receipt - _MERCHANT_NAME_ Loyalty Program",
+    "coupon_expiry": "01-Jan-2018",
+    "merchant_id": "c75d9a44221ac904ddadb81766786b34",
+    "show_redemption_in_user_dashboard": true,
+    "show_on_merchant_center": true,
+    "redemption_name": "redemption_name",
+    "coupon_expiry_delta": 7,
+    "allowed_redeem_points": 100,
+    "updated_time": "07-Dec-2016 12:17:03",
+    "redemption_id": "test_redemption"
+  },
+  "success": true
+}
+
+```
+Update any of the configured redemption options using the Redemption option ID.
+
+**HTTP Request**
+
+`PUT  https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+redemption_name | integer | No | The name of the redemption which will be displayed to the user.
+is_active | boolean | No | Should the redemption option be active or paused.<br>(Input as true/false.Default value is false)
+allowed_redeem_points | number | No | The number of points to be deducted when user redeems.
+redemption_value | number | No | The monetary value associated with the redemption.
+giftcard_description | string | No | The description of the giftcard/ coupon which will be shown to the user.
+terms_and_conds_text | string | No | The terms and conditions text users have to agree to at the time of redemption.
+redemption_instructions | string | No | The redemption instructions displayed to the users.
+giftcard_coupon_codes | string | No | One time coupon codes to be issued when user redeems.<br>(comma separated)
+coupon_expiry | string | No | The expiry date of the coupons.<br>(Format:DD-MMM-YYYY)
+
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+redemption_email_html| string | Redemption Email HTML
+loyalty_redemption_card_img| string | Loyalty Redemption Card Image
+created_time| string | Redemption creation time
+giftcard_coupon_codes| string | Giftcard Coupons entered
+id| string | Internal ID
+giftcard_description| string | Giftcard Description
+terms_and_conds_text| string | Terms and Conditions
+after_redemption_html| string | After redemption HTML
+associated_levels| array | Levels Associated with the Redemption
+send_redemption_email| boolean | Send Redemption Email
+redemption_value| number | Points to be deducted of redemption
+coupon_expiry_trigger| string | Coupon Expiry Trigger
+is_active| boolean | Notifies if the Redemption Option is active or not
+enable_coupon_based_incentive| boolean | Coupon based incentive is enabled or not
+redemption_instructions| string | Redemption instructions
+redemption_email_subject| string | Redemption Email Subject
+coupon_expiry| string | Coupon Expiry
+merchant_id| string | Merchant ID
+show_redemption_in_user_dashboard| boolean | To show the redemption option in the user dashboard
+show_on_merchant_center| boolean | To show the redemption option in the merchant center
+redemption_name| string | Redemption Name
+coupon_expiry_delta| number | Number of days before coupon expires
+allowed_redeem_points| string | Allowed Redeem points
+updated_time| string | Redemption option updation time
+redemption_id| string | Redemption ID
+
+
+### Get Redemption
+
+```shell
+curl -X GET --header "partner-id: <your-partner-id>" 
+--header "api-key: <your-api-key>" 
+--data "redemption_id: <redemption id of the redemption option>" 
+"https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': <your-partner-id>, 
+           'api-key': <your-api-key>}
+
+payload = json.dumps({"redemption_id": <redemption id of the redemption option>})
+
+response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}",
+                        headers = headers, data = payload)
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+    "redemption_email_html": "<div style=\"border:solid 1px rgba(0,0,0,0.2);font-family:'Source Sans Pro', 'Helvetica Neue', 'Lucida Sans', sans-serif;\"><img src=\"https://d1qbqkkh49kht1.cloudfront.net/c66c2dc1d96e2ac46b9722b1a2524c10.png\" style=\"width:100%\"><div style=\"text-align:left;margin-top:10px;font-size: 15px;padding:0px 30px 0px 30px\">Hi,<br><div style=\"margin-top: 10px;\">You have redeemed _POINTS_REDEEMED_ loyalty points from your account at <a href=\"_MERCHANT_WEB_URL_\" target=\"_blank\">_MERCHANT_NAME_</a>.<br><br><a href=\"_USER_DASHBOARD_URL_\" target=\"_blank\">Click here</a> to log in and check your loyalty points status and to redeem more points.</div><div style=\"text-align:left;margin-top: 15px;font-size:15px;\">Thank you.<br><br>Thanks,<br>_MERCHANT_NAME_ Team<br><br></div></div>",
+    "loyalty_redemption_card_img": "https://d1qbqkkh49kht1.cloudfront.net/b32b7803e9bbcf6b8e9b8d8ce1be7224.png",
+    "created_time": "07-Dec-2016 12:17:02",
+    "giftcard_coupon_codes": "a,b,c,d,e,f,g,h,i",
+    "id": "5847fdbeb0207a60ce2facf1",
+    "giftcard_description": "giftcard_description",
+    "terms_and_conds_text": "terms_and_conds_text",
+    "after_redemption_html": "<div class=\"coupon_code_div\">_COUPON_CODE_</div><div style=\"margin-top: 15px;\"> A copy of the code has been emailed to _USER_EMAIL_.</div>",
+    "associated_levels": [
+      "all"
+    ],
+    "send_redemption_email": true,
+    "redemption_value": "10",
+    "coupon_expiry_trigger": 0,
+    "is_active": false,
+    "enable_coupon_based_incentive": true,
+    "redemption_instructions": "redemption_instructions",
+    "redemption_email_subject": "Redemption Confirmation Receipt - _MERCHANT_NAME_ Loyalty Program",
+    "coupon_expiry": "01-Jan-2018",
+    "merchant_id": "c75d9a44221ac904ddadb81766786b34",
+    "show_redemption_in_user_dashboard": true,
+    "show_on_merchant_center": true,
+    "redemption_name": "redemption_name",
+    "coupon_expiry_delta": 7,
+    "allowed_redeem_points": 100,
+    "updated_time": "07-Dec-2016 12:17:03",
+    "redemption_id": "test_redemption"
+  },
+  "success": true
+}
+
+```
+The Get Redemption API can be used to View details about a particular redemption option using the Redemption Option ID.
+
+**HTTP Request**
+
+`GET  https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+redemption_id | string | Yes | Redemption ID.
+
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+redemption_email_html| string | Redemption Email HTML
+loyalty_redemption_card_img| string | Loyalty Redemption Card Image
+created_time| string | Redemption creation time
+giftcard_coupon_codes| string | Giftcard Coupons entered
+id| string | Internal ID
+giftcard_description| string | Giftcard Description
+terms_and_conds_text| string | Terms and Conditions
+after_redemption_html| string | After redemption HTML
+associated_levels| array | Levels Associated with the Redemption
+send_redemption_email| boolean | Send Redemption Email
+redemption_value| number | Points to be deducted of redemption
+coupon_expiry_trigger| string | Coupon Expiry Trigger
+is_active| boolean | Notifies if the Redemption Option is active or not
+enable_coupon_based_incentive| boolean | Coupon based incentive is enabled or not
+redemption_instructions| string | Redemption instructions
+redemption_email_subject| string | Redemption Email Subject
+coupon_expiry| string | Coupon Expiry
+merchant_id| string | Merchant ID
+show_redemption_in_user_dashboard| boolean | To show the redemption option in the user dashboard
+show_on_merchant_center| boolean | To show the redemption option in the merchant center
+redemption_name| string | Redemption Name
+coupon_expiry_delta| number | Number of days before coupon expires
+allowed_redeem_points| string | Allowed Redeem points
+updated_time| string | Redemption option updation time
+redemption_id| string | Redemption ID
+
+
+### Get All Redemptions
+
+```shell
+curl -X GET --header "partner-id: <your-partner-id>" 
+--header "api-key: <your-api-key>" 
+"https://api.shopsocially.com/v2/loyalty/redemptions"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': <your-partner-id>, 
+           'api-key': <your-api-key>}
+
+response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/redemptions", headers = headers)
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+    "redemption_email_html": "<div style=\"border:solid 1px rgba(0,0,0,0.2);font-family:'Source Sans Pro', 'Helvetica Neue', 'Lucida Sans', sans-serif;\"><img src=\"https://d1qbqkkh49kht1.cloudfront.net/c66c2dc1d96e2ac46b9722b1a2524c10.png\" style=\"width:100%\"><div style=\"text-align:left;margin-top:10px;font-size: 15px;padding:0px 30px 0px 30px\">Hi,<br><div style=\"margin-top: 10px;\">You have redeemed _POINTS_REDEEMED_ loyalty points from your account at <a href=\"_MERCHANT_WEB_URL_\" target=\"_blank\">_MERCHANT_NAME_</a>.<br><br><a href=\"_USER_DASHBOARD_URL_\" target=\"_blank\">Click here</a> to log in and check your loyalty points status and to redeem more points.</div><div style=\"text-align:left;margin-top: 15px;font-size:15px;\">Thank you.<br><br>Thanks,<br>_MERCHANT_NAME_ Team<br><br></div></div>",
+    "loyalty_redemption_card_img": "https://d1qbqkkh49kht1.cloudfront.net/b32b7803e9bbcf6b8e9b8d8ce1be7224.png",
+    "created_time": "07-Dec-2016 12:17:02",
+    "giftcard_coupon_codes": "a,b,c,d,e,f,g,h,i",
+    "id": "5847fdbeb0207a60ce2facf1",
+    "giftcard_description": "giftcard_description",
+    "terms_and_conds_text": "terms_and_conds_text",
+    "after_redemption_html": "<div class=\"coupon_code_div\">_COUPON_CODE_</div><div style=\"margin-top: 15px;\"> A copy of the code has been emailed to _USER_EMAIL_.</div>",
+    "associated_levels": [
+      "all"
+    ],
+    "send_redemption_email": true,
+    "redemption_value": "10",
+    "coupon_expiry_trigger": 0,
+    "is_active": false,
+    "enable_coupon_based_incentive": true,
+    "redemption_instructions": "redemption_instructions",
+    "redemption_email_subject": "Redemption Confirmation Receipt - _MERCHANT_NAME_ Loyalty Program",
+    "coupon_expiry": "01-Jan-2018",
+    "merchant_id": "c75d9a44221ac904ddadb81766786b34",
+    "show_redemption_in_user_dashboard": true,
+    "show_on_merchant_center": true,
+    "redemption_name": "redemption_name",
+    "coupon_expiry_delta": 7,
+    "allowed_redeem_points": 100,
+    "updated_time": "07-Dec-2016 12:17:03",
+    "redemption_id": "test_redemption"
+  }, ...
+  "success": true
+}
+
+```
+The Get All Redemptions API can be used to View a list of all the redemption options that are currently configured.
+
+**HTTP Request**
+
+`GET  https://api.shopsocially.com/v2/loyalty/redemptions`
+
+**Query Parameters**
+
+No Query parameters required
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+redemption_email_html| string | Redemption Email HTML
+loyalty_redemption_card_img| string | Loyalty Redemption Card Image
+created_time| string | Redemption creation time
+giftcard_coupon_codes| string | Giftcard Coupons entered
+id| string | Internal ID
+giftcard_description| string | Giftcard Description
+terms_and_conds_text| string | Terms and Conditions
+after_redemption_html| string | After redemption HTML
+associated_levels| array | Levels Associated with the Redemption
+send_redemption_email| boolean | Send Redemption Email
+redemption_value| number | Points to be deducted of redemption
+coupon_expiry_trigger| string | Coupon Expiry Trigger
+is_active| boolean | Notifies if the Redemption Option is active or not
+enable_coupon_based_incentive| boolean | Coupon based incentive is enabled or not
+redemption_instructions| string | Redemption instructions
+redemption_email_subject| string | Redemption Email Subject
+coupon_expiry| string | Coupon Expiry
+merchant_id| string | Merchant ID
+show_redemption_in_user_dashboard| boolean | To show the redemption option in the user dashboard
+show_on_merchant_center| boolean | To show the redemption option in the merchant center
+redemption_name| string | Redemption Name
+coupon_expiry_delta| number | Number of days before coupon expires
+allowed_redeem_points| string | Allowed Redeem points
+updated_time| string | Redemption option updation time
+redemption_id| string | Redemption ID
 
 ## Returns
 
