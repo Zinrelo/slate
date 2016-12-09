@@ -384,7 +384,7 @@ response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/transacti
 }
 ```
 
-Gets list of all transactions in the given period
+Fetch list of all transactions in the given period
 
 **HTTP Request**
 
@@ -475,7 +475,7 @@ response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/transacti
 }
 ```
 
-This API can be used to view details about any transaction. The transaction ID will be used to fetch this data.
+View details about any transaction. The transaction ID will be used to fetch this data.
 
 
 **HTTP Request**
@@ -506,93 +506,13 @@ approved_by | string | Name of admin who approved the transaction
 created_time| string | The time when the transaction was created
 updated_time| string | The time when the transaction was updated
 partner_id| string | The id of the merchant
+
 ## Users
 
 Work in Progress
 
 ## Activities
 The Activities API lets you create an activity, update activity configurations, get details of a particular activity and get the list of all activities for a merchant.
-
-### Get All Activities
-```shell
-curl -X GET --header "partner-id: <your-partner-id>" 
---header "api-key: <your-api-key>" 
-"https://api.shopsocially.com/v2/loyalty/activities"
-```
-
-```python
-import requests
-import json
-
-headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
-           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
-
-response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/activities",
-                        headers = headers)
-```
-
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "data":[
-			{
-			"id":"56655832418a580281c2c41c",
-			"activity_id":"shared_via_email",
-			"activity_name":"Share via Email",
-			"activity_description":"Earn points when you share our website with your friends via email.",
-			"activity_type":"fixed",
-			"approval_method":"immediate",
-			"bonus_multiplier":1,
-			"created_time":"07-Dec-2015 09:58:10",
-			"is_active":true,
-			"is_sale_activity":false,
-			"max_award_frequency":100,
-			"max_award_frequency_interval":"day",
-			"merchant_id":"c75d9a44221ac904ddadb81766786b34",
-			"points_earning_url":"",
-			"points_per_activity":100,
-			"qualified_points":true,
-			"show_activity_in_user_dashboard":true,
-			"ss_internal":true,
-			"updated_time":"31-Aug-2016 05:10:21"
-			},
-			{...}
-  ],
-  "success":true
-}
-```
-This API can be used to view a list of all configured activities for which customers can earn loyalty points.
-
-**HTTP Request**
-
-`GET  https://api.shopsocially.com/v2/loyalty/activities`
-
-
-**Response Body**
-
-Attribute | Type | Description
---------- | ---- | -----------
-id| string | Internal id
-activity_id| string | Unique id generated for each activity
-activity_name | string | The name of the activity
-activity_description | string | The description about activity
-activity_type | string | Whether the activity should award fixed number of points or use a multiplier (fixed/bonus_multiplier)
-approval_method | string | User transaction approval method (immediate/manual/monthly).
-bonus_multiplier | integer | Multiplication factor to award points instead of awarding fixed points 
-created_time | string | The time when the activity was created
-is_active | string | Indicates if an activity is active or paused (true/false)
-is_sale_activity | string | Indicates if an activity is a sale activity (true/false)
-max_award_frequency | integer | The maximum number of times a user will be awarded points
-max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)
-merchant_id | string | The id of the merchant
-points_earning_url | string | Merchant's website page url where the activity will be configured.
-point_per_activity | integer | Fixed number of points to be awarded for an activity
-qualified_points | string | Indicates if the activity is qualified for tier upgrade (true/false)
-show_activity_in_user_dashboard | string | Indicates if the activity is to be shown on the end user dashboard (true/false).
-ss_internal | string | Indicates whether an activity is an internal activity (true/false)
-updated_time | string | The time when activity configuration was last modified
 
 
 ### Create Activity
@@ -676,7 +596,7 @@ response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/activiti
   "success":true
 }
 ```
-This API can be used to create a new activity which will earn loyalty points for customers.
+Create a new activity which will earn loyalty points for customers.
 
 
 **HTTP Request**
@@ -697,10 +617,10 @@ bonus_multiplier | integer | No | Multiplication factor to <br>award points inst
 points_per_activity | integer | No | Fixed number of points to be awarded for an activity<br>(defaults to 1)
 points_earning_url | string | No | Merchant's website page url where the activity will be configured
 approval_method | string | Yes | User transaction approval method (immediate/<br>manual/monthly)
-is_active | string | Yes | Whether the activity should be active or paused<br>(defaults to true)
-is_sale_activity | string | No | Whether the activity should be a sale activity (defaults to false)
-qualified_points | string | No | Whether the activity should be qualified for tier upgrade (defaults to true)
-show_activity_in_user_dashboard | string | No | Whether the activity should be shown in user dashboard (defaults to true)
+is_active | boolean | Yes | Whether the activity should be active or paused<br>(defaults to true)
+is_sale_activity | boolean | No | Whether the activity should be a sale activity (defaults to false)
+qualified_points | boolean | No | Whether the activity should be qualified for tier upgrade (defaults to true)
+show_activity_in_user_dashboard | boolean | No | Whether the activity should be shown in user dashboard (defaults to true)
 
 **Response Body**
 
@@ -715,17 +635,135 @@ activity_type | string | Whether the activity should award fixed number of point
 approval_method | string | User transaction approval method (immediate/manual/monthly).
 bonus_multiplier | integer | Multiplication factor to award points instead of awarding fixed points 
 created_time | string | The time when activity is created_time
-is_active | string | Indicates whether the activity is active or paused (true/false)
-is_sale_activity | string | Indicates if the activity is a purchase activity (true/false)
+is_active | boolean | Indicates whether the activity is active or paused (true/false)
+is_sale_activity | boolean | Indicates if the activity is a purchase activity (true/false)
 loyalty_activity_img | string | The image url of an activity
 max_award_frequency | integer | The maximum number of times a user will be awarded points
 max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)
 points_earning_url | string | Merchant's website page url where the activity will be configured
 point_per_activity | integer | Fixed number of points to be awarded for an activity
-qualified_points | string | Indicates if the activity is qualified for tier upgrade (true/false)
-show_activity_in_user_dashboard | string | Indicates if the activity is to be shown on the end user dashboard (true/false)
-ss_internal | string | Indicates whether an activity is an internal activity (true/false)
+qualified_points | boolean | Indicates if the activity is qualified for tier upgrade (true/false)
+show_activity_in_user_dashboard | boolean | Indicates if the activity is to be shown on the end user dashboard (true/false)
+ss_internal | boolean | Indicates whether an activity is an internal activity (true/false)
 updated_time | string | The time when activity configuration was last modified
+
+### Update Activity
+```shell
+curl -X PUT --header "partner-id: <your-partner-id>"
+--header "api-key: <your-api-key>" 
+--data "activity_name= <Activity Name>"
+--data "activity_description= <Activity Description>"
+--data "activity_type = <Activity type>"
+--data "max_award_frequency = <Max Award Frequency>"
+--data "max_award_frequency_interval = <Max Award Frequency Interval>"
+--data "bonus_multiplier = <Bonus Multiplier>"
+--data "points_per_activity = <Points to be awarded>"
+--data "approval_method = <Award Approval Method>"
+--data "is_active = <Activity State>"
+"https://api.shopsocially.com/v2/loyalty/activities/{activity_id}"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
+
+payload = json.dumps({
+  "activity_name" : "Share via Email",
+  "activity_description" : "Earn points when you share our website 
+          with your friends via email.",
+  "activity_type" : "fixed",
+  "max_award_frequency" : 100,
+  "max_award_frequency_interval" : "day",
+  "bonus_multiplier": 1,
+  "points_per_activity": 100,
+  "approval_method": "immediate",
+  "is_active": true
+})
+
+response = requests.put(url = "https://api.shopsocially.com/v2/loyalty/activities/{activity_id}",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data":{
+    "id":"56655832418a580281c2c41c",
+    "activity_id":"shared_via_email",
+    "activity_name":"Share via Email",
+    "activity_description":"Earn points when you share our website with your friends via email.",
+    "activity_type":"fixed",
+    "approval_method":"immediate",
+    "bonus_multiplier":1,
+    "created_time":"07-Dec-2015 09:58:10",
+    "fixed_duration_period":30,
+    "is_active":true,
+    "is_sale_activity":false,
+    "loyalty_activity_img":"https://d1qbqkkh49kht1.cloudfront.net/dc79fd08611160b9176d0d4b5c3f506f.png",
+    "max_award_frequency":100,
+    "max_award_frequency_interval":"day",
+    "merchant_id":"c75d9a44221ac904ddadb81766786b34",
+    "points_earning_url":"",
+    "points_per_activity":100,
+    "qualified_points":true,
+    "show_activity_in_user_dashboard":true,
+    "show_on_merchant_center":true,
+    "ss_internal":true,
+    "updated_time":"31-Aug-2016 05:10:21"
+  },
+  "success":true
+}
+```
+Update an activity configuration by passing the activity ID.
+Any or all of the below listed fields (query parameters table) can be updated by passing in the adequate parameter.
+
+**HTTP Request**
+
+`PUT  https://api.shopsocially.com/v2/loyalty/activities/{activity_id}`
+
+**Query Parameters**
+
+Parameter | Type | Description
+--------- | ---- | -----------
+activity_name | string |  The name of the activity
+activity_description | string |  Description of the activity
+activity_type | string | Whether the activity should award fixed number of points or use a multiplier (fixed/bonus_multiplier)
+max_award_frequency | integer |  The maximum number of times a user will be awarded points
+max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)
+bonus_multiplier | integer | Multiplication factor to award points instead of awarding fixed points (defaults to 1)
+points_per_activity | integer | Fixed number of points to be awarded for an activity (defaults to 1)
+approval_method | string | User transaction approval method (immediate/manual/monthly)
+is_active | boolean | Whether the activity should be active or paused (defaults to true)
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+id| string | Internal id
+activity_id| string | Unique id generated for each activity
+activity_name | string | The name of activity
+activity_description | string | The description of the activity
+activity_type | string | Whether the activity should award fixed number of points or use a multiplier(fixed/bonus_multiplier).
+approval_method | string | User transaction approval method (immediate/manual/monthly).
+bonus_multiplier | integer | Multiplication factor to award points instead of awarding fixed points 
+created_time | string | The time when activity is created_time
+is_active | boolean | Indicates whether the activity is active or paused (true/false)
+is_sale_activity | boolean | Indicates if the activity is a purchase activity (true/false)
+loyalty_activity_img | string | The image url of an activity
+max_award_frequency | integer | The maximum number of times a user will be awarded points
+max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime).
+merchant_id | string | The id of the merchant
+points_earning_url | string | Merchant's website page url where the activity will be configured
+point_per_activity | integer | Fixed number of points to be awarded for an activity
+qualified_points | boolean | Indicates if the activity is qualified for tier upgrade (true/false)
+show_activity_in_user_dashboard | boolean | Indicates if the activity is to be shown in the end user dashboard (true/false)
+ss_internal | boolean | Indicates whether an activity is an internal activity (true/false)
+updated_time | string | The time when the activity configuration was last modified
 
 
 ### Get Activity
@@ -777,7 +815,7 @@ response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/activitie
   "success":true
 }
 ```
-This API can be used to view details about any activity. The activity ID will be used to fetch this data.
+View details about any activity. The activity ID will be used to fetch this data.
 
 **HTTP Request**
 
@@ -796,34 +834,24 @@ activity_type | string | Whether the activity should award fixed number of point
 approval_method | string | User transaction approval method (immediate/manual/monthly).
 bonus_multiplier | integer | Multiplication factor to award points instead of awarding fixed points 
 created_time | string | The time when activity is created_time
-is_active | string | Indicates if activity is active or paused (true/false)
-is_sale_activity | string | Indicates if the activity is a purchase activity (true/false)
+is_active | boolean | Indicates if activity is active or paused (true/false)
+is_sale_activity | boolean | Indicates if the activity is a purchase activity (true/false)
 loyalty_activity_img | string | The image url of an activity
 max_award_frequency | integer | The maximum number of times a user will be awarded points
 max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)
 merchant_id | string | The id of the merchant
 points_earning_url | string | Merchant's website page url where the activity will be configured.
 points_per_activity | integer | Fixed number of points to be awarded for an activity
-qualified_points | string | Indicates if the activity is qualified for tier upgrade (true/false)
-show_activity_in_user_dashboard | string | Indicates if the activity is to be shown on the end user dashboard (true/false)
-ss_internal | string | Indicates whether an activity is an internal activity (true/false)
+qualified_points | boolean | Indicates if the activity is qualified for tier upgrade (true/false)
+show_activity_in_user_dashboard | boolean | Indicates if the activity is to be shown on the end user dashboard (true/false)
+ss_internal | boolean | Indicates whether an activity is an internal activity (true/false)
 updated_time | string | The time when the activity configuration was last modified
 
-
-### Update Activity
+### Get All Activities
 ```shell
-curl -X PUT --header "partner-id: <your-partner-id>"
+curl -X GET --header "partner-id: <your-partner-id>" 
 --header "api-key: <your-api-key>" 
---data "activity_name= <Activity Name>"
---data "activity_description= <Activity Description>"
---data "activity_type = <Activity type>"
---data "max_award_frequency = <Max Award Frequency>"
---data "max_award_frequency_interval = <Max Award Frequency Interval>"
---data "bonus_multiplier = <Bonus Multiplier>"
---data "points_per_activity = <Points to be awarded>"
---data "approval_method = <Award Approval Method>"
---data "is_active = <Activity State>"
-"https://api.shopsocially.com/v2/loyalty/activities/{activity_id}"
+"https://api.shopsocially.com/v2/loyalty/activities"
 ```
 
 ```python
@@ -833,21 +861,8 @@ import json
 headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
            'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
 
-payload = json.dumps({
-  "activity_name" : "Share via Email",
-  "activity_description" : "Earn points when you share our website 
-          with your friends via email.",
-  "activity_type" : "fixed",
-  "max_award_frequency" : 100,
-  "max_award_frequency_interval" : "day",
-  "bonus_multiplier": 1,
-  "points_per_activity": 100,
-  "approval_method": "immediate",
-  "is_active": true
-})
-
-response = requests.put(url = "https://api.shopsocially.com/v2/loyalty/activities/{activity_id}",
-                        headers = headers, data = payload)
+response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/activities",
+                        headers = headers)
 ```
 
 
@@ -855,53 +870,39 @@ response = requests.put(url = "https://api.shopsocially.com/v2/loyalty/activitie
 
 ```json
 {
-  "data":{
-		"id":"56655832418a580281c2c41c",
-		"activity_id":"shared_via_email",
-		"activity_name":"Share via Email",
-		"activity_description":"Earn points when you share our website with your friends via email.",
-		"activity_type":"fixed",
-		"approval_method":"immediate",
-		"bonus_multiplier":1,
-		"created_time":"07-Dec-2015 09:58:10",
-		"fixed_duration_period":30,
-		"is_active":true,
-		"is_sale_activity":false,
-		"loyalty_activity_img":"https://d1qbqkkh49kht1.cloudfront.net/dc79fd08611160b9176d0d4b5c3f506f.png",
-		"max_award_frequency":100,
-		"max_award_frequency_interval":"day",
-		"merchant_id":"c75d9a44221ac904ddadb81766786b34",
-		"points_earning_url":"",
-		"points_per_activity":100,
-		"qualified_points":true,
-		"show_activity_in_user_dashboard":true,
-		"show_on_merchant_center":true,
-		"ss_internal":true,
-		"updated_time":"31-Aug-2016 05:10:21"
-  },
+  "data":[
+      {
+      "id":"56655832418a580281c2c41c",
+      "activity_id":"shared_via_email",
+      "activity_name":"Share via Email",
+      "activity_description":"Earn points when you share our website with your friends via email.",
+      "activity_type":"fixed",
+      "approval_method":"immediate",
+      "bonus_multiplier":1,
+      "created_time":"07-Dec-2015 09:58:10",
+      "is_active":true,
+      "is_sale_activity":false,
+      "max_award_frequency":100,
+      "max_award_frequency_interval":"day",
+      "merchant_id":"c75d9a44221ac904ddadb81766786b34",
+      "points_earning_url":"",
+      "points_per_activity":100,
+      "qualified_points":true,
+      "show_activity_in_user_dashboard":true,
+      "ss_internal":true,
+      "updated_time":"31-Aug-2016 05:10:21"
+      },
+      {...}
+  ],
   "success":true
 }
 ```
-An activity configuration can be updated using this API by passing the activity ID.
-Any or all of the below listed fields (query parameters table) can be updated by passing in the adequate parameter.
+View a list of all configured activities for which customers can earn loyalty points.
 
 **HTTP Request**
 
-`PUT  https://api.shopsocially.com/v2/loyalty/activities/{activity_id}`
+`GET  https://api.shopsocially.com/v2/loyalty/activities`
 
-**Query Parameters**
-
-Parameter | Type | Description
---------- | ---- | -----------
-activity_name | string |  The name of the activity
-activity_description | string |  Description of the activity
-activity_type | string | Whether the activity should award fixed number of points or use a multiplier (fixed/bonus_multiplier)
-max_award_frequency | integer |  The maximum number of times a user will be awarded points
-max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)
-bonus_multiplier | integer | Multiplication factor to award points instead of awarding fixed points (defaults to 1)
-points_per_activity | integer | Fixed number of points to be awarded for an activity (defaults to 1)
-approval_method | string | User transaction approval method (immediate/manual/monthly)
-is_active | string | Whether the activity should be active or paused (defaults to true)
 
 **Response Body**
 
@@ -909,28 +910,28 @@ Attribute | Type | Description
 --------- | ---- | -----------
 id| string | Internal id
 activity_id| string | Unique id generated for each activity
-activity_name | string | The name of activity
-activity_description | string | The description of the activity
-activity_type | string | Whether the activity should award fixed number of points or use a multiplier(fixed/bonus_multiplier).
+activity_name | string | The name of the activity
+activity_description | string | The description about activity
+activity_type | string | Whether the activity should award fixed number of points or use a multiplier (fixed/bonus_multiplier)
 approval_method | string | User transaction approval method (immediate/manual/monthly).
-bonus_multiplier | integer | Multiplication factor to award points instead of awarding fixed points 
-created_time | string | The time when activity is created_time
-is_active | string | Indicates whether the activity is active or paused (true/false)
-is_sale_activity | string | Indicates if the activity is a purchase activity (true/false)
-loyalty_activity_img | string | The image url of an activity
+bonus_multiplier | integer | Multiplication factor to award points instead of awarding fixed points
+created_time | string | The time when the activity was created
+is_active | boolean | Indicates if an activity is active or paused (true/false)
+is_sale_activity | boolean | Indicates if an activity is a sale activity (true/false)
 max_award_frequency | integer | The maximum number of times a user will be awarded points
-max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime).
+max_award_frequency_interval | string | The time interval constraint to the max_award_frequency number (day, week, month, year, lifetime)
 merchant_id | string | The id of the merchant
-points_earning_url | string | Merchant's website page url where the activity will be configured
+points_earning_url | string | Merchant's website page url where the activity will be configured.
 point_per_activity | integer | Fixed number of points to be awarded for an activity
-qualified_points | string | Indicates if the activity is qualified for tier upgrade (true/false)
-show_activity_in_user_dashboard | string | Indicates if the activity is to be shown in the end user dashboard (true/false)
-ss_internal | string | Indicates whether an activity is an internal activity (true/false)
-updated_time | string | The time when the activity configuration was last modified
+qualified_points | boolean | Indicates if the activity is qualified for tier upgrade (true/false)
+show_activity_in_user_dashboard | boolean | Indicates if the activity is to be shown on the end user dashboard (true/false).
+ss_internal | boolean | Indicates whether an activity is an internal activity (true/false)
+updated_time | string | The time when activity configuration was last modified
+
 
 
 ## Redemptions
-The Activities API lets you create an redemption, update redemption configurations, get details of a particular redemption and get the list of all redemptions for a merchant.
+The Redemptions API lets you create a redemption, update redemption configurations, get details of a particular redemption and get the list of all redemptions for a merchant.
 
 ### Create Redemption
 
@@ -947,7 +948,6 @@ curl -X POST --header "partner-id: <your-partner-id>"
 --data "redemption_instructions: <redemption_instructions>" 
 --data "giftcard_coupon_codes: <giftcard_coupon_codes>" 
 --data "coupon_expiry: <coupon_expiry>" 
---data "returned_amount: <returned_amount>" 
 "https://api.shopsocially.com/v2/loyalty/redemptions"
 ```
 
@@ -968,8 +968,7 @@ payload = json.dumps({
 "terms_and_conds_text": "<terms_and_conds_text>",
 "redemption_instructions": "<redemption_instructions>",
 "giftcard_coupon_codes": "<giftcard_coupon_codes>",
-"coupon_expiry": "<coupon_expiry>",
-"returned_amount": "<returned_amount>"})
+"coupon_expiry": "<coupon_expiry>"})
 
 response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/transaction/return",
                         headers = headers, data = payload)
@@ -1012,7 +1011,7 @@ response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/transact
 }
 
 ```
-The Create Redemption API can be used to create a redemtion options.
+Create a redemption option.
 
 **HTTP Request**
 
@@ -1023,15 +1022,15 @@ The Create Redemption API can be used to create a redemtion options.
 Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
 redemption_id | string | Yes | Redemption ID.
-redemption_name | integer | Yes | The name of the redemption which will be displayed to the user.
-is_active | boolean | No | Should the redemption option be active or paused.<br>(Input as true/false.Default value is false)
-allowed_redeem_points | number | Yes | The number of points to be deducted when user redeems.
-redemption_value | number | Yes | The monetary value associated with the redemption.
-giftcard_description | string | Yes | The description of the giftcard/ coupon which will be shown to the user.
-terms_and_conds_text | string | Yes | The terms and conditions text users have to agree to at the time of redemption.
-redemption_instructions | string | No | The redemption instructions displayed to the users.
-giftcard_coupon_codes | string | Yes | One time coupon codes to be issued when user redeems.<br>(comma separated)
-coupon_expiry | string | Yes | The expiry date of the coupons.<br>(Format:DD-MMM-YYYY)
+redemption_name | integer | Yes | The name of the redemption which will be displayed to the user
+is_active | boolean | No | Should the redemption option be active or paused<br>(defaults to false)
+allowed_redeem_points | number | Yes | The number of points to be deducted when user redeems
+redemption_value | number | Yes | The monetary value associated with the redemption
+giftcard_description | string | Yes | The description of the giftcard/ coupon which will be shown to the user
+terms_and_conds_text | string | Yes | The terms and conditions text users have to agree to at the time of redemption
+redemption_instructions | string | No | The redemption instructions displayed to the users
+giftcard_coupon_codes | string | Yes | One time coupon codes to be issued when user redeems<br>(comma separated)
+coupon_expiry | string | Yes | The expiry date of the coupons<br>(DD-MMM-YYYY)
 
 
 **Response Body**
@@ -1047,18 +1046,18 @@ giftcard_description| string | Giftcard Description
 terms_and_conds_text| string | Terms and Conditions
 after_redemption_html| string | After redemption HTML
 associated_levels| array | Levels Associated with the Redemption
-send_redemption_email| boolean | Send Redemption Email
-redemption_value| number | Points to be deducted of redemption
+send_redemption_email| boolean | Indicates whether the redemption email was sent or not (true/false)
+redemption_value| number | Points to be deducted after redemption
 coupon_expiry_trigger| string | Coupon Expiry Trigger
-is_active| boolean | Notifies if the Redemption Option is active or not
-enable_coupon_based_incentive| boolean | Coupon based incentive is enabled or not
+is_active| boolean | Indicates whether the Redemption Option is active or not (true/false)
+enable_coupon_based_incentive| boolean | Indicates whether coupon based incentive is enabled or not (true/false)
 redemption_instructions| string | Redemption instructions
 redemption_email_subject| string | Redemption Email Subject
-coupon_expiry| string | Coupon Expiry
+coupon_expiry| string | The expiry date of the coupons
 merchant_id| string | Merchant ID
-show_redemption_in_user_dashboard| boolean | To show the redemption option in the user dashboard
-show_on_merchant_center| boolean | To show the redemption option in the merchant center
-redemption_name| string | Redemption Name
+show_redemption_in_user_dashboard| boolean | Indicates whether the redemption option is shown on the user dashboard (true/false)
+show_on_merchant_center| boolean | Indicates whether the redemption option is shown in the merchant center (true/false)
+redemption_name| string | The name of the redemption
 coupon_expiry_delta| number | Number of days before coupon expires
 allowed_redeem_points| string | Allowed Redeem points
 updated_time| string | Redemption option updation time
@@ -1079,7 +1078,6 @@ curl -X PUT --header "partner-id: <your-partner-id>"
 --data "redemption_instructions: <redemption_instructions>" 
 --data "giftcard_coupon_codes: <giftcard_coupon_codes>" 
 --data "coupon_expiry: <coupon_expiry>" 
---data "returned_amount: <returned_amount>" 
 "https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}"
 ```
 
@@ -1099,8 +1097,7 @@ payload = json.dumps({
 "terms_and_conds_text": "<terms_and_conds_text>",
 "redemption_instructions": "<redemption_instructions>",
 "giftcard_coupon_codes": "<giftcard_coupon_codes>",
-"coupon_expiry": "<coupon_expiry>",
-"returned_amount": "<returned_amount>"})
+"coupon_expiry": "<coupon_expiry>"})
 
 response = requests.put(url = "https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}",
                         headers = headers, data = payload)
@@ -1143,7 +1140,7 @@ response = requests.put(url = "https://api.shopsocially.com/v2/loyalty/redemptio
 }
 
 ```
-Update any of the configured redemption options using the Redemption option ID.
+Update any of the configured redemption options using the Redemption option ID. Any or all of the below listed fields (query parameters table) can be updated by passing in the adequate parameter.
 
 **HTTP Request**
 
@@ -1153,15 +1150,15 @@ Update any of the configured redemption options using the Redemption option ID.
 
 Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
-redemption_name | integer | No | The name of the redemption which will be displayed to the user.
-is_active | boolean | No | Should the redemption option be active or paused.<br>(Input as true/false.Default value is false)
-allowed_redeem_points | number | No | The number of points to be deducted when user redeems.
-redemption_value | number | No | The monetary value associated with the redemption.
-giftcard_description | string | No | The description of the giftcard/ coupon which will be shown to the user.
-terms_and_conds_text | string | No | The terms and conditions text users have to agree to at the time of redemption.
-redemption_instructions | string | No | The redemption instructions displayed to the users.
-giftcard_coupon_codes | string | No | One time coupon codes to be issued when user redeems.<br>(comma separated)
-coupon_expiry | string | No | The expiry date of the coupons.<br>(Format:DD-MMM-YYYY)
+redemption_name | integer | No | The name of the redemption which will be displayed to the user
+is_active | boolean | No | Should the redemption option be active or paused<br>(defaults to false)
+allowed_redeem_points | number | No | The number of points to be deducted when user redeems
+redemption_value | number | No | The monetary value associated with the redemption
+giftcard_description | string | No | The description of the giftcard/ coupon which will be shown to the user
+terms_and_conds_text | string | No | The terms and conditions text users have to agree to at the time of redemption
+redemption_instructions | string | No | The redemption instructions displayed to the users
+giftcard_coupon_codes | string | No | One time coupon codes to be issued when user redeems<br>(comma separated)
+coupon_expiry | string | No | The expiry date of the coupons<br>(DD-MMM-YYYY)
 
 
 **Response Body**
@@ -1177,17 +1174,17 @@ giftcard_description| string | Giftcard Description
 terms_and_conds_text| string | Terms and Conditions
 after_redemption_html| string | After redemption HTML
 associated_levels| array | Levels Associated with the Redemption
-send_redemption_email| boolean | Send Redemption Email
-redemption_value| number | Points to be deducted of redemption
+send_redemption_email| boolean | Indicates whether the redemption email is to be sent or not (true/false)
+redemption_value| number | Points to be deducted after redemption
 coupon_expiry_trigger| string | Coupon Expiry Trigger
-is_active| boolean | Notifies if the Redemption Option is active or not
-enable_coupon_based_incentive| boolean | Coupon based incentive is enabled or not
+is_active| boolean | Indicates whether the redemption option is active or not (true/false)
+enable_coupon_based_incentive| boolean | Indicates whether coupon based incentive is enabled or not (true/false)
 redemption_instructions| string | Redemption instructions
 redemption_email_subject| string | Redemption Email Subject
 coupon_expiry| string | Coupon Expiry
 merchant_id| string | Merchant ID
-show_redemption_in_user_dashboard| boolean | To show the redemption option in the user dashboard
-show_on_merchant_center| boolean | To show the redemption option in the merchant center
+show_redemption_in_user_dashboard| boolean | Indicates whether the redemption option is to be shown on the user dashboard (true/false)
+show_on_merchant_center| boolean | Indicates whether the redemption option is to be shown on the merchant center (true/false)
 redemption_name| string | Redemption Name
 coupon_expiry_delta| number | Number of days before coupon expires
 allowed_redeem_points| string | Allowed Redeem points
@@ -1199,8 +1196,7 @@ redemption_id| string | Redemption ID
 
 ```shell
 curl -X GET --header "partner-id: <your-partner-id>" 
---header "api-key: <your-api-key>" 
---data "redemption_id: <redemption id of the redemption option>" 
+--header "api-key: <your-api-key>"
 "https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}"
 ```
 
@@ -1211,10 +1207,9 @@ import json
 headers = {'partner-id': <your-partner-id>, 
            'api-key': <your-api-key>}
 
-payload = json.dumps({"redemption_id": <redemption id of the redemption option>})
 
 response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}",
-                        headers = headers, data = payload)
+                        headers = headers)
 ```
 
 > The above command returns JSON structured like this:
@@ -1254,17 +1249,11 @@ response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/redemptio
 }
 
 ```
-The Get Redemption API can be used to View details about a particular redemption option using the Redemption Option ID.
+View details about a particular redemption option using the Redemption Option ID.
 
 **HTTP Request**
 
 `GET  https://api.shopsocially.com/v2/loyalty/redemptions/{redemption_id}`
-
-**Query Parameters**
-
-Parameter | Type | Mandatory | Description
---------- | ---- | -------- | -----------
-redemption_id | string | Yes | Redemption ID.
 
 
 **Response Body**
@@ -1280,18 +1269,17 @@ giftcard_description| string | Giftcard Description
 terms_and_conds_text| string | Terms and Conditions
 after_redemption_html| string | After redemption HTML
 associated_levels| array | Levels Associated with the Redemption
-send_redemption_email| boolean | Send Redemption Email
-redemption_value| number | Points to be deducted of redemption
+send_redemption_email| boolean | Indicates whether the redemption email is to be sent or not (true/false)
+redemption_value| number | Points to be deducted after redemption
 coupon_expiry_trigger| string | Coupon Expiry Trigger
-is_active| boolean | Notifies if the Redemption Option is active or not
-enable_coupon_based_incentive| boolean | Coupon based incentive is enabled or not
+is_active| boolean | Indicates whether the redemption option is active or not (true/false)
+enable_coupon_based_incentive| boolean | Indicates whether coupon based incentive is enabled or not (true/false)
 redemption_instructions| string | Redemption instructions
 redemption_email_subject| string | Redemption Email Subject
 coupon_expiry| string | Coupon Expiry
 merchant_id| string | Merchant ID
-show_redemption_in_user_dashboard| boolean | To show the redemption option in the user dashboard
-show_on_merchant_center| boolean | To show the redemption option in the merchant center
-redemption_name| string | Redemption Name
+show_redemption_in_user_dashboard| boolean | Indicates whether the redemption option is to be shown on the user dashboard (true/false)
+show_on_merchant_center| boolean | Indicates whether the redemption option is to be shown on the merchant center (true/false)
 coupon_expiry_delta| number | Number of days before coupon expires
 allowed_redeem_points| string | Allowed Redeem points
 updated_time| string | Redemption option updation time
@@ -1353,15 +1341,11 @@ response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/redemptio
 }
 
 ```
-The Get All Redemptions API can be used to View a list of all the redemption options that are currently configured.
+View a list of all the redemption options that are currently configured.
 
 **HTTP Request**
 
 `GET  https://api.shopsocially.com/v2/loyalty/redemptions`
-
-**Query Parameters**
-
-No Query parameters required
 
 **Response Body**
 
@@ -1376,18 +1360,17 @@ giftcard_description| string | Giftcard Description
 terms_and_conds_text| string | Terms and Conditions
 after_redemption_html| string | After redemption HTML
 associated_levels| array | Levels Associated with the Redemption
-send_redemption_email| boolean | Send Redemption Email
-redemption_value| number | Points to be deducted of redemption
+send_redemption_email| boolean | Indicates whether the redemption email is to be sent or not (true/false)
+redemption_value| number | Points to be deducted after redemption
 coupon_expiry_trigger| string | Coupon Expiry Trigger
-is_active| boolean | Notifies if the Redemption Option is active or not
-enable_coupon_based_incentive| boolean | Coupon based incentive is enabled or not
+is_active| boolean | Indicates whether the redemption option is active or not (true/false)
+enable_coupon_based_incentive| boolean | Indicates whether coupon based incentive is enabled or not (true/false)
 redemption_instructions| string | Redemption instructions
 redemption_email_subject| string | Redemption Email Subject
 coupon_expiry| string | Coupon Expiry
 merchant_id| string | Merchant ID
-show_redemption_in_user_dashboard| boolean | To show the redemption option in the user dashboard
-show_on_merchant_center| boolean | To show the redemption option in the merchant center
-redemption_name| string | Redemption Name
+show_redemption_in_user_dashboard| boolean | Indicates whether the redemption option is to be shown on the user dashboard (true/false)
+show_on_merchant_center| boolean | Indicates whether the redemption option is to be shown on the merchant center (true/false)
 coupon_expiry_delta| number | Number of days before coupon expires
 allowed_redeem_points| string | Allowed Redeem points
 updated_time| string | Redemption option updation time
@@ -1442,7 +1425,7 @@ response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/transact
 }
 
 ```
-The Returns API can be used to deduct points of a user when the user returns an order.
+Deduct points of a user when the user returns an order.
 
 **HTTP Request**
 
