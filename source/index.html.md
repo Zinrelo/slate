@@ -508,8 +508,442 @@ updated_time| string | The time when the transaction was updated
 partner_id| string | The id of the merchant
 
 ## Users
+The Users API lets you create an user, update user information, get details of a particular user and get the list of all users for a merchant.
 
-Work in Progress
+
+### Create User
+
+```shell
+curl -X POST --header "partner-id: 9c62d683db96c7cabf8db0109be6bb" 
+--header "api-key: 9a4cf9131sasaw21dsb53a29e1b13" 
+--data "first_name= bob" 
+--data "last_name= Baker"
+--data "email= bob@shopsocially.com"
+--data "uid= merc"
+--data "gender= Male"
+--data "profile_image_url= https://some_link_to_ss_logo"
+--data "loyalty_level_id= initial_level"
+"https://api.shopsocially.com/v2/loyalty/users"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
+
+payload = json.dumps({
+	"first_name" : "Bob",
+	"last_name" : "Baker",
+	"email" : "bob@shopsocially.com",
+	"uid" : "merc",
+	"gender" : "male",
+	"profile_image_url" : "https://some_link_to_ss_logo"
+})
+
+response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/users",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "data":
+	    {
+		    "user_id":"6176be2d5e",
+		    "user_email":"bob@shopsocially.com",
+		    "first_name":"Bob",
+		    "last_name":"Baker",
+		    "profile_image_url":"https://some_link_to_ss_logo",
+		    "gender":"Male",
+		    "redeemed_points":0,
+		    "available_points":0,
+		    "loyalty_level_id":"",
+		    "loyalty_lifetime_level_id":"",
+		    "merchant_uid":""
+	    },
+    "success":true
+}
+```
+Create a new user for merchant.
+
+
+**HTTP Request**
+
+`POST  https://api.shopsocially.com/v2/loyalty/users`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+first_name | string | Yes | First name of the user
+last_name | string | Yes | Last name of the user
+email | string | Yes | Email of the user
+uid | string | Yes | User ID of the user
+gender | string | No | Gender of the user (male/female)
+profile_image_url | string | No | Profile Image URL of the user
+loyalty_level_id | string | No | The loyalty level in which user will be moved
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+user_id | string | Internal id
+user_email | string | Email of the user
+first_name | string | First name of the user
+last_name | string | Last name of the user
+profile_image_url | string | Profile Image Url of the user
+gender | string | Gender of the user
+redeemed_points | integer | Points redeemed by the user
+available_points | integer | Points currently available for the user
+loyalty_level_id | string | ID of loyalty level currently assigned to user
+loyalty_lifetime_level_id | string | ID of lifetime loyalty level currently assigned to the user
+merchant_uid | string | UID of the merchant
+
+### Update User
+
+```shell
+curl -X PUT --header "partner-id: 9c62d683db96c7cabf8db0109be6bb" 
+--header "api-key: 9a4cf9131sasaw21dsb53a29e1b13" 
+--data "loyalty_level_id= new_level_id"
+"https://api.shopsocially.com/v2/loyalty/users/{uid}"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
+
+payload = json.dumps({
+	"loyalty_level_id" : "new_level_id"
+})
+
+response = requests.put(url = "https://api.shopsocially.com/v2/loyalty/users/{uid}",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "data":
+	    {
+		    "user_id":"6176be2d5e",
+		    "user_email":"bob@shopsocially.com",
+		    "first_name":"Bob",
+		    "last_name":"Baker",
+		    "profile_image_url":"https://some_link_to_ss_logo",
+		    "gender":"Male",
+		    "redeemed_points":0,
+		    "available_points":0,
+		    "loyalty_level_id":"",
+		    "loyalty_lifetime_level_id":"",
+		    "merchant_uid":""
+	    },
+    "success":true
+}
+```
+This function is only applicable to the users created through the merchant’s authentication function. The details of the user, for user ID passed by merchant, will be updated. The users created through the ShopSocially authentication cannot be updated.
+
+
+**HTTP Request**
+
+`PUT  https://api.shopsocially.com/v2/loyalty/users/{uid}`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+loyalty_level_id | string | No | The loyalty level in which user will be moved
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+user_id | string | Internal id
+user_email | string | Email of the user
+first_name | string | First name of the user
+last_name | string | Last name of the user
+profile_image_url | string | Profile Image Url of the user
+gender | string | Gender of the user
+redeemed_points | integer | Points redeemed by the user
+available_points | integer | Points currently available for the user
+loyalty_level_id | string | ID of loyalty level currently assigned to user
+loyalty_lifetime_level_id | string | ID of lifetime loyalty level currently assigned to the user
+merchant_uid | string | UID of the merchant
+
+### Get All Users
+
+```shell
+curl -X GET --header "partner-id: 9c62d683db96c7cabf8db0109be6bb" 
+--header "api-key: 9a4cf9131sasaw21dsb53a29e1b13"
+--data "from_date= 01-01-2016",
+--data "to_date= 31-12-2016",
+--data "start_index= 0",
+--data "count= 10"
+"https://api.shopsocially.com/v2/loyalty/users"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
+
+payload = json.dumps({
+	"from_date" : "01-01-2016",
+	"to_date" : "31-12-2016",
+	"start_index" : "0",
+	"count" : "10"
+})
+
+response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/users",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "data":
+	    {
+		    "next_start_index":2,
+		    "total_loyalty_users":1,
+		    "loyalty_users":
+					[{
+					     "loyalty_life_time_level_name": "",
+					     "loyalty_lifetime_level_id": "",
+					     "expiration_schedule": [],
+					     "last_name": "Baker",
+					     "redeemed_points": 0,
+					     "last_award_transaction": {},
+					     "gender": "male",
+					     "dashboard_url": "https://shopsocially.com/loyalty/test_site/user/56d62cb9735f833785f95ef5/dashboard",
+					     "first_name": "Bob",
+					     "profile_image_url": "https://some_link_to_ss_logo", 
+					     "available_points": 0,
+					     "loyalty_level_id": "",
+					     "loyalty_level_name": "",
+					     "user_id": "",
+					     "user_email": "bob@shopsocially.com"
+					}],
+		    "more":false
+	    },
+    "success":true
+}
+```
+This will get all the users enrolled in the loyalty program.
+
+
+**HTTP Request**
+
+`GET  https://api.shopsocially.com/v2/loyalty/users`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+from_date | string | Yes | The start date
+to_date | string | Yes | The end date
+filter_by | string | No | Filters to be applied along with from_date and to_date. Accepted values enrollment_date' , 'last_activity_date
+start_index | integer | No | The start index to fetch the data from. If not specified, the start index will be 0
+count | integer | No | Number of records to fetch. If not specified, the count will be 100
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+next_start_index | integer | Next index of record to fetch 
+total_loyalty_users | integer | Total number of Loyalty users for this merchant
+loyalty_users | array | Array of users based on time range, filters and start_index
+more | boolean | Indicates if more number of users are available (True/False)
+
+### Get User
+
+```shell
+curl -X GET --header "partner-id: 9c62d683db96c7cabf8db0109be6bb" 
+--header "api-key: 9a4cf9131sasaw21dsb53a29e1b13" 
+"https://api.shopsocially.com/v2/loyalty/users/bob@shopsocially.com"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
+
+payload = json.dumps({
+})
+
+response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/users/bob@shopsocially.com",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "data":
+	    {
+		    "user_id":"6176be2d5e",
+		    "user_email":"bob@shopsocially.com",
+		    "first_name":"Bob",
+		    "last_name":"Baker",
+		    "profile_image_url":"https://some_link_to_ss_logo",
+		    "gender":"Male",
+		    "redeemed_points":0,
+		    "available_points":0,
+		    "loyalty_level_id":None,
+		    "loyalty_lifetime_level_id":None,
+		    "user_language":"English",
+		    "user_status":"Active?",
+		    "expiration_schedule": [{"expiration_date": "07-Jan-2016 23:59:59","points": 34226}],
+		    "last_award_transaction":{"date": "07-Dec-2015 13:23:35","points": 300,"name": "Became a Twitter Follower"}
+	    },
+    "success":true
+}
+```
+This will get the details of the user along with available, and redeemed points .
+
+
+**HTTP Request**
+
+`GET  https://api.shopsocially.com/v2/loyalty/users/user_email`
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+user_id | string | Internal id
+user_email | string | Email of the user
+first_name | string | First name of the user
+last_name | string | Last name of the user
+profile_image_url | string | Profile Image Url of the user
+gender | string | Gender of the user
+redeemed_points | integer | Points redeemed by the user
+available_points | integer | Points currently available for the user
+loyalty_level_id | string | ID of loyalty level currently assigned to user
+loyalty_lifetime_level_id | string | ID of lifetime loyalty level currently assigned to the user
+user_language | string | Default language associated to user's profile
+user_status | string | User status
+expiration_schedule | array | Array of expiration schedules
+last_award_transaction | string | record of last awarded transaction
+
+### Get User Transactions
+
+```shell
+curl -X GET --header "partner-id: 9c62d683db96c7cabf8db0109be6bb" 
+--header "api-key: 9a4cf9131sasaw21dsb53a29e1b13"
+--data "from_date= 01-01-2016",
+--data "to_date= 31-12-2016",
+--data "points_status= ['approved']"
+--data "start_index= 0",
+"https://api.shopsocially.com/v2/loyalty/users/bob@shopsocially.com/transactions"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
+
+payload = json.dumps({
+	"from_date" : "01-01-2016",
+	"to_date" : "31-12-2016",
+	"points_status" : ['approved']
+	"start_index" : "0",
+})
+
+response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/users/bob@shopsocially.com/transactions",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "data":
+	    {
+		"total": 1,
+		"next_start_index": 2,
+		"transactions":
+			[{
+			    "points_status": "approved",
+			    "points_used": 0,
+			    "available_points": 22,
+			    "points_expired": 0,
+			    "created_time": "14-Jan-2016 06:33:22",
+			    "updated_time": "14-Jan-2016 06:33:22",
+			    "id": "569741320daac146edac90c0",
+			    "user_id": "54b3b13e0daac1321e07ce1f",
+			    "points_expiration_date": "14-Mar-2016 06:33:22",
+			    "approved_by": null,
+			    "qualified_points": true,
+			    "redemption_value": null,
+			    "activity_id": "shared_photo_via_desktop_or_mobile",
+			    "user_first_name": "Bob",
+			    "order_id": "1452749387649368175",
+			    "reason": null,
+			    "points_deducted": 0,
+			    "merchant_id": "9c62d683db96c7cabf8db0109be6bb",
+			    "redemptions_list": null,
+			    "approved_time": "14-Jan-2016 06:33:22",
+			    "redemption_name": null,
+			    "auto_approval_date": "",
+			    "transaction_type": "award",
+			    "user_last_name": "Baker",
+			    "coupon_code": null,
+			    "points": 22,
+			    "redemption_id": null,
+			    "activity_name": "Shared Photo via Mobile or Desktop",
+			    "user_email": "bob@shopsocially.com"
+			}],
+		    "more": false
+	    },
+    "success":true
+}
+```
+This will return information about the transactions done (points earned / redeemed ) by any user. User's email ID will be used to search and return user specific information.
+
+
+**HTTP Request**
+
+`GET  https://api.shopsocially.com/v2/loyalty/users/user_email/transactions`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+from_date | string | Yes | The start date
+to_date | string | Yes | The end date
+points_status | string | No | Status of transaction to fetch viz. pending, auto_approved, approved, auto_rejected, rejected, expired, exhausted
+start_index | integer | No | The start index to fetch the data from. If not specified, the start index will be 0
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+total | integer | Total number of transactions for the user 
+next_start_index | integer | Next index of record to fetch 
+transactions | array | Array of users based on time range, filters and start_index
+more | boolean | Indicates if more number of transactions are available (True/False)
+
+Work in Progress USERS END
+
+
+---------------------------------------------------------------------------------------------------------------------
 
 ## Activities
 The Activities API lets you create an activity, update activity configurations, get details of a particular activity and get the list of all activities for a merchant.
@@ -563,6 +997,7 @@ payload = json.dumps({
 response = requests.post(url = "https://api.shopsocially.com/v2/loyalty/activities",
                         headers = headers, data = payload)
 ```
+
 
 
 > The above command returns JSON structured like this:
