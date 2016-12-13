@@ -809,7 +809,7 @@ This will get the details of the user along with available and redeemed points.
 
 **HTTP Request**
 
-`GET  https://api.shopsocially.com/v2/loyalty/users/user_email`
+`GET  https://api.shopsocially.com/v2/loyalty/users/{user_email}`
 
 **Response Body**
 
@@ -909,7 +909,7 @@ This will return information about the transactions done (points earned / redeem
 
 **HTTP Request**
 
-`GET  https://api.shopsocially.com/v2/loyalty/users/user_email/transactions`
+`GET  https://api.shopsocially.com/v2/loyalty/users/{user_email}/transactions`
 
 **Query Parameters**
 
