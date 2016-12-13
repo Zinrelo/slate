@@ -1733,6 +1733,251 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 </tr>
 </tbody></table>
 
+<h3 id="get-user-redemptions">Get User Redemptions</h3>
+<pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: 9c62d683db96c7cabf8db0109be6bb"</span> 
+--header <span class="s2">"api-key: 9a4cf9131sasaw21dsb53a29e1b13"</span>
+--data <span class="s2">"is_still_valid=true"</span>,
+--data <span class="s2">"order_by=allowed_redeem_points"</span>,
+--data <span class="s2">"count=10"</span>,
+--data <span class="s2">"start_index=0"</span>,
+<span class="s2">"https://api.shopsocially.com/v2/loyalty/users/bob@shopsocially.com/redemptions"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="s">'9c62d683db96c7cabf8db0109be6bb'</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="s">'9a4cf9131sasaw21dsb53a29e1b13'</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+  <span class="s">"is_still_valid"</span> <span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+  <span class="s">"order_by"</span> <span class="p">:</span> <span class="s">"allowed_redeem_points"</span><span class="p">,</span>
+  <span class="s">"count"</span> <span class="p">:</span> <span class="s">"10"</span><span class="p">,</span>
+  <span class="s">"start_index"</span> <span class="p">:</span> <span class="s">"0"</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/users/bob@shopsocially.com/redemptions"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"redemptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+        </span><span class="nt">"redemption_email_html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;div style=\"border:solid 1px rgba(0,0,0,0.2);font-family:'Source Sans Pro', 'Helvetica Neue', 'Lucida Sans', sans-serif;\"&gt;&lt;img src=\"https://d1qbqkkh49kht1.cloudfront.net/c66c2dc1d96e2ac46b9722b1a2524c10.png\" style=\"width:100%\"&gt;&lt;div style=\"text-align:left;margin-top:10px;font-size: 15px;padding:0px 30px 0px 30px\"&gt;Hi,&lt;br&gt;&lt;div style=\"margin-top: 10px;\"&gt;You have redeemed _POINTS_REDEEMED_ loyalty points from your account at &lt;a href=\"_MERCHANT_WEB_URL_\" target=\"_blank\"&gt;_MERCHANT_NAME_&lt;/a&gt;.&lt;br&gt;&lt;br&gt;&lt;a href=\"_USER_DASHBOARD_URL_\" target=\"_blank\"&gt;Click here&lt;/a&gt; to log in and check your loyalty points status and to redeem more points.&lt;/div&gt;&lt;div style=\"text-align:left;margin-top: 15px;font-size:15px;\"&gt;Thank you.&lt;br&gt;&lt;br&gt;Thanks,&lt;br&gt;_MERCHANT_NAME_ Team&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"loyalty_redemption_card_img"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d1qbqkkh49kht1.cloudfront.net/b32b7803e9bbcf6b8e9b8d8ce1be7224.png"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07-Dec-2016 12:17:02"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"giftcard_coupon_codes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a,b,c,d,e,f,g,h,i"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5847fdbeb0207a60ce2facf1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"giftcard_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"giftcard_description"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"terms_and_conds_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terms_and_conds_text"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"after_redemption_html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;div class=\"coupon_code_div\"&gt;_COUPON_CODE_&lt;/div&gt;&lt;div style=\"margin-top: 15px;\"&gt; A copy of the code has been emailed to _USER_EMAIL_.&lt;/div&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"associated_levels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"all"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nt">"send_redemption_email"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"redemption_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"coupon_expiry_trigger"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"enable_coupon_based_incentive"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"redemption_instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redemption_instructions"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"redemption_email_subject"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Redemption Confirmation Receipt - _MERCHANT_NAME_ Loyalty Program"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"coupon_expiry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01-Jan-2018"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c75d9a44221ac904ddadb81766786b34"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"show_redemption_in_user_dashboard"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"show_on_merchant_center"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"redemption_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redemption_name"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"coupon_expiry_delta"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"allowed_redeem_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07-Dec-2016 12:17:03"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"redemption_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_redemption"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="err">...</span><span class="p">}],</span><span class="w">
+      </span><span class="nt">"more"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This will return information about the redemption options available to the user. User&rsquo;s email ID will be used to search and return user specific information.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">GET  https://api.shopsocially.com/v2/loyalty/users/{user_email}/redemptions</code></p>
+
+<p><strong>Query Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>is_still_valid</td>
+<td>boolean</td>
+<td>No</td>
+<td>Indicates whether only valid or all redemptions should be fetched (defaults to false)</td>
+</tr>
+<tr>
+<td>order_by</td>
+<td>string</td>
+<td>No</td>
+<td>The order in which the redemption options will be fetched (defaults to updated_time)</td>
+</tr>
+<tr>
+<td>count</td>
+<td>string</td>
+<td>No</td>
+<td>The number of redemptions to be fetched (defaults to 12)</td>
+</tr>
+<tr>
+<td>start_index</td>
+<td>integer</td>
+<td>No</td>
+<td>The start index to fetch the data from (defaults to 0)</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>total</td>
+<td>integer</td>
+<td>Total number of redemptions for the user</td>
+</tr>
+<tr>
+<td>redemptions</td>
+<td>array</td>
+<td>Array of redemptions based on time range, filters and start_index</td>
+</tr>
+<tr>
+<td>more</td>
+<td>boolean</td>
+<td>Indicates if more number of redemptions are available (true/false)</td>
+</tr>
+</tbody></table>
+
+<h3 id="get-user-points">Get User Points</h3>
+<pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: 9c62d683db96c7cabf8db0109be6bb"</span> 
+--header <span class="s2">"api-key: 9a4cf9131sasaw21dsb53a29e1b13"</span>
+--data <span class="s2">"is_public=true"</span>,
+--data <span class="s2">"user_id=6176be2d5e"</span>
+<span class="s2">"https://api.shopsocially.com/v2/loyalty/users/points"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="s">'9c62d683db96c7cabf8db0109be6bb'</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="s">'9a4cf9131sasaw21dsb53a29e1b13'</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+  <span class="s">"is_public"</span> <span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+  <span class="s">"user_id"</span> <span class="p">:</span> <span class="s">"6176be2d5e"</span>
+<span class="p">})</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.shopsocially.com/v2/loyalty/users/points"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"deducted_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expired_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"next_level_data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+    </span><span class="nt">"qualified_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redeemed"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This will return points information about the user. User ID will be used to search and return user specific information.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">GET  https://api.shopsocially.com/v2/loyalty/users/points</code></p>
+
+<p><strong>Query Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>is_public</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>Indicates whether it is an external API request. Should be always true (defaults to false)</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>string</td>
+<td>Yes</td>
+<td>The ID of the user whose points information needs to be fetched</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>available</td>
+<td>integer</td>
+<td>Total number of points availble to the user</td>
+</tr>
+<tr>
+<td>deducted_points</td>
+<td>integer</td>
+<td>Number of points deducted</td>
+</tr>
+<tr>
+<td>expired_points</td>
+<td>integer</td>
+<td>Number of points expired</td>
+</tr>
+<tr>
+<td>next_level_data</td>
+<td>list</td>
+<td>Data about the next loyalty level</td>
+</tr>
+<tr>
+<td>qualified_points</td>
+<td>integer</td>
+<td>Number of points earned in the lifetime of the loyalty program. It is used for level upgrades.</td>
+</tr>
+<tr>
+<td>redeemed</td>
+<td>integer</td>
+<td>Number of points redeemed</td>
+</tr>
+</tbody></table>
+
 <h2 id="activities">Activities</h2>
 
 <p>The Activities API lets you create an activity, update activity configurations, get details of a particular activity and get the list of all activities for a merchant.</p>
@@ -3707,6 +3952,44 @@ Any or all of the below listed fields (query parameters table) can be updated by
 <td>The date when the transaction is scheduled for auto approval</td>
 </tr>
 </tbody></table>
+
+<h2 id="api-use-cases">API Use Cases</h2>
+
+<h3 id="loyalty-user-dashboard">Loyalty User Dashboard</h3>
+
+<p>Using the Loyalty API, we can construct the end user dashboard. This dashboard is used to display the points earned and redeemed by the user. It also gives a detailed description of the points activity of the user, the redemption options available as well as the options using which a user can earn loyalty points.</p>
+
+<h4 id="user-points">User Points</h4>
+
+<p><img alt="alt text" src="images/user_points.png" /></p>
+
+<p>Information about the points for a user can be obtained using this API.</p>
+
+<p><a href="#get-user-points">Refer the Get User Points link in the Users Tab</a></p>
+
+<h4 id="points-activity">Points Activity</h4>
+
+<p><img alt="alt text" src="images/points_activity.png" /></p>
+
+<p>Details regarding the activity of the user can be obtained using this API.</p>
+
+<p><a href="#get-user-transactions">Refer the Get User Transactions link in the Users Tab</a></p>
+
+<h4 id="redeem-points">Redeem Points</h4>
+
+<p><img alt="alt text" src="images/redeem_points.png" /></p>
+
+<p>The redemption options available to the user can be obtained using this API.</p>
+
+<p><a href="#get-user-redemptions">Refer the Get User Redemptions link in the Users Tab</a></p>
+
+<h4 id="earn-points">Earn Points</h4>
+
+<p><img alt="alt text" src="images/earn_points.png" /></p>
+
+<p>The options available to the user to earn loyalty points can be obtained using this API.</p>
+
+<p><a href="#get-all-activities">Refer the Get All Activities link in the Activity Tab</a></p>
 
           <h1 id="errors">Errors</h1>
 
