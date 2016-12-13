@@ -930,6 +930,172 @@ transactions | array | Array of transactions based on time range, filters and st
 more | boolean | Indicates if more number of transactions are available (true/false)
 
 
+### Get User Redemptions
+
+```shell
+curl -X GET --header "partner-id: 9c62d683db96c7cabf8db0109be6bb" 
+--header "api-key: 9a4cf9131sasaw21dsb53a29e1b13"
+--data "is_still_valid=true",
+--data "order_by=allowed_redeem_points",
+--data "count=10",
+--data "start_index=0",
+"https://api.shopsocially.com/v2/loyalty/users/bob@shopsocially.com/redemptions"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
+
+payload = json.dumps({
+  "is_still_valid" : true,
+  "order_by" : "allowed_redeem_points",
+  "count" : "10",
+  "start_index" : "0",
+})
+
+response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/users/bob@shopsocially.com/redemptions",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "data": {
+      "total": 2,
+      "redemptions": [{
+        "redemption_email_html": "<div style=\"border:solid 1px rgba(0,0,0,0.2);font-family:'Source Sans Pro', 'Helvetica Neue', 'Lucida Sans', sans-serif;\"><img src=\"https://d1qbqkkh49kht1.cloudfront.net/c66c2dc1d96e2ac46b9722b1a2524c10.png\" style=\"width:100%\"><div style=\"text-align:left;margin-top:10px;font-size: 15px;padding:0px 30px 0px 30px\">Hi,<br><div style=\"margin-top: 10px;\">You have redeemed _POINTS_REDEEMED_ loyalty points from your account at <a href=\"_MERCHANT_WEB_URL_\" target=\"_blank\">_MERCHANT_NAME_</a>.<br><br><a href=\"_USER_DASHBOARD_URL_\" target=\"_blank\">Click here</a> to log in and check your loyalty points status and to redeem more points.</div><div style=\"text-align:left;margin-top: 15px;font-size:15px;\">Thank you.<br><br>Thanks,<br>_MERCHANT_NAME_ Team<br><br></div></div>",
+        "loyalty_redemption_card_img": "https://d1qbqkkh49kht1.cloudfront.net/b32b7803e9bbcf6b8e9b8d8ce1be7224.png",
+        "created_time": "07-Dec-2016 12:17:02",
+        "giftcard_coupon_codes": "a,b,c,d,e,f,g,h,i",
+        "id": "5847fdbeb0207a60ce2facf1",
+        "giftcard_description": "giftcard_description",
+        "terms_and_conds_text": "terms_and_conds_text",
+        "after_redemption_html": "<div class=\"coupon_code_div\">_COUPON_CODE_</div><div style=\"margin-top: 15px;\"> A copy of the code has been emailed to _USER_EMAIL_.</div>",
+        "associated_levels": [
+          "all"
+        ],
+        "send_redemption_email": true,
+        "redemption_value": "10",
+        "coupon_expiry_trigger": 0,
+        "is_active": false,
+        "enable_coupon_based_incentive": true,
+        "redemption_instructions": "redemption_instructions",
+        "redemption_email_subject": "Redemption Confirmation Receipt - _MERCHANT_NAME_ Loyalty Program",
+        "coupon_expiry": "01-Jan-2018",
+        "merchant_id": "c75d9a44221ac904ddadb81766786b34",
+        "show_redemption_in_user_dashboard": true,
+        "show_on_merchant_center": true,
+        "redemption_name": "redemption_name",
+        "coupon_expiry_delta": 7,
+        "allowed_redeem_points": 100,
+        "updated_time": "07-Dec-2016 12:17:03",
+        "redemption_id": "test_redemption"
+      },
+      {...}],
+      "more": false
+    },
+    "success":true
+}
+```
+This will return information about the redemption options available to the user. User's email ID will be used to search and return user specific information.
+
+
+**HTTP Request**
+
+`GET  https://api.shopsocially.com/v2/loyalty/users/{user_email}/redemptions`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+is_still_valid | boolean | No | Indicates whether only valid or all redemptions should be fetched (defaults to false)
+order_by | string | No | The order in which the redemption options will be fetched (defaults to updated_time)
+count | string | No | The number of redemptions to be fetched (defaults to 12)
+start_index | integer | No | The start index to fetch the data from (defaults to 0)
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+total | integer | Total number of redemptions for the user 
+redemptions | array | Array of redemptions based on time range, filters and start_index
+more | boolean | Indicates if more number of redemptions are available (true/false)
+
+
+### Get User Points
+
+```shell
+curl -X GET --header "partner-id: 9c62d683db96c7cabf8db0109be6bb" 
+--header "api-key: 9a4cf9131sasaw21dsb53a29e1b13"
+--data "is_public=true",
+--data "user_id=6176be2d5e"
+"https://api.shopsocially.com/v2/loyalty/users/points"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb', 
+           'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
+
+payload = json.dumps({
+  "is_public" : true,
+  "user_id" : "6176be2d5e"
+})
+
+response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/users/points",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+    "available": 200,
+    "deducted_points": 0,
+    "expired_points": 0,
+    "next_level_data": {},
+    "qualified_points": 0,
+    "redeemed": 0
+  },
+  "success":true
+}
+```
+This will return points information about the user. User ID will be used to search and return user specific information.
+
+
+**HTTP Request**
+
+`GET  https://api.shopsocially.com/v2/loyalty/users/points`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+is_public | boolean | Yes | Indicates whether it is an external API request. Should be always true (defaults to false)
+user_id | string | Yes | The ID of the user whose points information needs to be fetched
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+available | integer | Total number of points availble to the user 
+deducted_points | integer | Number of points deducted
+expired_points | integer | Number of points expired
+next_level_data | list | Data about the next loyalty level
+qualified_points | integer | Number of points earned in the lifetime of the loyalty program. It is used for level upgrades.
+redeemed | integer | Number of points redeemed
+
+
+
 ## Activities
 The Activities API lets you create an activity, update activity configurations, get details of a particular activity and get the list of all activities for a merchant.
 
@@ -1878,3 +2044,43 @@ created_time| string | The time when the record was created
 approved_time| string | The time when the record was approved
 updated_time| string | The time when the record was updated
 auto_approval_date| string | The date when the transaction is scheduled for auto approval
+
+
+## API Use Cases
+
+### Loyalty User Dashboard
+
+Using the Loyalty API, we can construct the end user dashboard. This dashboard is used to display the points earned and redeemed by the user. It also gives a detailed description of the points activity of the user, the redemption options available as well as the options using which a user can earn loyalty points.
+
+
+#### User Points
+
+![alt text](/images/user_points.png)
+
+Information about the points for a user can be obtained using this API.
+
+[Refer the Get User Points link in the Users Tab](#get-user-points)
+
+#### Points Activity
+
+![alt text](/images/points_activity.png)
+
+Details regarding the activity of the user can be obtained using this API.
+
+[Refer the Get User Transactions link in the Users Tab](#get-user-transactions)
+
+#### Redeem Points
+
+![alt text](/images/redeem_points.png)
+
+The redemption options available to the user can be obtained using this API.
+
+[Refer the Get User Redemptions link in the Users Tab](#get-user-redemptions)
+
+#### Earn Points
+
+![alt text](/images/earn_points.png)
+
+The options available to the user to earn loyalty points can be obtained using this API.
+
+[Refer the Get All Activities link in the Activity Tab](#get-all-activities)
