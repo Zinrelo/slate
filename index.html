@@ -1331,8 +1331,8 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 <h3 id="get-all-users">Get All Users</h3>
 <pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: 9c62d683db96c7cabf8db0109be6bb"</span> 
 --header <span class="s2">"api-key: 9a4cf9131sasaw21dsb53a29e1b13"</span>
---data <span class="s2">"from_date= 01-01-2016"</span>,
---data <span class="s2">"to_date= 31-12-2016"</span>,
+--data <span class="s2">"from_date= 01/01/2016"</span>,
+--data <span class="s2">"to_date= 12/31/2016"</span>,
 --data <span class="s2">"start_index= 0"</span>,
 --data <span class="s2">"count= 10"</span>
 <span class="s2">"https://api.shopsocially.com/v2/loyalty/users"</span>
@@ -1344,8 +1344,8 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
            <span class="s">'api-key'</span><span class="p">:</span> <span class="s">'9a4cf9131sasaw21dsb53a29e1b13'</span><span class="p">}</span>
 
 <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
-    <span class="s">"from_date"</span> <span class="p">:</span> <span class="s">"01-01-2016"</span><span class="p">,</span>
-    <span class="s">"to_date"</span> <span class="p">:</span> <span class="s">"31-12-2016"</span><span class="p">,</span>
+    <span class="s">"from_date"</span> <span class="p">:</span> <span class="s">"01/01/2016"</span><span class="p">,</span>
+    <span class="s">"to_date"</span> <span class="p">:</span> <span class="s">"12/31/2016"</span><span class="p">,</span>
     <span class="s">"start_index"</span> <span class="p">:</span> <span class="s">"0"</span><span class="p">,</span>
     <span class="s">"count"</span> <span class="p">:</span> <span class="s">"10"</span>
 <span class="p">})</span>
@@ -1593,8 +1593,8 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 <h3 id="get-user-transactions">Get User Transactions</h3>
 <pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: 9c62d683db96c7cabf8db0109be6bb"</span> 
 --header <span class="s2">"api-key: 9a4cf9131sasaw21dsb53a29e1b13"</span>
---data <span class="s2">"from_date= 01-01-2016"</span>,
---data <span class="s2">"to_date= 31-12-2016"</span>,
+--data <span class="s2">"from_date= 01/01/2016"</span>,
+--data <span class="s2">"to_date= 12/31/2016"</span>,
 --data <span class="s2">"points_status= ['approved']"</span>,
 --data <span class="s2">"start_index= 0"</span>,
 <span class="s2">"https://api.shopsocially.com/v2/loyalty/users/bob@shopsocially.com/transactions"</span>
@@ -1606,8 +1606,8 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
            <span class="s">'api-key'</span><span class="p">:</span> <span class="s">'9a4cf9131sasaw21dsb53a29e1b13'</span><span class="p">}</span>
 
 <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
-    <span class="s">"from_date"</span> <span class="p">:</span> <span class="s">"01-01-2016"</span><span class="p">,</span>
-    <span class="s">"to_date"</span> <span class="p">:</span> <span class="s">"31-12-2016"</span><span class="p">,</span>
+    <span class="s">"from_date"</span> <span class="p">:</span> <span class="s">"01/01/2016"</span><span class="p">,</span>
+    <span class="s">"to_date"</span> <span class="p">:</span> <span class="s">"12/31/2016"</span><span class="p">,</span>
     <span class="s">"points_status"</span> <span class="p">:</span> <span class="p">[</span><span class="s">'approved'</span><span class="p">],</span>
     <span class="s">"start_index"</span> <span class="p">:</span> <span class="s">"0"</span><span class="p">,</span>
 <span class="p">})</span>
