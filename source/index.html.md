@@ -679,8 +679,8 @@ merchant_uid | string | UID of the merchant
 ```shell
 curl -X GET --header "partner-id: 9c62d683db96c7cabf8db0109be6bb" 
 --header "api-key: 9a4cf9131sasaw21dsb53a29e1b13"
---data "from_date= 01-01-2016",
---data "to_date= 31-12-2016",
+--data "from_date= 01/01/2016",
+--data "to_date= 12/31/2016",
 --data "start_index= 0",
 --data "count= 10"
 "https://api.shopsocially.com/v2/loyalty/users"
@@ -694,8 +694,8 @@ headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb',
            'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
 
 payload = json.dumps({
-	"from_date" : "01-01-2016",
-	"to_date" : "31-12-2016",
+	"from_date" : "01/01/2016",
+	"to_date" : "12/31/2016",
 	"start_index" : "0",
 	"count" : "10"
 })
@@ -835,8 +835,8 @@ last_award_transaction | string | Record of last awarded transaction
 ```shell
 curl -X GET --header "partner-id: 9c62d683db96c7cabf8db0109be6bb" 
 --header "api-key: 9a4cf9131sasaw21dsb53a29e1b13"
---data "from_date= 01-01-2016",
---data "to_date= 31-12-2016",
+--data "from_date= 01/01/2016",
+--data "to_date= 12/31/2016",
 --data "points_status= ['approved']",
 --data "start_index= 0",
 "https://api.shopsocially.com/v2/loyalty/users/bob@shopsocially.com/transactions"
@@ -850,8 +850,8 @@ headers = {'partner-id': '9c62d683db96c7cabf8db0109be6bb',
            'api-key': '9a4cf9131sasaw21dsb53a29e1b13'}
 
 payload = json.dumps({
-	"from_date" : "01-01-2016",
-	"to_date" : "31-12-2016",
+	"from_date" : "01/01/2016",
+	"to_date" : "12/31/2016",
 	"points_status" : ['approved'],
 	"start_index" : "0",
 })
