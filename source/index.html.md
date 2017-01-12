@@ -794,6 +794,7 @@ response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/users/bob
     "gender":"Male",
     "redeemed_points": 0,
     "available_points":0,
+    "pending_points":0,
     "loyalty_level_id":"2",
     "loyalty_lifetime_level_id":"1",
     "user_language":"English",
@@ -823,6 +824,7 @@ profile_image_url | string | Profile image url of the user
 gender | string | Gender of the user
 redeemed_points | integer | Points redeemed by the user
 available_points | integer | Points currently available for the user
+pending_points | integer | Points pending for approval
 loyalty_level_id | string | ID of loyalty level currently assigned to user
 loyalty_lifetime_level_id | string | ID of lifetime loyalty level currently assigned to the user
 user_language | string | Default language associated to user's profile
@@ -1064,7 +1066,8 @@ response = requests.get(url = "https://api.shopsocially.com/v2/loyalty/users/poi
     "expired_points": 0,
     "next_level_data": {},
     "qualified_points": 0,
-    "redeemed": 0
+    "redeemed": 0,
+    "pending_points":0
   },
   "success":true
 }
@@ -1093,6 +1096,7 @@ expired_points | integer | Number of points expired
 next_level_data | list | Data about the next loyalty level
 qualified_points | integer | Number of points earned in the lifetime of the loyalty program. It is used for level upgrades.
 redeemed | integer | Number of points redeemed
+pending_points | integer | Number of points pending for approval.
 
 
 
