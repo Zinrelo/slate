@@ -418,6 +418,117 @@ loyalty_tier_id | string | ID of loyalty level currently assigned to user
 loyalty_tier_name | string | ID of loyalty level currently assigned to user
 expiration_schedule | array | Array of expiration schedules
 
+### Get User Redemptions
+
+```shell
+curl -X GET --header "partner-id: cad458dc4e" 
+--header "api-key: c921e097e6679d21c0cad26a45bfec20"
+--data "is_still_valid=true",
+--data "order_by=allowed_redeem_points",
+--data "count=10",
+--data "start_index=0",
+"https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/redemptions"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': 'cad458dc4e', 
+           'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
+
+payload = json.dumps({
+  "is_still_valid" : true,
+  "order_by" : "allowed_redeem_points",
+  "count" : "10",
+  "start_index" : "0",
+})
+
+response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/redemptions",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+   "data": {
+   "total": 2,
+   "redemptions": [
+       {
+        "giftcard_description": "$25 Off Coupon for 2100 points",
+        "redemption_name": "$25 OFF COUPON",
+        "is_active": false,
+        "associated_levels": [
+                              "all"
+                              ],
+        "allowed_redeem_points": 2100,
+        "updated_time": "18-May-2017 13:03:05",
+        "paypal_cashback_enabled": false,
+        "redemption_id": "reward_3063f",
+        "created_time": "18-May-2017 13:03:05",
+        "coupon_expiry": null,
+        "redemption_value": "25",
+        "coupon_status": {
+                          "uploaded_coupons": 0,
+                          "remaining_coupons": 0
+                         }
+       },
+
+       {
+        "giftcard_description": "$20 Off Coupon for 1800 points",
+        "redemption_name": "$20 OFF COUPON",
+        "is_active": false,
+        "associated_levels": [
+                              "all"
+                             ],
+        "allowed_redeem_points": 1800,
+        "updated_time": "18-May-2017 13:03:05",
+        "paypal_cashback_enabled": false,
+        "redemption_id": "reward_eb549",
+        "created_time": "18-May-2017 13:03:05",
+        "coupon_expiry": null,
+        "redemption_value": "20",
+        "coupon_status": {
+                          "uploaded_coupons": 0,
+                          "remaining_coupons": 0
+                         }
+       },
+
+       {...}
+    ],
+
+   "more": false
+   },
+ "success": true
+}
+
+```
+This will return information about the redemption options available to the user. User's email ID will be used to search and return user specific information.
+
+
+**HTTP Request**
+
+`GET  https://api.zinrelo.com/v1/loyalty/users/{user_email}/redemptions`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+is_still_valid | boolean | No | Indicates whether only valid or all redemptions should be fetched (defaults to false)
+order_by | string | No | The order in which the redemption options will be fetched (defaults to updated_time)
+count | string | No | The number of redemptions to be fetched (defaults to 12)
+start_index | integer | No | The start index to fetch the data from (defaults to 0)
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+total | integer | Total number of redemptions for the user 
+redemptions | array | Array of redemptions based on time range, filters and start_index
+more | boolean | Indicates if more number of redemptions are available (true/false)
+
 # Status Codes
 
 Our API returns standard HTTP success or failure status codes. For failures, we will also include extra information about what went wrong encoded in the response as JSON. The various HTTP and API status codes we might return are listed below.
