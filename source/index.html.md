@@ -48,7 +48,7 @@ To access **Partner ID**, and the **API Key**, please follow the steps given bel
 * Login to your Merchant Center Console.
 * Navigate to **General > Settings**, to find your **Partner ID**, and **API Key**. 
 
-![alt text](/images/zinrelo_settings.png)
+![alt text](/images/zinrelo_settings_prod.png)
 
 <aside class="notice">
 If you don't see the API Key on your dashboard, please write to support@zinrelo.com
