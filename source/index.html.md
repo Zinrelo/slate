@@ -64,6 +64,85 @@ If you don't see the API Key on your dashboard, please write to support@zinrelo.
 
 ## Points
 
+### Award
+
+```shell
+curl -X POST --header "partner-id: cad458dc4e" 
+--header "api-key: c921e097e6679d21c0cad26a45bfec20" 
+--data "user_email=bob@zinrelo.com" 
+--data "points_passed=100" 
+--data "activity_id=made_a_purchase"
+--data "order_id=75a2726d13artibb10"
+
+"https://api.zinrelo.com/v1/loyalty/award"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': 'cad458dc4e', 
+           'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
+
+payload = {"user_email": "bob@zinrelo.com",
+           "points_passed": 100,
+           "activity_id": "made_a_purchase",
+           "order_id":"75a2726d13artibb10"}
+
+response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/award",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+          "user_email": "bob@zinrelo.com",
+          "last_name": "Baker",
+          "first_name": "Bob",
+          "activity_id": "made_a_purchase",
+          "activity_name": "Made a Purchase",
+          "transaction_type":"award",
+          "points": 100,
+          "points_status": "auto_approved",
+          "created_time": "30-Mar-16 19:20:22"
+  },
+  "success":true
+}
+```
+
+Award points to a user for any activity. 
+Points will be awarded based on the user's email address.
+
+**HTTP Request**
+
+`POST  https://api.zinrelo.com/v1/loyalty/award`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+user_email | string | Yes | The email of the user to whom points have to be awarded.
+points_passed | integer | No (if activity type is fixed) Yes (if activity type is bonus multiplier) | If the activity is configured to award fixed number of points, the points passed will override the value set in the configuration. If the activity is configured to use a multiplier to award points, this becomes a mandatory parameter as the points cannot be awarded without the base value.
+activity_id | string | Yes | The activity for which points needs to be awarded. The activity ID is available in the merchant center in the activity configuration.
+order_id | string | No | When points are being awarded for purchase activity, it is recommended to pass order ID of the purchase transaction .This ensures that points for a particular transaction are awarded only once. 
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+user_email| string | The person’s email address
+last_name| string | The person’s last name
+first_name| string | The person’s first name
+activity_id| string | The id of the activity for which the points were awarded
+activity_name| string | The name of the activity for which the points were awarded
+transaction_type| string | This will always be "award"
+points| integer | The number of points awarded
+points_status| string | The status of the award transaction
+created_time| string | The time when the record was created
+
 ### Redeem
 
 ```shell
@@ -209,6 +288,195 @@ reason| string | Reason for the deduction
 points| integer | The number of points deducted
 created_time| string | The time when the record was created
 user_email| string | The person’s email address
+
+## Transactions
+
+### Get all transactions
+
+```shell
+curl -X GET --header "partner-id: cad458dc4e" 
+--header "api-key: c921e097e6679d21c0cad26a45bfec20" 
+--data "from_date=01/01/2016" 
+--data "to_date =31/12/2017" 
+--data "points_status=['approved, auto_approved']"
+--data "start_index=7"
+"https://api.zinrelo.com/v1/loyalty/transactions"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': 'cad458dc4e', 
+           'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
+
+payload = { "from_date": "01/01/2016",
+            "to_date": "05/23/2017",	
+            "points_status": '["approved","auto_approved"]',
+            "start_index": 7
+          }
+
+response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/transactions",
+                        headers = headers, params = payload)
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data":{
+    "total": 250,
+    "next_start_index":100,
+    "transactions":[{
+      "first_name": "bob",
+      "last_name": "baker",
+      "order_id": "12345ddfd67",
+      "auto_approval_date": null,
+      "points_status": "approved",
+      "points_used": 0,
+      "redemption_value": null,
+      "points_expiration_date": "2017-07-09 12:42:05.484000",
+      "redemption_name": null,
+      "points": 300,
+      "approved_by": null,
+      "user_email": "enterprise",
+      "created_time": "09-May-2017 12:21:53",
+      "activity_name": "Purchase on website",
+      "transaction_type": "award",
+      "points_passed": 100,
+      "approved_time": "2017-05-09 12:21:53.138000"
+      }, 
+    {...}],
+    "more":true
+  },
+  "success":true
+}
+```
+
+Fetch list of all transactions in the given period
+
+**HTTP Request**
+
+`GET  https://api.zinrelo.com/v1/loyalty/transactions`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+from_date | string | Yes | The start date (format is MM/DD/YYYY)
+to_date | string | Yes | The end date (format is MM/DD/YYYY)
+points_status | list of strings | No | The status of the transaction (pending/approved/auto_approved/<br>auto_rejected/rejected/<br>pending/exhausted/expired)
+start_index | integer | No | The index from where data needs to be fetched (defaults to 0)
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+total | integer | total number of transactions
+next_start_index | integer | starting index of next batch of transactions
+transactions | list | list of transactions
+activity_name | string | Name of the activity
+first_name| string | The person’s first name
+last_name| string | The person’s last name
+user_email| string | The person’s email address
+redemption_name | string | Name of the redemption   
+approved_time | string | The time when transaction was approved
+auto_approval_date | string | The time when transaction was auto approved 
+points_status| string | Status of transaction (approved,auto_approved,exhausted,<br>pending,rejected,auto_rejected,expired)
+transaction_type| string | Type of transaction (award,deduct,redeem)
+points| integer | The number of points involved in transaction
+approved_by | string | Name of admin who approved the transaction
+created_time| string | The time when the transaction was created
+
+
+
+
+### Get User Transactions
+
+```shell
+curl -X GET --header "partner-id: cad458dc4e" 
+--header "api-key: c921e097e6679d21c0cad26a45bfec20"
+--data "from_date= 01/01/2016",
+--data "to_date= 12/31/2016",
+--data "points_status= ['approved']",
+--data "start_index= 0",
+"https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/transactions"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': 'cad458dc4e', 
+           'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
+
+payload = {
+	"from_date" : "01/01/2016",
+	"to_date" : "12/31/2016",
+	"points_status" : ['approved'],
+	"start_index" : "0",
+}
+
+response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/transactions",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "data": {
+  		"total": 1,
+  		"next_start_index": 2,
+  		"transactions": [{
+				    "first_name": "bob",
+				    "last_name": "baker",
+				    "order_id": "12345ddfd67",
+				    "auto_approval_date": null,
+				    "points_status": "approved",
+				    "points_used": 0,
+				    "redemption_value": null,
+				    "points_expiration_date": "2017-07-09 12:42:05.484000",
+				    "redemption_name": null,
+				    "points": 300,
+				    "approved_by": null,
+				    "user_email": "enterprise",
+				    "created_time": "09-May-2017 12:21:53",
+				    "activity_name": "Purchase on website",
+				    "transaction_type": "award",
+				    "points_passed": 100,
+				    "approved_time": "2017-05-09 12:21:53.138000"
+  		}],
+  		"more": false
+    },
+    "success":true
+}
+```
+This will return information about the transactions done (points earned / redeemed) by any user. User's email ID will be used to search and return user specific information.
+
+
+**HTTP Request**
+
+`GET  https://api.zinrelo.com/v1/loyalty/users/{user_email}/transactions`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+from_date | string | Yes | The start date
+to_date | string | Yes | The end date
+points_status | string | No | Status of transaction to fetch (pending/auto_approved/approved/<br>auto_rejected/rejected/expired/exhausted)
+start_index | integer | No | The start index to fetch the data from (defaults to 0)
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+total | integer | Total number of transactions for the user 
+next_start_index | integer | Next index of record to fetch 
+transactions | array | Array of transactions based on time range, filters and start_index
+more | boolean | Indicates if more number of transactions are available (true/false)
 
 ## Returns
 
