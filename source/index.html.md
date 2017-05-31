@@ -82,7 +82,7 @@ headers = {'partner-id': 'cad458dc4e',
            'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
 
 payload = {"user_email": "bob@zinrelo.com",
-                      "redemption_id": "reward_d65bc"}
+           "redemption_id": "reward_d65bc"}
 
 response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/redeem",
                         headers = headers, data = payload)
@@ -136,6 +136,79 @@ points_status| string | This will always be "redeemed"
 coupon_code| string | The coupon code to be used for successive transactions
 created_time| string | The time when the record was created
 
+### Deduct
+
+```shell
+curl -X POST --header "partner-id: cad458dc4e" 
+--header "api-key: c921e097e6679d21c0cad26a45bfec20" 
+--data "user_email=bob@zinrelo.com" 
+--data "reason=invalid transaction"
+--data "points_passed=1000"
+"https://api.zinrelo.com/v1/loyalty/users/deduct"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': 'cad458dc4e', 
+           'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
+
+payload = {"user_email": "bob@zinrelo.com",
+           "reason": "invalid transaction",
+           "points_passed": 1000}
+
+response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/users/deduct",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data":{
+          "first_name": "Bob",
+          "last_name": "Baker",
+          "points_status": "deducted",
+          "transaction_type": "deduct",
+          "available_points": 1500,
+          "reason": "invalid transaction",
+          "points": 1000,
+          "created_time": "30-Mar-15 19:20:22",
+          "user_email": "bob@zinrelo.com"
+         },
+  "success":true
+}
+```
+
+Deduct points from a user’s available points. This deduction may not be related to redemption.
+
+**HTTP Request**
+
+`POST  https://api.zinrelo.com/v1/loyalty/users/deduct`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+user_email | string | Yes | The email of the user whose points are to be deducted.
+reason | string | Yes | The reason for deduction.
+points_passed | string | Yes | The number of points to be deducted.
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+first_name| string | The person’s first name
+last_name| string | The person’s last name
+points_status| string | This will always be "deducted"
+transaction_type| string | This will always be "deduct"
+available_points| integer | The points available to the user after deduction
+reason| string | Reason for the deduction
+points| integer | The number of points deducted
+created_time| string | The time when the record was created
+user_email| string | The person’s email address
 
 ## Returns
 
