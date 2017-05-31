@@ -67,10 +67,10 @@ If you don't see the API Key on your dashboard, please write to support@zinrelo.
 ### Redeem
 
 ```shell
-curl -X POST --header "partner-id: <your-partner-id>" 
---header "api-key: <your-api-key>" 
---data "user_email= <User’s email ID>" 
---data "redemption_id= <redemption ID>"
+curl -X POST --header "partner-id: cad458dc4e" 
+--header "api-key: c921e097e6679d21c0cad26a45bfec20" 
+--data "user_email=bob@zinrelo.com" 
+--data "redemption_id=reward_d65bc"
 "https://api.zinrelo.com/v1/loyalty/redeem"
 ```
 
@@ -81,8 +81,8 @@ import json
 headers = {'partner-id': 'cad458dc4e',
            'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
 
-payload = json.dumps({"user_email": "bob@zinrelo.com",
-                      "redemption_id": "$50_gift_card"})
+payload = {"user_email": "bob@zinrelo.com",
+                      "redemption_id": "reward_d65bc"}
 
 response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/redeem",
                         headers = headers, data = payload)
@@ -98,6 +98,7 @@ response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/redeem",
           "last_name": "Baker",
           "first_name": "Bob",
           "redemption_name": "$50 Gift Card",
+          "redemption_id" : "reward_d65bc",
           "points": 1000,
           "points_status": "redeemed",
           "coupon_code": "GET50OFF",
@@ -139,10 +140,9 @@ created_time| string | The time when the record was created
 ## Returns
 
 ```shell
-curl -X POST --header "partner-id: <your-partner-id>" 
---header "api-key: <your-api-key>" 
---data "order_id: <order id for which the return needs to be processed>" 
---data "returned_amount: <returned_amount>" 
+curl -X POST --header "partner-id: cad458dc4e" 
+--header "api-key: c921e097e6679d21c0cad26a45bfec20" 
+--data "order_id=ORDER101" 
 "https://api.zinrelo.com/v1/loyalty/transaction/return"
 ```
 
@@ -150,11 +150,10 @@ curl -X POST --header "partner-id: <your-partner-id>"
 import requests
 import json
 
-headers = {'partner-id': <your-partner-id>, 
-           'api-key': <your-api-key>}
+headers = {'partner-id': 'cad458dc4e',
+           'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
 
-payload = json.dumps({"order_id": <order id for which the return needs to be processed>,
-                      "returned_amount": <returned_amount>})
+payload = {"order_id": 'ORDER101'}
 
 response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/transaction/return",
                         headers = headers, data = payload)
@@ -166,11 +165,11 @@ response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/transaction/r
 {
   "data":{
           "user_email": "bob@zinrelo.com",
-          "user_last_name": "Baker",
-          "user_first_name": "Bob",
+          "last_name": "Baker",
+          "first_name": "Bob",
           "points": 1000,
           "points_status": "pending_deduction",
-          "returned_for_order_id": "1254aeb7b4f",
+          "returned_for_order_id": "ORDER101",
           "reason": "Order Fully Returned",
           "created_time": "30-Mar-16 19:20:22"
 	},
@@ -212,10 +211,10 @@ created_time| string | The time when the record was created
 ```shell
 curl -X POST --header "partner-id: cad458dc4e"
 --header "api-key: c921e097e6679d21c0cad26a45bfec20"
---data "first_name= bob"
---data "last_name= Baker"
---data "email= bob@zinrelo.com"
---data "uid= 12345"
+--data "first_name=bob"
+--data "last_name=Baker"
+--data "email=bob@zinrelo.com"
+--data "uid=12345"
 "https://api.zinrelo.com/v1/loyalty/users"
 ```
 
@@ -226,12 +225,12 @@ import json
 headers = {'partner-id': 'cad458dc4e',
            'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
 
-payload = json.dumps({
+payload = {
 	"first_name" : "Bob",
 	"last_name" : "Baker",
 	"email" : "bob@zinrelo.com",
 	"uid" : "12345"
-})
+	}
 
 response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/users",
                         headers = headers, data = payload)
@@ -279,10 +278,10 @@ last_name | string | Last name of the user
 ```shell
 curl -X GET --header "partner-id: cad458dc4e"
 --header "api-key: c921e097e6679d21c0cad26a45bfec20"
---data "from_date= 01/01/2016",
---data "to_date= 12/31/2016",
---data "start_index= 0",
---data "count= 10"
+--data "from_date=01/01/2016",
+--data "to_date=12/31/2016",
+--data "start_index=0",
+--data "count=10"
 "https://api.zinrelo.com/v1/loyalty/users"
 ```
 
