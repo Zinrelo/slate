@@ -184,7 +184,7 @@ If you don&rsquo;t see the API Key on your dashboard, please write to support@zi
            <span class="s">'api-key'</span><span class="p">:</span> <span class="s">'c921e097e6679d21c0cad26a45bfec20'</span><span class="p">}</span>
 
 <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">"user_email"</span><span class="p">:</span> <span class="s">"bob@zinrelo.com"</span><span class="p">,</span>
-                      <span class="s">"redemption_id"</span><span class="p">:</span> <span class="s">"reward_d65bc"</span><span class="p">}</span>
+           <span class="s">"redemption_id"</span><span class="p">:</span> <span class="s">"reward_d65bc"</span><span class="p">}</span>
 
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.zinrelo.com/v1/loyalty/redeem"</span><span class="p">,</span>
                         <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">)</span>
@@ -293,6 +293,139 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 <td>created_time</td>
 <td>string</td>
 <td>The time when the record was created</td>
+</tr>
+</tbody></table>
+
+<h3 id="deduct">Deduct</h3>
+<pre class="highlight shell"><code>curl -X POST --header <span class="s2">"partner-id: cad458dc4e"</span> 
+--header <span class="s2">"api-key: c921e097e6679d21c0cad26a45bfec20"</span> 
+--data <span class="s2">"user_email=bob@zinrelo.com"</span> 
+--data <span class="s2">"reason=invalid transaction"</span>
+--data <span class="s2">"points_passed=1000"</span>
+<span class="s2">"https://api.zinrelo.com/v1/loyalty/users/deduct"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="s">'cad458dc4e'</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="s">'c921e097e6679d21c0cad26a45bfec20'</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">"user_email"</span><span class="p">:</span> <span class="s">"bob@zinrelo.com"</span><span class="p">,</span>
+           <span class="s">"reason"</span><span class="p">:</span> <span class="s">"invalid transaction"</span><span class="p">,</span>
+           <span class="s">"points_passed"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.zinrelo.com/v1/loyalty/users/deduct"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:{</span><span class="w">
+          </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bob"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Baker"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"points_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deducted"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"transaction_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deduct"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"available_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">1500</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid transaction"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"points"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30-Mar-15 19:20:22"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"user_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bob@zinrelo.com"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Deduct points from a user’s available points. This deduction may not be related to redemption.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">POST  https://api.zinrelo.com/v1/loyalty/users/deduct</code></p>
+
+<p><strong>Query Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>user_email</td>
+<td>string</td>
+<td>Yes</td>
+<td>The email of the user whose points are to be deducted.</td>
+</tr>
+<tr>
+<td>reason</td>
+<td>string</td>
+<td>Yes</td>
+<td>The reason for deduction.</td>
+</tr>
+<tr>
+<td>points_passed</td>
+<td>string</td>
+<td>Yes</td>
+<td>The number of points to be deducted.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>first_name</td>
+<td>string</td>
+<td>The person’s first name</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>string</td>
+<td>The person’s last name</td>
+</tr>
+<tr>
+<td>points_status</td>
+<td>string</td>
+<td>This will always be &ldquo;deducted&rdquo;</td>
+</tr>
+<tr>
+<td>transaction_type</td>
+<td>string</td>
+<td>This will always be &ldquo;deduct&rdquo;</td>
+</tr>
+<tr>
+<td>available_points</td>
+<td>integer</td>
+<td>The points available to the user after deduction</td>
+</tr>
+<tr>
+<td>reason</td>
+<td>string</td>
+<td>Reason for the deduction</td>
+</tr>
+<tr>
+<td>points</td>
+<td>integer</td>
+<td>The number of points deducted</td>
+</tr>
+<tr>
+<td>created_time</td>
+<td>string</td>
+<td>The time when the record was created</td>
+</tr>
+<tr>
+<td>user_email</td>
+<td>string</td>
+<td>The person’s email address</td>
 </tr>
 </tbody></table>
 
