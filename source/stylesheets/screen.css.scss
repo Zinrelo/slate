@@ -23,6 +23,8 @@ under the License.
 // GENERAL STUFF
 ////////////////////////////////////////////////////////////////////////////////
 
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i");
+
 html, body {
   color: $main-text;
   padding: 0;
@@ -33,6 +35,8 @@ html, body {
   background-color: $main-bg;
   height: 100%;
   -webkit-text-size-adjust: none; /* Never autoresize text */
+  font-family: 'Roboto';
+    font-size: 17px;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -641,3 +645,30 @@ html, body {
 .highlight .c, .highlight .cm, .highlight .c1, .highlight .cs {
   color: #909090;
 }
+
+
+
+li.tocify-item {
+  margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.tocify-wrapper { 
+box-shadow: 0px 0px 4px rgba(0,0,0,0.5);
+font-size: 17px;
+}
+
+.content p, .content li, .content dt, .content dd {
+    line-height: 1.6;
+    margin-top: 0;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.logo-image {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    border-radius: 15px;
+}
+
+
