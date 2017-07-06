@@ -60,6 +60,7 @@ If you don't see the API Key on your dashboard, please write to support@zinrelo.
 
 `'partner-id' : '<your-partner-id>'`
 
+
 # Zinrelo API
 
 ## Points
@@ -869,6 +870,338 @@ Attribute | Type | Description
 total | integer | Total number of redemptions for the user 
 redemptions | array | Array of redemptions based on time range, filters and start_index
 more | boolean | Indicates if more number of redemptions are available (true/false)
+
+
+# Webhooks
+
+## Introduction
+
+A Webhook is simply an HTTP callback, an HTTP POST that occurs when something happens. Simply put, it is a simple event-notification via HTTP POST. Webhooks allow you to build or set up integrations, which subscribe to certain events on Zinrelo Loyalty Platform. When one of those events is triggered, we'll send an HTTP POST payload to the configured URL. Webhooks are aimed at enabling our merchants to extend the functionality provided by the Zinrelo’s Loyalty program by listening to the events and adding additional functionality like CRM integrations, email notifications and integrations with wallets/account credits etc.
+
+## Settings
+Webhook settings can be configured in the Notifications section of the Zinrelo store.
+
+Sr.No. | Event Name | Description
+-------| ---------- | --------
+   1   | Enable Webhook | Enable/Disable Webhook.
+   2   | Webhook URL | Endpoint where events will be posted.
+   3   | Events to send Webhook notifications for | Events for which you want to receive notifications for. Currently available events are User Enrollment, Points Awarded, Points Redeemed, Points Deducted
+
+![alt text](/images/webhook_settings_prod.png)
+
+## Webhook processing
+
+> For example if your webhook end point is setup at below url: 
+*http://example.com/loyalty_webhook/ss_webhook*
+The Webhook post request can be received in the following way:
+
+```shell
+#Please refer python tab for details
+```
+
+```python
+import json
+@restrict('POST')
+def ss_webhook(self):
+  try:
+    body = json.loads(request.body)
+    #handling code based on the event_type provided 
+    i.e. body.event_type
+  except Exception as e:
+    #handle exception
+
+```
+
+> The structure of the webhook post request body is as follows:
+
+```json
+{
+"id":"570265a77fae7c14c97a2b63",
+"data": {..},
+"event_type":"evt_points_awarded",
+"created":"04-Apr-2016 13:01:27"
+}
+```
+**Receiving a Webhook Notification**
+
+Creating a Webhook on your server is simple. Webhook data is sent as JSON in the POST request body. All the details regarding the event are included in the JSON. You are good to go once you parse the JSON.
+
+**Responding a webhook**
+
+Based on the event type, the payload will contain the user data or the transaction data. In the case of events - User Enrollment the payload contains the user object. Whereas in case of events - Points Awarded, Points Redeemed, Points Deducted the payload will contain the loyalty transaction details.
+
+Your endpoint should return 200 HTTP status code to acknowledge receipt of the event. Any code other than the 200 HTTP status code is considered as a failure, and the event will be fired again with 5 minute intervals until the 200 HTTP status code is received or the maximum number of retry attempts has reached (The default retry attempts limit is 5. Get in touch with your Customer Success Manager to configure the settings).
+
+**Best Practices**
+
+If your Webhook script performs complex logic, or makes network calls, it is possible that the request would timeout before Zinrelo sees the script’s complete execution. For this reason, you may want to have your Webhook endpoint immediately acknowledge receipt by returning a 200 HTTP status code and then perform the rest of its duties.
+
+Webhook endpoints may occasionally receive the same event more than once. We advise you to guard against duplicated event receipts by logging the events you have processed against the Event ID and then not processing already-logged events
+
+**Securities**
+
+You may want to confirm that the data received at your Webhook URL is actually the data sent by Zinrelo before acting upon it. To do so, you can use the events API endpoint as described below:
+Upon receiving a Webhook event follow the below steps:
+
+  1. Parse the JSON data in request body and get the Event ID value.
+  2. Use the Event ID value to get the data from Zinrelo using the [Events API endpoint](#events-api-endpoint).
+
+## Events API Endpoint
+
+```shell
+curl -X GET --header "partner-id: cad458dc4e" 
+--header "api-key: c921e097e6679d21c0cad26a45bfec20" 
+"https://api.zinrelo.com/v1/events/570265a77fae7c14c97a2b63”
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': 'cad458dc4e', 
+           'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
+response = requests.get(
+        url = "https://api.zinrelo.com/v1/events/570265a77fae7c14c97a2b63",
+        headers = headers)
+
+```
+
+> The response of the above command is:
+
+```json
+{
+"data": {
+        "id": "570265a77fae7c14c97a2b63",
+        "data": {
+              "user_last_name": "Pingle",
+              "activity_id": "became_an_email_subscriber",
+              "user_first_name": "Aditya",
+              "user_id": "56263eac2d6f2a7715b3d2d1",
+              "order_id": null,
+              "points_status": "approved",
+              "transaction_type": "award",
+              "points_expiration_date": null,
+              "qualified_points": true,
+              "points": 6,
+              "points_expired": 0,
+              "created_time": "04-Apr-2016 13:01:27",
+              "user_email": "aditya@shopsocially.com",
+              "activity_name": "Became an Email Subscriber",
+              "merchant_id": "9935740ac1fe23a1962de5cf4250c036",
+              "id": "570265a7735f835a2ce12a15",
+              "approved_time": "04-Apr-2016 13:01:27" 
+              },
+        "event_type": "evt_points_awarded", 
+        "created": "04-Apr-2016 13:01:27"
+ 	      },
+"success": true
+}
+```
+
+This will get the Event data given the Event ID. The ‘data’ returned in the response of the API is identical to the Event data received via Webhook.
+
+**HTTP Request**
+
+`GET https://api.zinrelo.com/v1/loyalty/events/{id}`
+
+`Response Body`
+
+Parameter   | Type   |Description
+------------|--------|------------
+id          | String |Event ID
+data        | Dictionary | Transaction Details\User deatils
+event_type  | String | Event Type
+created     | String | Event Created Time
+
+
+## Event Data Format
+When configuring a Webhook, you can choose the events you would like to receive payloads for. Subscribing only to the events, which you implement, will help in limiting the HTTP requests to your server. 
+
+The events supported by Zinrelo Loyalty program are:
+
+Sr.No.|   Event Name   |Description
+------|----------------|----------------
+1     |User Enrollment |When a new user enrolls into the loyalty program.
+2     |Points Awarded  |When points are awarded (approved) to a user.
+3     |Points Redeemed |When a user redeems points.
+4     |Points Deducted |When points are deducted from a user’s loyalty points balance
+
+
+> Example request body for a User Enrollment event:
+
+```json
+{
+  "id": "56ebfcd66ce8864200329b6c",
+  "data": {
+            "loyalty_life_time_level_name": "",
+            "expiration_schedule": [
+              {
+              "expiration_date": "18-May-2016 23:59:59",
+              "points": 100.0
+              }
+            ],
+            "last_name": "Danielson",
+            "redeemed_points": 0,"profile_image_url": "https://graph.facebook.com/1702974843251895/picture",
+            "last_award_transaction": {
+              "date": "17-Feb-2016 13:14:28",
+              "points": 100.0,
+              "name": "Connected via Facebook"
+            },
+            "loyalty_level_id": "test2",
+            "loyalty_lifetime_level_id": "",
+            "first_name": "Brad",
+            "user_id": "56c472266ce8862db6721fa0",
+            "available_points": 0,
+            "gender": "male",
+            "dashboard_url":"https://localhost:8000/loyalty/sample/user/56c472266ce8862db6721fa0/dashboard",
+            "loyalty_level_name": "test2",
+            "awarded_points": 0,
+            "user_email": "brad_danielson@shopsocially.com"
+            },
+  "event_type": "evt_level_upgrade",
+  "created": "18-Mar-2016 13:04:21"
+}
+```
+
+**User Enrollment**
+
+User Enrollment event occurs whenever a new user enrolls into Zinrelo loyalty program.
+On successfull user enrollment we make a call to your webhook URL with following request body: 
+
+
+Parameter   | Type   |Description
+------------|--------|------------
+id          | String |Event ID
+data        | Dictionary |User Details
+event_type  | String | Event Type
+created     | String | Event Created Time
+
+> Example request body for a Points Awarded event:
+
+```json
+{  
+  "id": "57026ce2c22f9f7b50bbdf6e",
+  "data": {
+          "activity_id": "became_an_email_subscriber",
+          "user_first_name": "Aditya", 
+          "order_id": null,
+          "points_status": "approved",
+          "points_expired": 0,
+          "created_time": "04-Apr-2016 13:32:18",
+          "merchant_id": "9935740ac1fe23a1962de5cf4250c036",
+          "id": "57026ce2735f835a2ce12a33",
+          "approved_time": "04-Apr-2016 13:32:18",
+          "points_expiration_date": null,
+          "user_id": "56263eac2d6f2a7715b3d2d1",
+          "transaction_type": "award",
+          "user_last_name": "Pingle",
+          "points": 300,
+          "qualified_points": true, 
+          "activity_name": "Became an Email Subscriber",
+          "user_email": "aditya@shopsocially.com"
+          },
+  "event_type": "evt_points_awarded",
+  "created": "04-Apr-2016 13:32:18"
+}
+```
+
+
+
+**Points Awarded**
+
+Points Awarded event occurs whenever any user has been awarded loyalty points. In the case of the activities where moderation is required, the event occurs once the points have been approved.
+On successfull points award event, we make a call to your webhook URL with following  request body: 
+
+
+Parameter   | Type   |Description
+------------|--------|------------
+id          | String |Event ID
+data        | Dictionary |Transaction Details
+event_type  | String | Event Type
+created     | String | Event Created Time
+
+
+> Example request body for a Points Redeemed event:
+
+```json
+{  
+  "id": "570265487fae7c14c77a2b63",
+  "data": {
+        "points_status": "redeemed", 
+        "user_id": "56263eac2d6f2a7715b3d2d1",
+        "redemption_name": "new_redemption 50",
+        "user_first_name": "Aditya",
+        "transaction_type": "redeem",
+        "user_last_name": "Pingle",
+        "coupon_code": "5",
+        "points": 1,
+        "redemption_id": "new_redemption_50",
+        "created_time": "04-Apr-2016 12:59:52",
+        "merchant_id": "9935740ac1fe23a1962de5cf4250c036",
+        "id": "57026548735f835a2d16b01c",
+        "user_email": "aditya@shopsocially.com"
+        },
+  "event_type": "evt_points_redeemed",
+  "created": "04-Apr-2016 12:59:52"
+}
+```
+
+
+
+
+**Points Redeemed**
+
+Points Redeemed event occurs whenever a user redeems his loyalty points.
+On successfull points redeemed event, we make a call to your webhook URL with following request body: 
+
+
+Parameter   | Type   |Description
+------------|--------|------------
+id          | String |Event ID
+data        | Dictionary |Transaction Details
+event_type  | String | Event Type
+created     | String | Event Created Time
+
+
+> Example response body of Points Deducted event:
+
+```json
+{
+  "id": "57026857c22f9f7b50bbdf6c",
+    "data": {
+      "user_first_name": "Aditya",
+      "user_id": "56263eac2d6f2a7715b3d2d1",
+      "points_status": "deducted", 
+      "transaction_type": "deduct",
+      "user_last_name": "Pingle",
+      "reason": "testing",
+      "points": 30000,
+      "points_deducted": 0,
+      "created_time": "04-Apr-2016 13:12:55",
+      "merchant_id": "9935740ac1fe23a1962de5cf4250c036",
+      "id": "57026857735f835a2ce12a27",
+      "user_email": "aditya@shopsocially.com"
+    },
+    "event_type": "evt_points_deducted",
+    "created": "04-Apr-2016 13:12:55"
+}
+```
+
+
+
+**Points Deducted**
+
+Points Deducted event occurs whenever points are deducted from a user’s loyalty points balance. The points can be deducted from Zinrelo store or using API calls.
+On successfull points deduct event, we make a call to webhook URL with following request body: 
+
+
+Parameter   | Type   |Description
+------------|--------|------------
+id          | String |Event ID
+data        | Dictionary |Transaction Details
+event_type  | String | Event Type
+created     | String | Event Created Time
+
 
 # Status Codes
 
