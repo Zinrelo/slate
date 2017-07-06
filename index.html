@@ -1508,6 +1508,470 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 </tr>
 </tbody></table>
 
+<h1 id="webhooks">Webhooks</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>A Webhook is simply an HTTP callback, an HTTP POST that occurs when something happens. Simply put, it is a simple event-notification via HTTP POST. Webhooks allow you to build or set up integrations, which subscribe to certain events on Zinrelo Loyalty Platform. When one of those events is triggered, we&rsquo;ll send an HTTP POST payload to the configured URL. Webhooks are aimed at enabling our merchants to extend the functionality provided by the Zinrelo’s Loyalty program by listening to the events and adding additional functionality like CRM integrations, email notifications and integrations with wallets/account credits etc.</p>
+
+<h2 id="settings">Settings</h2>
+
+<p>Webhook settings can be configured in the Notifications section of the Zinrelo store.</p>
+
+<table><thead>
+<tr>
+<th>Sr.No.</th>
+<th>Event Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1</td>
+<td>Enable Webhook</td>
+<td>Enable/Disable Webhook.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Webhook URL</td>
+<td>Endpoint where events will be posted.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Events to send Webhook notifications for</td>
+<td>Events for which you want to receive notifications for. Currently available events are User Enrollment, Points Awarded, Points Redeemed, Points Deducted</td>
+</tr>
+</tbody></table>
+
+<p><img alt="alt text" src="images/webhook_settings_prod.png" /></p>
+
+<h2 id="webhook-processing">Webhook processing</h2>
+
+<blockquote>
+<p>For example if your webhook end point is setup at below url: 
+<em>http://example.com/loyalty_webhook/ss_webhook</em>
+The Webhook post request can be received in the following way:</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="c">#Please refer python tab for details</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="nd">@restrict</span><span class="p">(</span><span class="s">'POST'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">ss_webhook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+    <span class="c">#handling code based on the event_type provided </span>
+    <span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span> <span class="n">body</span><span class="o">.</span><span class="n">event_type</span>
+  <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="c">#handle exception</span>
+
+</code></pre>
+
+<blockquote>
+<p>The structure of the webhook post request body is as follows:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+</span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"570265a77fae7c14c97a2b63"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">..</span><span class="p">},</span><span class="w">
+</span><span class="nt">"event_type"</span><span class="p">:</span><span class="s2">"evt_points_awarded"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"created"</span><span class="p">:</span><span class="s2">"04-Apr-2016 13:01:27"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><strong>Receiving a Webhook Notification</strong></p>
+
+<p>Creating a Webhook on your server is simple. Webhook data is sent as JSON in the POST request body. All the details regarding the event are included in the JSON. You are good to go once you parse the JSON.</p>
+
+<p><strong>Responding a webhook</strong></p>
+
+<p>Based on the event type, the payload will contain the user data or the transaction data. In the case of events - User Enrollment the payload contains the user object. Whereas in case of events - Points Awarded, Points Redeemed, Points Deducted the payload will contain the loyalty transaction details.</p>
+
+<p>Your endpoint should return 200 HTTP status code to acknowledge receipt of the event. Any code other than the 200 HTTP status code is considered as a failure, and the event will be fired again with 5 minute intervals until the 200 HTTP status code is received or the maximum number of retry attempts has reached (The default retry attempts limit is 5. Get in touch with your Customer Success Manager to configure the settings).</p>
+
+<p><strong>Best Practices</strong></p>
+
+<p>If your Webhook script performs complex logic, or makes network calls, it is possible that the request would timeout before Zinrelo sees the script’s complete execution. For this reason, you may want to have your Webhook endpoint immediately acknowledge receipt by returning a 200 HTTP status code and then perform the rest of its duties.</p>
+
+<p>Webhook endpoints may occasionally receive the same event more than once. We advise you to guard against duplicated event receipts by logging the events you have processed against the Event ID and then not processing already-logged events</p>
+
+<p><strong>Securities</strong></p>
+
+<p>You may want to confirm that the data received at your Webhook URL is actually the data sent by Zinrelo before acting upon it. To do so, you can use the events API endpoint as described below:
+Upon receiving a Webhook event follow the below steps:</p>
+
+<ol>
+<li>Parse the JSON data in request body and get the Event ID value.</li>
+<li>Use the Event ID value to get the data from Zinrelo using the <a href="#events-api-endpoint">Events API endpoint</a>.</li>
+</ol>
+
+<h2 id="events-api-endpoint">Events API Endpoint</h2>
+<pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: cad458dc4e"</span> 
+--header <span class="s2">"api-key: c921e097e6679d21c0cad26a45bfec20"</span> 
+<span class="s2">"https://api.zinrelo.com/v1/events/570265a77fae7c14c97a2b63”
+</span></code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="s">'cad458dc4e'</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="s">'c921e097e6679d21c0cad26a45bfec20'</span><span class="p">}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.zinrelo.com/v1/events/570265a77fae7c14c97a2b63"</span><span class="p">,</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+</code></pre>
+
+<blockquote>
+<p>The response of the above command is:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+</span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"570265a77fae7c14c97a2b63"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nt">"user_last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pingle"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"became_an_email_subscriber"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"user_first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aditya"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56263eac2d6f2a7715b3d2d1"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"points_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"approved"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"transaction_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"award"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"points_expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"qualified_points"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"points"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"points_expired"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"04-Apr-2016 13:01:27"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"user_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aditya@shopsocially.com"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Became an Email Subscriber"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9935740ac1fe23a1962de5cf4250c036"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"570265a7735f835a2ce12a15"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"approved_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"04-Apr-2016 13:01:27"</span><span class="w"> 
+              </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evt_points_awarded"</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"04-Apr-2016 13:01:27"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+</span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This will get the Event data given the Event ID. The ‘data’ returned in the response of the API is identical to the Event data received via Webhook.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">GET https://api.zinrelo.com/v1/loyalty/events/{id}</code></p>
+
+<p><code class="prettyprint">Response Body</code></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Event ID</td>
+</tr>
+<tr>
+<td>data</td>
+<td>Dictionary</td>
+<td>Transaction Details\User deatils</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td>String</td>
+<td>Event Type</td>
+</tr>
+<tr>
+<td>created</td>
+<td>String</td>
+<td>Event Created Time</td>
+</tr>
+</tbody></table>
+
+<h2 id="event-data-format">Event Data Format</h2>
+
+<p>When configuring a Webhook, you can choose the events you would like to receive payloads for. Subscribing only to the events, which you implement, will help in limiting the HTTP requests to your server. </p>
+
+<p>The events supported by Zinrelo Loyalty program are:</p>
+
+<table><thead>
+<tr>
+<th>Sr.No.</th>
+<th>Event Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1</td>
+<td>User Enrollment</td>
+<td>When a new user enrolls into the loyalty program.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Points Awarded</td>
+<td>When points are awarded (approved) to a user.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Points Redeemed</td>
+<td>When a user redeems points.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Points Deducted</td>
+<td>When points are deducted from a user’s loyalty points balance</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example request body for a User Enrollment event:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56ebfcd66ce8864200329b6c"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"loyalty_life_time_level_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"expiration_schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+              </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18-May-2016 23:59:59"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"points"</span><span class="p">:</span><span class="w"> </span><span class="mf">100.0</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Danielson"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"redeemed_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="nt">"profile_image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://graph.facebook.com/1702974843251895/picture"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"last_award_transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"17-Feb-2016 13:14:28"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"points"</span><span class="p">:</span><span class="w"> </span><span class="mf">100.0</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Connected via Facebook"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nt">"loyalty_level_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test2"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"loyalty_lifetime_level_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Brad"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56c472266ce8862db6721fa0"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"available_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"dashboard_url"</span><span class="p">:</span><span class="s2">"https://localhost:8000/loyalty/sample/user/56c472266ce8862db6721fa0/dashboard"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"loyalty_level_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test2"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"awarded_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"user_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"brad_danielson@shopsocially.com"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evt_level_upgrade"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18-Mar-2016 13:04:21"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><strong>User Enrollment</strong></p>
+
+<p>User Enrollment event occurs whenever a new user enrolls into Zinrelo loyalty program.
+On successfull user enrollment we make a call to your webhook URL with following request body: </p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Event ID</td>
+</tr>
+<tr>
+<td>data</td>
+<td>Dictionary</td>
+<td>User Details</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td>String</td>
+<td>Event Type</td>
+</tr>
+<tr>
+<td>created</td>
+<td>String</td>
+<td>Event Created Time</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example request body for a Points Awarded event:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">  
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"57026ce2c22f9f7b50bbdf6e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"became_an_email_subscriber"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"user_first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aditya"</span><span class="p">,</span><span class="w"> 
+          </span><span class="nt">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"points_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"approved"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"points_expired"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"04-Apr-2016 13:32:18"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9935740ac1fe23a1962de5cf4250c036"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"57026ce2735f835a2ce12a33"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"approved_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"04-Apr-2016 13:32:18"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"points_expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56263eac2d6f2a7715b3d2d1"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"transaction_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"award"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"user_last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pingle"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"points"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"qualified_points"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> 
+          </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Became an Email Subscriber"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"user_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aditya@shopsocially.com"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evt_points_awarded"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"04-Apr-2016 13:32:18"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><strong>Points Awarded</strong></p>
+
+<p>Points Awarded event occurs whenever any user has been awarded loyalty points. In the case of the activities where moderation is required, the event occurs once the points have been approved.
+On successfull points award event, we make a call to your webhook URL with following  request body: </p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Event ID</td>
+</tr>
+<tr>
+<td>data</td>
+<td>Dictionary</td>
+<td>Transaction Details</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td>String</td>
+<td>Event Type</td>
+</tr>
+<tr>
+<td>created</td>
+<td>String</td>
+<td>Event Created Time</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example request body for a Points Redeemed event:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">  
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"570265487fae7c14c77a2b63"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"points_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redeemed"</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56263eac2d6f2a7715b3d2d1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"redemption_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new_redemption 50"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"user_first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aditya"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"transaction_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redeem"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"user_last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pingle"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"coupon_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"points"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"redemption_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new_redemption_50"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"04-Apr-2016 12:59:52"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9935740ac1fe23a1962de5cf4250c036"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"57026548735f835a2d16b01c"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"user_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aditya@shopsocially.com"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evt_points_redeemed"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"04-Apr-2016 12:59:52"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><strong>Points Redeemed</strong></p>
+
+<p>Points Redeemed event occurs whenever a user redeems his loyalty points.
+On successfull points redeemed event, we make a call to your webhook URL with following request body: </p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Event ID</td>
+</tr>
+<tr>
+<td>data</td>
+<td>Dictionary</td>
+<td>Transaction Details</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td>String</td>
+<td>Event Type</td>
+</tr>
+<tr>
+<td>created</td>
+<td>String</td>
+<td>Event Created Time</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example response body of Points Deducted event:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"57026857c22f9f7b50bbdf6c"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"user_first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aditya"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56263eac2d6f2a7715b3d2d1"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"points_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deducted"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nt">"transaction_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deduct"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"user_last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pingle"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testing"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"points"</span><span class="p">:</span><span class="w"> </span><span class="mi">30000</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"points_deducted"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"04-Apr-2016 13:12:55"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9935740ac1fe23a1962de5cf4250c036"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"57026857735f835a2ce12a27"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"user_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aditya@shopsocially.com"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evt_points_deducted"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"04-Apr-2016 13:12:55"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><strong>Points Deducted</strong></p>
+
+<p>Points Deducted event occurs whenever points are deducted from a user’s loyalty points balance. The points can be deducted from Zinrelo store or using API calls.
+On successfull points deduct event, we make a call to webhook URL with following request body: </p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Event ID</td>
+</tr>
+<tr>
+<td>data</td>
+<td>Dictionary</td>
+<td>Transaction Details</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td>String</td>
+<td>Event Type</td>
+</tr>
+<tr>
+<td>created</td>
+<td>String</td>
+<td>Event Created Time</td>
+</tr>
+</tbody></table>
+
 <h1 id="status-codes">Status Codes</h1>
 
 <p>Our API returns standard HTTP success or failure status codes. For failures, we will also include extra information about what went wrong encoded in the response as JSON. The various HTTP and API status codes we might return are listed below.</p>
