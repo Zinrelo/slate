@@ -686,7 +686,7 @@ from_date | string | No | The start date
 to_date | string | No | The end date
 filter_by | string | No | Filters to be applied along with from_date and to_date. Accepted values: 'enrollment_date' , 'last_activity_date
 start_index | integer | No | The start index to fetch the data from (defaults to 0)
-count | integer | No | Number of records to fetch (defaults to 100)
+count | integer | No | Number of records to fetch (defaults to 10)
 
 **Response Body**
 
