@@ -4,6 +4,7 @@ tags: [zinrelo, loyalty, award, redeem, deduct, user]
 language_tabs:
   - shell: Shell
   - python: Python
+  - javascript : JavaScript
 
 toc_footers:
   - <a href='https://zinrelo.com' target="_blank">Zinrelo Home Page</a>
@@ -1201,6 +1202,76 @@ id          | String |Event ID
 data        | Dictionary |Transaction Details
 event_type  | String | Event Type
 created     | String | Event Created Time
+
+#JavaScript API
+
+
+## Get User Info
+This javascript function will get the details of the user from Zinrelo
+Platform.
+
+```javascript
+zrl_mi.get_loyalty_user_info()
+
+window.zrlmi_loyalty_user_info_success_handler = function(data){
+     console.log(data)
+     /***code to handle success response***/
+}
+
+window.zrlmi_loyalty_user_info_failure_handler = function(data){
+     console.log(data)
+     /***code to handle failure response***/
+}
+```
+
+**Request**
+
+`zrl_mi.get_loyalty_user_info()`
+
+<aside class="notice">
+Implement the JavaScript success and failure handler functions mentioned in JavaScript tab to get response from above function.
+</aside>
+
+
+>The above command returns JSON structured like this:
+
+
+```json
+
+{"available_points":19862,
+"awarded_points":20200,
+"dob":"07/22/1990",
+"first_name":"RT",
+"last_name":"406",
+"loyalty_tier_id":"zrl_level_platinum",
+"loyalty_tier_name":"Platinum",
+"pending_points":0,
+"redeemed_points":338,
+"referral_code":"ART7993",
+"referrer_email":"",
+"ss_uid":"b986ff5cdf5eb5498ec492a9939b6628",
+"success":true,
+"uid":"arti 406",
+"user_email":"arti@shopsocially.com"}
+```
+
+**Response Body**
+
+Parameter        | Type   |Description
+-----------------|--------|------------
+awarded_points   | Integer| Total Points awarded to the user
+dob              | String | Date of birth of the user
+first_name       | String | First name of the user
+last_name        | String | Last name of the user
+loyalty_tier_id  | String | ID of loyalty tier currently assigned to user
+loyalty_tier_name| String | Name of loyalty tier currently assigned to user
+pending_points   | Integer| Points pending for approval
+redeemed_points  | Integer| Points redeemed by the user
+referral_code    | String | Current user's referral code
+referrer_email   | String | Referrer's email address If the current user is referred by someone 
+ss_uid           | String | Zinrelo internal user ID
+uid              | String | Unique ID of user at merchant side
+user_email       | String | Email of the user
 
 
 # Status Codes
