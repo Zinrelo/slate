@@ -91,7 +91,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;python&quot;,&quot;javascript&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -103,6 +103,7 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">Shell</a>
               <a href="#" data-language-name="python">Python</a>
+              <a href="#" data-language-name="javascript">JavaScript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -1972,6 +1973,130 @@ On successfull points deduct event, we make a call to webhook URL with following
 </tr>
 </tbody></table>
 
+<h1 id="javascript-api">JavaScript API</h1>
+
+<h2 id="get-user-info">Get User Info</h2>
+
+<p>This javascript function will get the details of the user from Zinrelo
+Platform.</p>
+<pre class="highlight javascript"><code><span class="nx">zrl_mi</span><span class="p">.</span><span class="nx">get_loyalty_user_info</span><span class="p">()</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">zrlmi_loyalty_user_info_success_handler</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+     <span class="cm">/***code to handle success response***/</span>
+<span class="p">}</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">zrlmi_loyalty_user_info_failure_handler</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+     <span class="cm">/***code to handle failure response***/</span>
+<span class="p">}</span>
+</code></pre>
+
+<p><strong>Request</strong></p>
+
+<p><code class="prettyprint">zrl_mi.get_loyalty_user_info()</code></p>
+
+<aside class="notice">
+Implement the JavaScript success and failure handler functions mentioned in JavaScript tab to get response from above function.
+</aside>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="w">
+</span><span class="p">{</span><span class="nt">"available_points"</span><span class="p">:</span><span class="mi">19862</span><span class="p">,</span><span class="w">
+</span><span class="nt">"awarded_points"</span><span class="p">:</span><span class="mi">20200</span><span class="p">,</span><span class="w">
+</span><span class="nt">"dob"</span><span class="p">:</span><span class="s2">"07/22/1990"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"first_name"</span><span class="p">:</span><span class="s2">"RT"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"last_name"</span><span class="p">:</span><span class="s2">"406"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"loyalty_tier_id"</span><span class="p">:</span><span class="s2">"zrl_level_platinum"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"loyalty_tier_name"</span><span class="p">:</span><span class="s2">"Platinum"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"pending_points"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+</span><span class="nt">"redeemed_points"</span><span class="p">:</span><span class="mi">338</span><span class="p">,</span><span class="w">
+</span><span class="nt">"referral_code"</span><span class="p">:</span><span class="s2">"ART7993"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"referrer_email"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+</span><span class="nt">"ss_uid"</span><span class="p">:</span><span class="s2">"b986ff5cdf5eb5498ec492a9939b6628"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span><span class="nt">"uid"</span><span class="p">:</span><span class="s2">"arti 406"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"user_email"</span><span class="p">:</span><span class="s2">"arti@shopsocially.com"</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>awarded_points</td>
+<td>Integer</td>
+<td>Total Points awarded to the user</td>
+</tr>
+<tr>
+<td>dob</td>
+<td>String</td>
+<td>Date of birth of the user</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>String</td>
+<td>First name of the user</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>String</td>
+<td>Last name of the user</td>
+</tr>
+<tr>
+<td>loyalty_tier_id</td>
+<td>String</td>
+<td>ID of loyalty tier currently assigned to user</td>
+</tr>
+<tr>
+<td>loyalty_tier_name</td>
+<td>String</td>
+<td>Name of loyalty tier currently assigned to user</td>
+</tr>
+<tr>
+<td>pending_points</td>
+<td>Integer</td>
+<td>Points pending for approval</td>
+</tr>
+<tr>
+<td>redeemed_points</td>
+<td>Integer</td>
+<td>Points redeemed by the user</td>
+</tr>
+<tr>
+<td>referral_code</td>
+<td>String</td>
+<td>Current user&rsquo;s referral code</td>
+</tr>
+<tr>
+<td>referrer_email</td>
+<td>String</td>
+<td>Referrer&rsquo;s email address If the current user is referred by someone</td>
+</tr>
+<tr>
+<td>ss_uid</td>
+<td>String</td>
+<td>Zinrelo internal user ID</td>
+</tr>
+<tr>
+<td>uid</td>
+<td>String</td>
+<td>Unique ID of user at merchant side</td>
+</tr>
+<tr>
+<td>user_email</td>
+<td>String</td>
+<td>Email of the user</td>
+</tr>
+</tbody></table>
+
 <h1 id="status-codes">Status Codes</h1>
 
 <p>Our API returns standard HTTP success or failure status codes. For failures, we will also include extra information about what went wrong encoded in the response as JSON. The various HTTP and API status codes we might return are listed below.</p>
@@ -2087,6 +2212,7 @@ On successfull points deduct event, we make a call to webhook URL with following
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">Shell</a>
                 <a href="#" data-language-name="python">Python</a>
+                <a href="#" data-language-name="javascript">JavaScript</a>
           </div>
       </div>
     </div>
