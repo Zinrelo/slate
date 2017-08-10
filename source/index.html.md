@@ -558,6 +558,7 @@ curl -X POST --header "partner-id: cad458dc4e"
 --data "last_name=Baker"
 --data "email=bob@zinrelo.com"
 --data "uid=12345"
+--data "dob=12/31/1992"
 "https://api.zinrelo.com/v1/loyalty/users"
 ```
 
@@ -572,7 +573,8 @@ payload = {
 	"first_name" : "Bob",
 	"last_name" : "Baker",
 	"email" : "bob@zinrelo.com",
-	"uid" : "12345"
+	"uid" : "12345",
+	"dob": "12/31/1992"
 	}
 
 response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/users",
@@ -607,7 +609,7 @@ first_name | string | Yes | First name of the user
 last_name | string | Yes | Last name of the user
 email | string | Yes | Email of the user
 uid | string | Yes | User ID of the user
-
+dob | string | No | Birthdate of user. format is MM/DD/YYYY.
 **Response Body**
 
 Attribute | Type | Description
