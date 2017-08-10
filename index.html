@@ -1019,6 +1019,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 --data <span class="s2">"last_name=Baker"</span>
 --data <span class="s2">"email=bob@zinrelo.com"</span>
 --data <span class="s2">"uid=12345"</span>
+--data <span class="s2">"dob=12/31/1992"</span>
 <span class="s2">"https://api.zinrelo.com/v1/loyalty/users"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
@@ -1031,7 +1032,8 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
     <span class="s">"first_name"</span> <span class="p">:</span> <span class="s">"Bob"</span><span class="p">,</span>
     <span class="s">"last_name"</span> <span class="p">:</span> <span class="s">"Baker"</span><span class="p">,</span>
     <span class="s">"email"</span> <span class="p">:</span> <span class="s">"bob@zinrelo.com"</span><span class="p">,</span>
-    <span class="s">"uid"</span> <span class="p">:</span> <span class="s">"12345"</span>
+    <span class="s">"uid"</span> <span class="p">:</span> <span class="s">"12345"</span><span class="p">,</span>
+    <span class="s">"dob"</span><span class="p">:</span> <span class="s">"12/31/1992"</span>
     <span class="p">}</span>
 
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.zinrelo.com/v1/loyalty/users"</span><span class="p">,</span>
@@ -1090,6 +1092,12 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 <td>string</td>
 <td>Yes</td>
 <td>User ID of the user</td>
+</tr>
+<tr>
+<td>dob</td>
+<td>string</td>
+<td>No</td>
+<td>Birthdate of user. format is MM/DD/YYYY.</td>
 </tr>
 </tbody></table>
 
