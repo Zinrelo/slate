@@ -1031,37 +1031,27 @@ Sr.No.|   Event Name   |Description
 > Example request body for a User Enrollment event:
 
 ```json
-{
-  "id": "56ebfcd66ce8864200329b6c",
-  "data": {
-            "loyalty_life_time_level_name": "",
-            "expiration_schedule": [
-              {
-              "expiration_date": "18-May-2016 23:59:59",
-              "points": 100.0
-              }
-            ],
-            "last_name": "Danielson",
-            "redeemed_points": 0,"profile_image_url": "https://graph.facebook.com/1702974843251895/picture",
-            "last_award_transaction": {
-              "date": "17-Feb-2016 13:14:28",
-              "points": 100.0,
-              "name": "Connected via Facebook"
-            },
-            "loyalty_level_id": "test2",
-            "loyalty_lifetime_level_id": "",
-            "first_name": "Brad",
-            "user_id": "56c472266ce8862db6721fa0",
-            "available_points": 0,
-            "gender": "male",
-            "dashboard_url":"https://localhost:8000/loyalty/sample/user/56c472266ce8862db6721fa0/dashboard",
-            "loyalty_level_name": "test2",
-            "awarded_points": 0,
-            "user_email": "brad_danielson@shopsocially.com"
-            },
-  "event_type": "evt_level_upgrade",
-  "created": "18-Mar-2016 13:04:21"
+{"created": "28-Sep-2017 06:49:54",
+  "data": 
+      {"first_name": "Daena",
+      "last_name":"Wille",
+      "user_id": "59cc9b91418a580a512b450d",
+      "uid": "daen1234",
+      "dob": "",
+      "loyalty_tier_id": "zrl_silver",
+      "available_points": 100,
+      "loyalty_tier_name": "Silver", 
+      "referral_url": "https://arti55.zinrelo.com/ref/DAE4429", 
+      "referral_code": "DAE4429", 
+      "redeemed_points": 0,
+      "awarded_points": 100,
+      "user_email": "Daena1234@shopsocially.com",
+      "pending_points": 0
+      },
+    "id": "59cc9b93418a58027716b78d", 
+    "event_type": "evt_user_enrollment"
 }
+
 ```
 
 **User Enrollment**
