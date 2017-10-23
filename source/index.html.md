@@ -275,7 +275,7 @@ Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
 user_email | string | Yes | The email of the user whose points are to be deducted.
 reason | string | Yes | The reason for deduction.
-points_passed | string | Yes | The number of points to be deducted.
+points_passed | integer | Yes | The number of points to be deducted.
 
 **Response Body**
 
@@ -416,7 +416,7 @@ payload = {
 	"from_date" : "01/01/2016",
 	"to_date" : "12/31/2016",
 	"points_status" : ['approved'],
-	"start_index" : "0",
+	"start_index" : 0,
 }
 
 response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/transactions",
@@ -606,10 +606,11 @@ Create a new user for merchant.
 Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
 first_name | string | Yes | First name of the user
-last_name | string | Yes | Last name of the user
+last_name | string | No | Last name of the user
 email | string | Yes | Email of the user
 uid | string | Yes | User ID of the user
 dob | string | No | Birthdate of user. format is MM/DD/YYYY.
+referral_code | string | No | Referral code of the friend who has referred the user to be created.
 **Response Body**
 
 Attribute | Type | Description
@@ -640,8 +641,8 @@ headers = {'partner-id': 'cad458dc4e',
 payload = json.dumps({
 	"from_date" : "01/01/2016",
 	"to_date" : "12/31/2016",
-	"start_index" : "0",
-	"count" : "10"
+	"start_index" : 0,
+	"count" : 10
 })
 
 response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users",
@@ -666,6 +667,9 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users",
        "pending_points": 0,
        "awarded_points": 0,
        "user_email": "bob@zinrelo.com",
+       "referral_code": "BOB1234",
+       "has_opted_out": false,
+       "referrer_email": "",
        "dob" : ""
     }],
     "more":false
@@ -735,6 +739,9 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
    "pending_points": 0,
    "awarded_points": 0,
    "user_email": "bob@zinrelo.com",
+   "referral_code": "BOB1234",
+   "has_opted_out": false,
+   "referrer_email": "",
    "dob" : ""
   },
   "success":true
@@ -762,6 +769,9 @@ pending_points | integer | Points pending for approval
 loyalty_tier_id | string | ID of loyalty level currently assigned to user
 loyalty_tier_name | string | ID of loyalty level currently assigned to user
 expiration_schedule | array | Array of expiration schedules
+referral_code | string | Referral code of the user
+has_opted_out | boolean | Indicates whether the user has opted out of the loyalty program
+referrer_email | string | Email address of the friend who has referred the current user
 
 ### Get User Redemptions
 
@@ -785,8 +795,8 @@ headers = {'partner-id': 'cad458dc4e',
 payload = json.dumps({
   "is_still_valid" : true,
   "order_by" : "allowed_redeem_points",
-  "count" : "10",
-  "start_index" : "0",
+  "count" : 10,
+  "start_index" : 0,
 })
 
 response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/redemptions",
@@ -863,7 +873,7 @@ Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
 is_still_valid | boolean | No | Indicates whether only valid or all redemptions should be fetched (defaults to false)
 order_by | string | No | The order in which the redemption options will be fetched (defaults to updated_time)
-count | string | No | The number of redemptions to be fetched (defaults to 12)
+count | integer | No | The number of redemptions to be fetched (defaults to 12)
 start_index | integer | No | The start index to fetch the data from (defaults to 0)
 
 **Response Body**
