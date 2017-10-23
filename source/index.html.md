@@ -1310,4 +1310,7 @@ Code | Description
 613 | Invalid Order ID
 614 | Points to deduct is greater than points available to deduct for the Order ID
 615 | missing parameters
+616 | Invalid event ID
+617 | Maximum award limit exceeded
+618 | Points could not be awarded because exclusion rule was applied
     
