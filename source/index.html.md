@@ -1038,6 +1038,7 @@ Sr.No.|   Event Name   |Description
 2     |Points Awarded  |When points are awarded (approved) to a user.
 3     |Points Redeemed |When a user redeems points.
 4     |Points Deducted |When points are deducted from a user’s loyalty points balance
+5     |Tier Upgrade    |When a customer upgrades to a higher tier
 
 
 > Example request body for a User Enrollment event:
@@ -1166,7 +1167,7 @@ event_type  | String | Event Type
 created     | String | Event Created Time
 
 
-> Example response body of Points Deducted event:
+> Example request body of Points Deducted event:
 
 ```json
 {
@@ -1195,7 +1196,48 @@ created     | String | Event Created Time
 **Points Deducted**
 
 Points Deducted event occurs whenever points are deducted from a user’s loyalty points balance. The points can be deducted from Zinrelo store or using API calls.
-On successfull points deduct event, we make a call to webhook URL with following request body: 
+On successful points deduct event, we make a call to your webhook URL with following request body: 
+
+
+Parameter   | Type   |Description
+------------|--------|------------
+id          | String |Event ID
+data        | Dictionary |Transaction Details
+event_type  | String | Event Type
+created     | String | Event Created Time
+
+
+> Example request body of Tier Upgrade event:
+
+```json
+{
+  "id": "57026857c22f9f7b50bbdf6c",
+  "data": {
+      "first_name": "Bob",
+      "last_name": "Baker",
+      "loyalty_tier_name": "Pearl",
+      "uid": "76183",
+      "user_id": "5982d90663fda91f6fb37564",
+      "dob": "",
+      "loyalty_tier_id": "zrl_pearl",
+      "available_points": 1738,
+      "referral_url": "https://storeforpreviewdahsboard.zinrelo.com/ref/BOB7091",
+      "referral_code": "BOB7091",
+      "redeemed_points": 0,
+      "awarded_points": 1738,
+      "user_email": "bob@xyz.com",
+      "pending_points": 0
+  },
+  "event_type": "evt_level_upgrade",
+  "created": "01-Apr-2016 12:26:08"
+}
+```
+
+
+
+**Tier Upgrade**
+
+The Tier upgrade event occurs whenever a customer earns enough points to move up to a higher tier. The tier upgrade is processed immediately and the webhook is triggered at the time of upgrade. On successful tier upgrade event, we make a call to your webhook URL with following request body: 
 
 
 Parameter   | Type   |Description
