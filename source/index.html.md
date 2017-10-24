@@ -1167,7 +1167,7 @@ event_type  | String | Event Type
 created     | String | Event Created Time
 
 
-> Example request body of Points Deducted event:
+> Example request body for a Points Deducted event:
 
 ```json
 {
@@ -1207,7 +1207,7 @@ event_type  | String | Event Type
 created     | String | Event Created Time
 
 
-> Example request body of Tier Upgrade event:
+> Example request body for a Tier Upgrade event:
 
 ```json
 {
