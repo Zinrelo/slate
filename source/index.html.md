@@ -763,11 +763,11 @@ first_name | string | First name of the user
 last_name | string | Last name of the user
 dob | string | Date of birth of user, if available
 redeemed_points | integer | Points redeemed by the user
-available_points | integer | Points currently available for the user
-awarded_points | integer | Points currently available for the user
+available_points | integer | Points currently available to the user
+awarded_points | integer | Total number of points that have been awarded to the user
 pending_points | integer | Points pending for approval
-loyalty_tier_id | string | ID of loyalty level currently assigned to user
-loyalty_tier_name | string | ID of loyalty level currently assigned to user
+loyalty_tier_id | string | ID of the loyalty tier currently assigned to the user
+loyalty_tier_name | string | Name of the loyalty tier currently assigned to the user
 expiration_schedule | array | Array of expiration schedules
 referral_code | string | Referral code of the user
 has_opted_out | boolean | Indicates whether the user has opted out of the loyalty program
