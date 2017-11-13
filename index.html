@@ -1300,7 +1300,8 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
    </span><span class="nt">"referral_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BOB1234"</span><span class="p">,</span><span class="w">
    </span><span class="nt">"has_opted_out"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
    </span><span class="nt">"referrer_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-   </span><span class="nt">"dob"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+   </span><span class="nt">"dob"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"loyalty_enroll_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10/10/2017"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1391,6 +1392,11 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 <td>string</td>
 <td>Email address of the friend who has referred the current user</td>
 </tr>
+<tr>
+<td>loyalty_enroll_time</td>
+<td>string</td>
+<td>Date (mm/dd/yyyy) when the user enrolled into the loyalty program</td>
+</tr>
 </tbody></table>
 
 <h3 id="get-user-redemptions">Get User Redemptions</h3>
@@ -1400,6 +1406,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 --data <span class="s2">"order_by=allowed_redeem_points"</span>,
 --data <span class="s2">"count=10"</span>,
 --data <span class="s2">"start_index=0"</span>,
+--data <span class="s2">"fetch_eligible_redemptions=true"</span>
 <span class="s2">"https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/redemptions"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
@@ -1413,6 +1420,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
   <span class="s">"order_by"</span> <span class="p">:</span> <span class="s">"allowed_redeem_points"</span><span class="p">,</span>
   <span class="s">"count"</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
   <span class="s">"start_index"</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s">"fetch_eligible_redemptions"</span> <span class="p">:</span> <span class="n">true</span>
 <span class="p">})</span>
 
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/redemptions"</span><span class="p">,</span>
@@ -1430,6 +1438,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
         </span><span class="nt">"giftcard_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$25 Off Coupon for 2100 points"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"redemption_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$25 OFF COUPON"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"redemption_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Percentage Discount"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"associated_levels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
                               </span><span class="s2">"all"</span><span class="w">
                               </span><span class="p">],</span><span class="w">
@@ -1450,6 +1459,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
         </span><span class="nt">"giftcard_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$20 Off Coupon for 1800 points"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"redemption_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$20 OFF COUPON"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"redemption_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fixed Amount Discount"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"associated_levels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
                               </span><span class="s2">"all"</span><span class="w">
                              </span><span class="p">],</span><span class="w">
@@ -1476,7 +1486,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 
 </span></code></pre>
 
-<p>This will return information about the redemption options available to the user. User&rsquo;s email ID will be used to search and return user specific information.</p>
+<p>This will return information about the redemption options available to the user based on his tier if applicable. User&rsquo;s email ID will be used to search and return user specific information.</p>
 
 <p><strong>HTTP Request</strong></p>
 
@@ -1496,7 +1506,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 <td>is_still_valid</td>
 <td>boolean</td>
 <td>No</td>
-<td>Indicates whether only valid or all redemptions should be fetched (defaults to false)</td>
+<td>Indicates whether only active or all redemptions should be fetched (defaults to false)</td>
 </tr>
 <tr>
 <td>order_by</td>
@@ -1515,6 +1525,12 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 <td>integer</td>
 <td>No</td>
 <td>The start index to fetch the data from (defaults to 0)</td>
+</tr>
+<tr>
+<td>fetch_eligible_redemptions</td>
+<td>boolean</td>
+<td>No</td>
+<td>If passed as True, only those redemptions which the user can redeem based on his available points will be fetched. If not passed, all applicable redemptions will be fetched irrespective of points availability (defaults to false)</td>
 </tr>
 </tbody></table>
 
