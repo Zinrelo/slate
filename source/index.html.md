@@ -742,7 +742,8 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
    "referral_code": "BOB1234",
    "has_opted_out": false,
    "referrer_email": "",
-   "dob" : ""
+   "dob" : "",
+   "loyalty_enroll_time": "10/10/2017"
   },
   "success":true
 }
@@ -772,6 +773,7 @@ expiration_schedule | array | Array of expiration schedules
 referral_code | string | Referral code of the user
 has_opted_out | boolean | Indicates whether the user has opted out of the loyalty program
 referrer_email | string | Email address of the friend who has referred the current user
+loyalty_enroll_time | string | Date (mm/dd/yyyy) when the user enrolled into the loyalty program
 
 ### Get User Redemptions
 
@@ -782,6 +784,7 @@ curl -X GET --header "partner-id: cad458dc4e"
 --data "order_by=allowed_redeem_points",
 --data "count=10",
 --data "start_index=0",
+--data "fetch_eligible_redemptions=true"
 "https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/redemptions"
 ```
 
@@ -797,6 +800,7 @@ payload = json.dumps({
   "order_by" : "allowed_redeem_points",
   "count" : 10,
   "start_index" : 0,
+  "fetch_eligible_redemptions" : true
 })
 
 response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/redemptions",
@@ -815,6 +819,7 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
         "giftcard_description": "$25 Off Coupon for 2100 points",
         "redemption_name": "$25 OFF COUPON",
         "is_active": false,
+        "redemption_type": "Percentage Discount",
         "associated_levels": [
                               "all"
                               ],
@@ -835,6 +840,7 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
         "giftcard_description": "$20 Off Coupon for 1800 points",
         "redemption_name": "$20 OFF COUPON",
         "is_active": false,
+        "redemption_type": "Fixed Amount Discount",
         "associated_levels": [
                               "all"
                              ],
@@ -860,7 +866,7 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
 }
 
 ```
-This will return information about the redemption options available to the user. User's email ID will be used to search and return user specific information.
+This will return information about the redemption options available to the user based on his tier if applicable. User's email ID will be used to search and return user specific information.
 
 
 **HTTP Request**
@@ -871,10 +877,11 @@ This will return information about the redemption options available to the user.
 
 Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
-is_still_valid | boolean | No | Indicates whether only valid or all redemptions should be fetched (defaults to false)
+is_still_valid | boolean | No | Indicates whether only active or all redemptions should be fetched (defaults to false)
 order_by | string | No | The order in which the redemption options will be fetched (defaults to updated_time)
 count | integer | No | The number of redemptions to be fetched (defaults to 12)
 start_index | integer | No | The start index to fetch the data from (defaults to 0)
+fetch_eligible_redemptions | boolean | No | If passed as True, only those redemptions which the user can redeem based on his available points will be fetched. If not passed, all applicable redemptions will be fetched irrespective of points availability (defaults to false)
 
 **Response Body**
 
