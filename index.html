@@ -1777,6 +1777,11 @@ Upon receiving a Webhook event follow the below steps:</p>
 <td>Tier Upgrade</td>
 <td>When a customer upgrades to a higher tier</td>
 </tr>
+<tr>
+<td>6</td>
+<td>Tier Downgrade</td>
+<td>When a customer downgrades to a lower tier</td>
+</tr>
 </tbody></table>
 
 <blockquote>
@@ -2048,6 +2053,65 @@ On successful points deduct event, we make a call to your webhook URL with follo
 <p><strong>Tier Upgrade</strong></p>
 
 <p>The Tier upgrade event occurs whenever a customer earns enough points to move up to a higher tier. The tier upgrade is processed immediately and the webhook is triggered at the time of upgrade. On successful tier upgrade event, we make a call to your webhook URL with following request body: </p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Event ID</td>
+</tr>
+<tr>
+<td>data</td>
+<td>Dictionary</td>
+<td>Transaction Details</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td>String</td>
+<td>Event Type</td>
+</tr>
+<tr>
+<td>created</td>
+<td>String</td>
+<td>Event Created Time</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example request body for a Tier Downgrade event:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"57026857c22f9f7b50bbdf6c"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bob"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Baker"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"loyalty_tier_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pearl"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"76183"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5982d90663fda91f6fb37564"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"dob"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"loyalty_tier_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zrl_pearl"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"available_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">1738</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"referral_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://storeforpreviewdahsboard.zinrelo.com/ref/BOB7091"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"referral_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BOB7091"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"redeemed_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"awarded_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">1738</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"user_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bob@xyz.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"pending_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evt_level_degrade"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01-Apr-2016 12:26:08"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><strong>Tier Downgrade</strong></p>
+
+<p>The Tier downgrade event occurs whenever enough points are deducted from a customer&rsquo;s account resulting in downgrading to a lower tier. The tier downgrade is processed immediately and the webhook is triggered at the time of downgrade. On successful tier downgrade event, we make a call to your webhook URL with following request body: </p>
 
 <table><thead>
 <tr>
