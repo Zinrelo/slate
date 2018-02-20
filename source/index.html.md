@@ -606,7 +606,7 @@ Create a new user for merchant.
 Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
 first_name | string | Yes | First name of the user
-last_name | string | No | Last name of the user
+last_name | string | Yes | Last name of the user
 email | string | Yes | Email of the user
 uid | string | Yes | User ID of the user
 dob | string | No | Birthdate of user. format is MM/DD/YYYY.
