@@ -532,7 +532,8 @@ Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
 order_id | string | Yes | The order ID for which the return needs to be processed.
 returned_amount | integer | No | If returned_amount is specified and is a non-zero positive number, it will be processed as a partial return. The amount will be subtracted from the actual value of the order and remaining points will be awarded.</br>If returned_amount is not passed, it will be considered as complete order return.
-
+returned_product_id | string | No | The ID for the product to be returned.
+quantity | integer | No | The number of products to be returned.
 
 **Response Body**
 
