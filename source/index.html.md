@@ -337,16 +337,37 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/transactions",
       "points_status": "approved",
       "points_used": 0,
       "redemption_value": null,
+      "points_passed": 100,
       "points_expiration_date": "2017-07-09 12:42:05.484000",
       "redemption_name": null,
       "points": 300,
       "approved_by": null,
-      "user_email": "enterprise",
+      "user_email": "bob@zinrelo.com",
       "created_time": "09-May-2017 12:21:53",
       "activity_name": "Purchase on website",
       "transaction_type": "award",
-      "points_passed": 100,
-      "approved_time": "2017-05-09 12:21:53.138000"
+      "additional_data": {
+          "zrl_products": [
+              {
+                  "category": "trucks",
+                  "product_id": "1235df",
+                  "price": "5",
+                  "product_points_per_quantity": 10,
+                  "bonus_multiplier": 2,
+                  "quantity": "1"
+              },
+              {
+                  "category": "toys",
+                  "product_id": "231235df",
+                  "price": "5",
+                  "product_points_per_quantity": 5,
+                  "bonus_multiplier": 0,
+                  "quantity": "1"
+              }
+          ]
+      },
+      "approved_time": "2017-05-09 12:21:53.138000",
+      "returned_for_order_id": null
       }, 
     {...}],
     "more":true
@@ -367,7 +388,7 @@ Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
 from_date | string | Yes | The start date (format is MM/DD/YYYY)
 to_date | string | Yes | The end date (format is MM/DD/YYYY)
-points_status | list of strings | No | The status of the transaction (pending/approved/auto_approved/<br>auto_rejected/rejected/<br>pending/exhausted/expired)
+points_status | list of strings | No | The status of the transaction (pending/approved/auto_approved/<br>redeemed/rejected/<br>deducted/expired)
 start_index | integer | No | The index from where data needs to be fetched (defaults to 0)
 
 **Response Body**
@@ -377,18 +398,25 @@ Attribute | Type | Description
 total | integer | total number of transactions
 next_start_index | integer | starting index of next batch of transactions
 transactions | list | list of transactions
-activity_name | string | Name of the activity
 first_name| string | The person’s first name
 last_name| string | The person’s last name
-user_email| string | The person’s email address
-redemption_name | string | Name of the redemption   
-approved_time | string | The time when transaction was approved
-auto_approval_date | string | The time when transaction was auto approved 
-points_status| string | Status of transaction (approved,auto_approved,exhausted,<br>pending,rejected,auto_rejected,expired)
-transaction_type| string | Type of transaction (award,deduct,redeem)
+order_id | string | The order ID in case of a purchase transaction
+auto_approval_date | string | The time when transaction was auto approved
+points_status| string | Status of transaction (approved/auto_approved/exhausted/<br>pending/redeemed/deducted/<br>rejected/expired)
+points_used| integer | The number of points used for redeeming a reward
+redemption_value | string | Currency value of the redemption
+points_passed| integer | Corresponds to the order_subtotal passed during a purchase transaction
+points_expiration_date| string | The time when the points for the transaction expire if expiration is enabled
+redemption_name | string | Name of the redemption
 points| integer | The number of points involved in transaction
 approved_by | string | Name of admin who approved the transaction
+user_email| string | The person’s email address
 created_time| string | The time when the transaction was created
+activity_name | string | Name of the activity 
+transaction_type| string | Type of transaction (award,deduct,redeem)
+additional_data| json | Details of the products bought in the purchase transaction
+approved_time | string | The time when transaction was approved
+returned_for_order_id | string | The order ID for which a return transaction has been processed
 
 
 
@@ -432,23 +460,44 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
   		"total": 1,
   		"next_start_index": 2,
   		"transactions": [{
-				    "first_name": "bob",
-				    "last_name": "baker",
-				    "order_id": "12345ddfd67",
-				    "auto_approval_date": null,
-				    "points_status": "approved",
-				    "points_used": 0,
-				    "redemption_value": null,
-				    "points_expiration_date": "2017-07-09 12:42:05.484000",
-				    "redemption_name": null,
-				    "points": 300,
-				    "approved_by": null,
-				    "user_email": "enterprise",
-				    "created_time": "09-May-2017 12:21:53",
-				    "activity_name": "Purchase on website",
-				    "transaction_type": "award",
-				    "points_passed": 100,
-				    "approved_time": "2017-05-09 12:21:53.138000"
+            "first_name": "bob",
+            "last_name": "baker",
+            "order_id": "12345ddfd67",
+            "auto_approval_date": null,
+            "points_status": "approved",
+            "points_used": 0,
+            "redemption_value": null,
+            "points_passed": 100,
+            "points_expiration_date": "2017-07-09 12:42:05.484000",
+            "redemption_name": null,
+            "points": 300,
+            "approved_by": null,
+            "user_email": "bob@zinrelo.com",
+            "created_time": "09-May-2017 12:21:53",
+            "activity_name": "Purchase on website",
+            "transaction_type": "award",
+            "additional_data": {
+                "zrl_products": [
+                    {
+                        "category": "trucks",
+                        "product_id": "1235df",
+                        "price": "5",
+                        "product_points_per_quantity": 10,
+                        "bonus_multiplier": 2,
+                        "quantity": "1"
+                    },
+                    {
+                        "category": "toys",
+                        "product_id": "231235df",
+                        "price": "5",
+                        "product_points_per_quantity": 5,
+                        "bonus_multiplier": 0,
+                        "quantity": "1"
+                    }
+                ]
+            },
+            "approved_time": "2017-05-09 12:21:53.138000",
+            "returned_for_order_id": null
   		}],
   		"more": false
     },
@@ -468,7 +517,7 @@ Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
 from_date | string | Yes | The start date
 to_date | string | Yes | The end date
-points_status | string | No | Status of transaction to fetch (pending/auto_approved/approved/<br>auto_rejected/rejected/expired/exhausted)
+points_status | string | No | Status of transaction to fetch (pending/auto_approved/approved/<br>redeemed/rejected/<br>expired/deducted)
 start_index | integer | No | The start index to fetch the data from (defaults to 0)
 
 **Response Body**
