@@ -314,6 +314,248 @@ Points will be awarded based on the user&rsquo;s email address.</p>
 </tr>
 </tbody></table>
 
+<h3 id="purchase">Purchase</h3>
+<pre class="highlight shell"><code>curl -X POST --header <span class="s2">"partner-id: cad458dc4e"</span> 
+--header <span class="s2">"api-key: c921e097e6679d21c0cad26a45bfec20"</span> 
+--data <span class="s2">"user_email=bob@zinrelo.com"</span> 
+--data <span class="s2">"total=100"</span> 
+--data <span class="s2">"subtotal=80"</span> 
+--data <span class="s2">"order_id=75a2726d13artibb10"</span>
+--data <span class="s2">"currency=USD"</span> 
+--data <span class="s2">"coupon_code=CODE101"</span> 
+--data <span class="s1">'products=[{"category": "Mugs",
+       "img_url": "https://cdn.website.com/product1/img.jpg",
+       "price": "80",
+       "product_id": "1234df",
+       "quantity": "1",
+       "tags": "Special, Coffee",
+       "title": "Snoozeberry Travel Mug",
+       "url": "http://www.website.com/product1.html"}]'</span> 
+
+<span class="s2">"https://api.zinrelo.com/v1/loyalty/purchase"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="s">'cad458dc4e'</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="s">'c921e097e6679d21c0cad26a45bfec20'</span><span class="p">}</span>
+<span class="n">products</span> <span class="o">=</span> <span class="p">[{</span><span class="s">"category"</span><span class="p">:</span> <span class="s">"Mugs"</span><span class="p">,</span>
+            <span class="s">"img_url"</span><span class="p">:</span> <span class="s">"https://cdn.website.com/product1/img.jpg"</span><span class="p">,</span>
+            <span class="s">"price"</span><span class="p">:</span> <span class="s">"80"</span><span class="p">,</span>
+            <span class="s">"product_id"</span><span class="p">:</span> <span class="s">"1234df"</span><span class="p">,</span>
+            <span class="s">"quantity"</span><span class="p">:</span> <span class="s">"1"</span><span class="p">,</span>
+            <span class="s">"tags"</span><span class="p">:</span> <span class="s">"Special, Coffee"</span><span class="p">,</span>
+            <span class="s">"title"</span><span class="p">:</span> <span class="s">"Snoozeberry Travel Mug"</span><span class="p">,</span>
+            <span class="s">"url"</span><span class="p">:</span> <span class="s">"http://www.website.com/product1.html"</span><span class="p">}]</span> 
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">"user_email"</span><span class="p">:</span> <span class="s">"bob@zinrelo.com"</span><span class="p">,</span>
+       <span class="s">"total=100"</span><span class="p">,</span> 
+       <span class="s">"subtotal=80"</span><span class="p">,</span> 
+       <span class="s">"order_id=75a2726d13artibb10"</span><span class="p">,</span>
+       <span class="s">"currency=USD"</span><span class="p">,</span>
+       <span class="s">"coupon_code=CODE101"</span><span class="p">,</span>
+       <span class="s">"products"</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">products</span><span class="p">)}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.zinrelo.com/v1/loyalty/purchase"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"user_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bob@zinrelo.com"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Baker"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bob"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"made_a_purchase"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Made a Purchase"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"transaction_type"</span><span class="p">:</span><span class="s2">"award"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"points"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"points_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auto_approved"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30-Mar-16 19:20:22"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Award points to a user for making a  purchase. 
+Points will be calculated based on the rules set in the purchase activity.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">POST  https://api.zinrelo.com/v1/loyalty/purchase</code></p>
+
+<p><strong>Query Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>user_email</td>
+<td>string</td>
+<td>Yes</td>
+<td>The email of the user to whom points have to be awarded.</td>
+</tr>
+<tr>
+<td>total</td>
+<td>string</td>
+<td>Yes</td>
+<td>Total order value.</td>
+</tr>
+<tr>
+<td>subtotal</td>
+<td>string</td>
+<td>Yes</td>
+<td>Order value without shipping and taxes.</td>
+</tr>
+<tr>
+<td>order_id</td>
+<td>string</td>
+<td>Yes</td>
+<td>Order ID of the purchase transaction. This ensures that points for a particular transaction are awarded only once.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>No</td>
+<td>Three letter currency code for your store. Defaults to USD.</td>
+</tr>
+<tr>
+<td>coupon_code</td>
+<td>string</td>
+<td>No</td>
+<td>Coupon code used.</td>
+</tr>
+<tr>
+<td>products</td>
+<td>list</td>
+<td>No</td>
+<td>List of products bought. Product information should be passed in a specific format as shown in the sample code with the below parameters</td>
+</tr>
+</tbody></table>
+
+<p><strong>Products</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>product_id</td>
+<td>string</td>
+<td>Yes</td>
+<td>Unique product identifier</td>
+</tr>
+<tr>
+<td>price</td>
+<td>string</td>
+<td>Yes</td>
+<td>Product price</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>string</td>
+<td>Yes</td>
+<td>Quantity bought</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>Yes</td>
+<td>Title of the product</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>Yes</td>
+<td>Url of the product page</td>
+</tr>
+<tr>
+<td>img_url</td>
+<td>string</td>
+<td>No</td>
+<td>Url of the product image</td>
+</tr>
+<tr>
+<td>category</td>
+<td>string</td>
+<td>No</td>
+<td>Internal Product Category</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>string</td>
+<td>No</td>
+<td>Internal Product tags</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>user_email</td>
+<td>string</td>
+<td>The person’s email address</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>string</td>
+<td>The person’s last name</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>string</td>
+<td>The person’s first name</td>
+</tr>
+<tr>
+<td>activity_id</td>
+<td>string</td>
+<td>The id of the activity for which the points were awarded</td>
+</tr>
+<tr>
+<td>activity_name</td>
+<td>string</td>
+<td>The name of the activity for which the points were awarded</td>
+</tr>
+<tr>
+<td>transaction_type</td>
+<td>string</td>
+<td>This will always be &ldquo;award&rdquo;</td>
+</tr>
+<tr>
+<td>points</td>
+<td>integer</td>
+<td>The number of points awarded</td>
+</tr>
+<tr>
+<td>points_status</td>
+<td>string</td>
+<td>The status of the award transaction.Status can be approved,auto_approved,cached or pending</td>
+</tr>
+<tr>
+<td>created_time</td>
+<td>string</td>
+<td>The time when the transaction was created</td>
+</tr>
+</tbody></table>
+
 <h3 id="redeem">Redeem</h3>
 <pre class="highlight shell"><code>curl -X POST --header <span class="s2">"partner-id: cad458dc4e"</span> 
 --header <span class="s2">"api-key: c921e097e6679d21c0cad26a45bfec20"</span> 
