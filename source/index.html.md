@@ -145,6 +145,123 @@ points| integer | The number of points awarded
 points_status| string | The status of the award transaction
 created_time| string | The time when the record was created
 
+### Purchase
+
+```shell
+curl -X POST --header "partner-id: cad458dc4e" 
+--header "api-key: c921e097e6679d21c0cad26a45bfec20" 
+--data "user_email=bob@zinrelo.com" 
+--data "total=100" 
+--data "subtotal=80" 
+--data "order_id=75a2726d13artibb10"
+--data "currency=USD" 
+--data "coupon_code=CODE101" 
+--data 'products=[{"category": "Mugs",
+       "img_url": "https://cdn.website.com/product1/img.jpg",
+       "price": "80",
+       "product_id": "1234df",
+       "quantity": "1",
+       "tags": "Special, Coffee",
+       "title": "Snoozeberry Travel Mug",
+       "url": "http://www.website.com/product1.html"}]' 
+
+"https://api.zinrelo.com/v1/loyalty/purchase"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': 'cad458dc4e', 
+           'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
+products = [{"category": "Mugs",
+            "img_url": "https://cdn.website.com/product1/img.jpg",
+		    "price": "80",
+		    "product_id": "1234df",
+		    "quantity": "1",
+		    "tags": "Special, Coffee",
+		    "title": "Snoozeberry Travel Mug",
+		    "url": "http://www.website.com/product1.html"}] 
+
+payload = {"user_email": "bob@zinrelo.com",
+	   "total=100", 
+	   "subtotal=80", 
+	   "order_id=75a2726d13artibb10",
+	   "currency=USD",
+	   "coupon_code=CODE101",
+	   "products"=json.dumps(products)}
+
+response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/purchase",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+          "user_email": "bob@zinrelo.com",
+          "last_name": "Baker",
+          "first_name": "Bob",
+          "activity_id": "made_a_purchase",
+          "activity_name": "Made a Purchase",
+          "transaction_type":"award",
+          "points": 100,
+          "points_status": "auto_approved",
+          "created_time": "30-Mar-16 19:20:22"
+  },
+  "success":true
+}
+```
+
+Award points to a user for making a  purchase. 
+Points will be calculated based on the rules set in the purchase activity.
+
+**HTTP Request**
+
+`POST  https://api.zinrelo.com/v1/loyalty/purchase`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+user_email | string | Yes | The email of the user to whom points have to be awarded.
+total | string | Yes | Total order value.
+subtotal | string | Yes | Order value without shipping and taxes.
+order_id | string | Yes | Order ID of the purchase transaction. This ensures that points for a particular transaction are awarded only once. 
+currency | string | No | Three letter currency code for your store. Defaults to USD.
+coupon_code | string | No | Coupon code used.
+products | list | No | List of products bought. Product information should be passed in a specific format as shown in the sample code with the below parameters
+
+**Products**
+
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+product_id | string | Yes | Unique product identifier
+price | string | Yes  | Product price
+quantity | string | Yes | Quantity bought
+title | string | Yes | Title of the product
+url | string | Yes | Url of the product page
+img_url | string | No | Url of the product image
+category | string | No | Internal Product Category
+tags | string | No | Internal Product tags
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+user_email| string | The person’s email address
+last_name| string | The person’s last name
+first_name| string | The person’s first name
+activity_id| string | The id of the activity for which the points were awarded
+activity_name| string | The name of the activity for which the points were awarded
+transaction_type| string | This will always be "award"
+points| integer | The number of points awarded
+points_status| string | The status of the award transaction.Status can be approved,auto_approved,cached or pending
+created_time| string | The time when the transaction was created
+
 ### Redeem
 
 ```shell
