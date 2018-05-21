@@ -1044,11 +1044,11 @@ This will return information about the redemption options available to the user 
 
 Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
-is_still_valid | boolean | No | Indicates whether only active or all redemptions should be fetched (defaults to false)
+is_still_valid | boolean | No | Indicates whether only active (true) or all redemptions (false) should be fetched (defaults to true)
 order_by | string | No | The order in which the redemption options will be fetched (defaults to updated_time)
 count | integer | No | The number of redemptions to be fetched (defaults to 12)
 start_index | integer | No | The start index to fetch the data from (defaults to 0)
-fetch_eligible_redemptions | boolean | No | If passed as True, only those redemptions which the user can redeem based on his available points will be fetched. If not passed, all applicable redemptions will be fetched irrespective of points availability (defaults to false)
+fetch_eligible_redemptions | boolean | No | If passed as True, only those redemptions which the user can redeem based on his available points will be fetched. If not passed, all applicable redemptions will be fetched irrespective of points availability (defaults to true)
 
 **Response Body**
 
