@@ -1572,4 +1572,9 @@ Code | Description
 616 | Invalid event ID
 617 | Maximum award limit exceeded
 618 | Points could not be awarded because exclusion rule was applied
+619 | Multiple accounts found
+620 | Invalid Product ID
+621 | Maximum product quantity exceeded
+622 | User record has been deleted
+623 | User has been blocked
     
