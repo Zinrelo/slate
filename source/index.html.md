@@ -809,7 +809,7 @@ payload = json.dumps({
 	"from_date" : "01/01/2016",
 	"to_date" : "12/31/2016",
 	"start_index" : 0,
-	"count" : 10
+	"count" : 1000
 })
 
 response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users",
@@ -859,7 +859,7 @@ from_date | string | No | The start date
 to_date | string | No | The end date
 filter_by | string | No | Filters to be applied along with from_date and to_date. Accepted values: 'enrollment_date' , 'last_activity_date
 start_index | integer | No | The start index to fetch the data from (defaults to 0)
-count | integer | No | Number of records to fetch (defaults to 10)
+count | integer | No | Number of records to fetch (defaults to 1000)
 
 **Response Body**
 
