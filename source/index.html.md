@@ -791,11 +791,8 @@ last_name | string | Last name of the user
 ```shell
 curl -X GET --header "partner-id: cad458dc4e"
 --header "api-key: c921e097e6679d21c0cad26a45bfec20"
---data "from_date=01/01/2016",
---data "to_date=12/31/2016",
---data "start_index=0",
---data "count=10"
-"https://api.zinrelo.com/v1/loyalty/users"
+--data "
+"https://api.zinrelo.com/v1/loyalty/users?from_date=01/01/2016&to_date=12/31/2016&start_index=0&count=1000"
 ```
 
 ```python
