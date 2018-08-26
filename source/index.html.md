@@ -415,11 +415,7 @@ user_email| string | The person’s email address
 ```shell
 curl -X GET --header "partner-id: cad458dc4e" 
 --header "api-key: c921e097e6679d21c0cad26a45bfec20" 
---data "from_date=01/01/2016" 
---data "to_date =31/12/2017" 
---data "points_status=['approved, auto_approved']"
---data "start_index=7"
-"https://api.zinrelo.com/v1/loyalty/transactions"
+"https://api.zinrelo.com/v1/loyalty/transactions?from_date=01/01/2016&to_date=31/12/2017&points_status=['approved, auto_approved']&start_index=0"
 ```
 
 ```python
@@ -790,7 +786,8 @@ last_name | string | Last name of the user
 
 ```shell
 curl -X GET --header "partner-id: cad458dc4e"
---header "api-key: c921e097e6679d21c0cad26a45bfec20" "https://api.zinrelo.com/v1/loyalty/users?from_date=01/01/2016&to_date=12/31/2016&start_index=0&count=1000"
+--header "api-key: c921e097e6679d21c0cad26a45bfec20" 
+"https://api.zinrelo.com/v1/loyalty/users?from_date=01/01/2016&to_date=12/31/2016&start_index=0&count=1000"
 ```
 
 ```python
