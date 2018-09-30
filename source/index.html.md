@@ -829,7 +829,8 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users",
        "referral_code": "BOB1234",
        "has_opted_out": false,
        "referrer_email": "",
-       "dob" : ""
+       "dob" : "",
+       "loyalty_enroll_time": "10/20/2017"
     }],
     "more":false
   },
@@ -902,7 +903,7 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
    "has_opted_out": false,
    "referrer_email": "",
    "dob" : "",
-   "loyalty_enroll_time": "10/10/2017"
+   "loyalty_enroll_time": "10/20/2017"
   },
   "success":true
 }
