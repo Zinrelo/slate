@@ -1052,6 +1052,150 @@ redemptions | array | Array of redemptions based on time range, filters and star
 more | boolean | Indicates if more number of redemptions are available (true/false)
 
 
+### Get User Next Tier
+
+```shell
+curl -X GET --header "partner-id: cad458dc4e" 
+--header "api-key: c921e097e6679d21c0cad26a45bfec20"
+"https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/next_tier"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': 'cad458dc4e', 
+           'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
+
+response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/next_tier",
+                        headers = headers)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+    "id": "zrl_platinum",
+    "name": "Platinum",
+    "description": "Platinum Tier",
+    "minimum_points": 5000,
+    "bonus_multiplier": 1,
+    "tier_rewards": [
+      "reward_cb5f8",
+      "reward_d537f",
+      "reward_0f28c"
+    ],
+    "is_active": true,
+    "is_default": false,
+    "hide_tier_from_user": false,
+    "updated_time": "15-Jan-2019 05:06:10",
+    "created_time": "17-Dec-2018 10:12:34",
+  },
+  "success": true
+}
+```
+This will return information about the next tier available to the user based on his tier if applicable.
+
+**HTTP Request**
+
+`GET  https://api.zinrelo.com/v1/loyalty/users/{user_email}/next_tier`
+
+
+## Tiers
+
+### Get all Tiers
+
+```shell
+curl -X GET --header "partner-id: cad458dc4e" 
+--header "api-key: c921e097e6679d21c0cad26a45bfec20"
+"https://api.zinrelo.com/v1/loyalty/tiers"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': 'cad458dc4e', 
+           'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
+
+response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/tiers",
+                        headers = headers)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": [
+    {
+      "id": "zrl_platinum",
+      "name": "Platinum",
+      "description": "Platinum Tier",
+      "minimum_points": 5000,
+      "bonus_multiplier": 1,
+      "tier_rewards": [
+        "reward_cb5f8",
+        "reward_d537f",
+        "reward_0f28c"
+      ],
+      "rules": {
+        "2.0x": "Purchase on website, Write a Review"
+      },
+      "is_active": true,
+      "is_default": false,
+      "hide_tier_from_user": false,
+      "updated_time": "15-Jan-2019 05:06:10",
+      "created_time": "17-Dec-2018 10:12:34",
+    },
+    {
+      "id": "zrl_gold",
+      "name": "Gold",
+      "description": "1000 points",
+      "minimum_points": 1000,
+      "bonus_multiplier": 1,
+      "tier_rewards": [
+        "reward_cb5f8",
+        "reward_d537f",
+        "reward_0f28c"
+      ],
+      "rules": {
+        "1.5x": "Purchase on website, Write a Review"
+      },
+      "is_active": true,
+      "is_default": false,
+      "hide_tier_from_user": false,
+      "updated_time": "17-Dec-2018 10:12:37",
+      "created_time": "17-Dec-2018 10:12:34",
+    }
+  ],
+  "success": true
+}
+```
+This will return information about the next tier available to the user based on his tier if applicable.
+
+**HTTP Request**
+
+`GET  https://api.zinrelo.com/v1/loyalty/tiers
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+tier_ids | string | No | Tier IDs separated by comma eg. silver, gold, platinum
+hide_tier_from_user | boolean | No | Are the tiers being shown to the user or not
+fetch_all | boolean | No | Fetch all the tiers for the program
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+tier_rewards | array | Reward IDs of the rewards available in the tier 
+rules | map | Promotions/Rules running for the Tier
+
+
 # Webhooks
 
 ## Introduction
