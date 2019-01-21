@@ -816,21 +816,41 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users",
   "data": {
     "total_loyalty_users":1,
     "loyalty_users": [{
-       "loyalty_tier_name": "",
-       "loyalty_tier_id": "",
-       "expiration_schedule": [],
        "last_name": "Baker",
-       "redeemed_points": 0,
        "first_name": "Bob",
-       "available_points": 0,
-       "pending_points": 0,
-       "awarded_points": 0,
        "user_email": "bob@zinrelo.com",
+       "address_line1": "H1-201,Persian Drive",
+       "address_line2": "Suite #101",
+       "city": "Sunnyvale",
+       "zipcode": "94089",
+       "state": "CA",
+       "country": "United States",
+       "phone_country_code": "+1",
+       "phone_number": "66656324213",
        "referral_code": "BOB1234",
+       "uid": "user123",
        "has_opted_out": false,
        "referrer_email": "",
-       "dob" : "",
-       "loyalty_enroll_time": "10/20/2017"
+       "dob": "12/12/1988",
+       "loyalty_enroll_time": "10/20/2017",
+       "loyalty_tier_name": "Platinum",
+       "loyalty_tier_id": "zrl_platinum",
+       "tier_details": {
+		    "period_start": "01/01/2019",
+		    "points": 6100,
+		    "period_end": "12/31/2019"
+	     },
+	    "user_id": "user123",
+	    "available_points": 5900,
+	    "redeemed_points": 200,
+	    "awarded_points": 6100,
+        "pending_points": 0,
+	    "expiration_schedule": [
+	      {
+		    "expiration_date": "18-Jan-2020  11:17:12",
+		    "points": 6100
+	      }
+	    ]
     }],
     "more":false
   },
@@ -889,24 +909,44 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
 ```json
 {
   "data": {
-   "loyalty_tier_name": "",
-   "loyalty_tier_id": "",
-   "expiration_schedule": [],
    "last_name": "Baker",
-   "redeemed_points": 0,
    "first_name": "Bob",
-   "available_points": 0,
-   "pending_points": 0,
-   "awarded_points": 0,
    "user_email": "bob@zinrelo.com",
+   "dob": "12/12/1988",
+   "address_line1": "H1-201,Persian Drive",
+   "address_line2": "Suite #101",
+   "city": "Sunnyvale",
+   "zipcode": "94089",
+   "state": "CA",
+   "country": "United States",
+   "phone_country_code": "+21",
+   "phone_number": "66656324213",
    "referral_code": "BOB1234",
-   "has_opted_out": false,
    "referrer_email": "",
-   "dob" : "",
-   "loyalty_enroll_time": "10/20/2017"
+   "uid": "user123",
+   "loyalty_enroll_time": "01/18/2019",
+   "loyalty_tier_id": "zrl_platinum",
+   "loyalty_tier_name": "Platinum",
+   "tier_details": {
+	    "period_start": "01/01/2019",
+	    "points": 6100,
+	    "period_end": "12/31/2019"
+    },
+    "available_points": 6100,
+    "redeemed_points": 0,
+    "awarded_points": 6100,
+    "pending_points": 0,
+    "expiration_schedule": [
+    {
+	    "expiration_date": "18-Jan-2020  11:17:12",
+	    "points": 6100
+    }],
+    "has_opted_out": false
   },
   "success":true
 }
+
+
 ```
 This will get the details of the user along with available and redeemed points.
 
@@ -923,12 +963,22 @@ user_email | string | Email of the user
 first_name | string | First name of the user
 last_name | string | Last name of the user
 dob | string | Date of birth of user, if available
+address_line1 | string | User address, if available
+address_line2 | string | User address, if available
+city | string | name of city, if available
+state | string | state name, if available
+country | string | country name, if available
+phone_country_code | string | international country code for phone, if available
+phone_number | string | user's phone number, if available
+zipcode | string | location's zipcode, if available
+user_id | string | Unique identifier for user passed by merchant
 redeemed_points | integer | Points redeemed by the user
 available_points | integer | Points currently available to the user
 awarded_points | integer | Total number of points that have been awarded to the user
 pending_points | integer | Points pending for approval
 loyalty_tier_id | string | ID of the loyalty tier currently assigned to the user
 loyalty_tier_name | string | Name of the loyalty tier currently assigned to the user
+tier_details | array | Details regarding the period of the tier and points earned during that period
 expiration_schedule | array | Array of expiration schedules
 referral_code | string | Referral code of the user
 has_opted_out | boolean | Indicates whether the user has opted out of the loyalty program
@@ -1091,7 +1141,7 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
     "is_default": false,
     "hide_tier_from_user": false,
     "updated_time": "15-Jan-2019 05:06:10",
-    "created_time": "17-Dec-2018 10:12:34",
+    "created_time": "17-Dec-2018 10:12:34"
   },
   "success": true
 }
@@ -1148,7 +1198,7 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/tiers",
       "is_default": false,
       "hide_tier_from_user": false,
       "updated_time": "15-Jan-2019 05:06:10",
-      "created_time": "17-Dec-2018 10:12:34",
+      "created_time": "17-Dec-2018 10:12:34"
     },
     {
       "id": "zrl_gold",
@@ -1168,7 +1218,7 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/tiers",
       "is_default": false,
       "hide_tier_from_user": false,
       "updated_time": "17-Dec-2018 10:12:37",
-      "created_time": "17-Dec-2018 10:12:34",
+      "created_time": "17-Dec-2018 10:12:34"
     }
   ],
   "success": true
