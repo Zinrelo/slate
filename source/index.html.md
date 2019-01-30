@@ -1152,6 +1152,12 @@ This will return information about the next tier available to the user based on 
 
 `GET  https://api.zinrelo.com/v1/loyalty/users/{user_email}/next_tier`
 
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+tier_rewards | array | Reward IDs of the rewards available in the tier 
+
 
 ## Tiers
 
@@ -1228,7 +1234,7 @@ This will return information about the next tier available to the user based on 
 
 **HTTP Request**
 
-`GET  https://api.zinrelo.com/v1/loyalty/tiers
+`GET  https://api.zinrelo.com/v1/loyalty/tiers`
 
 **Query Parameters**
 
