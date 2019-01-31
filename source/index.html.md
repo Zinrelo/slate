@@ -1159,15 +1159,15 @@ Attribute | Type | Description
 tier_rewards | array | Reward IDs of the rewards available in the tier 
 
 
-## Rewards
+## Redemptions
 
-### Get Rewards
+### Get Redemptions
 
 ```shell
 curl -X GET --header "partner-id: cad458dc4e" 
 --header "api-key: c921e097e6679d21c0cad26a45bfec20"
 --data "reward_ids=reward_cb5f8,reward_d537f,reward_0f28c"
-"https://api.zinrelo.com/v1/loyalty/rewards"
+"https://api.zinrelo.com/v1/loyalty/redemptions"
 ```
 
 ```python
@@ -1178,10 +1178,10 @@ headers = {'partner-id': 'cad458dc4e',
            'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
 
 payload = json.dumps({
-  "reward_ids" : 'reward_cb5f8,reward_d537f,reward_0f28c'
+  "redemption_ids" : 'reward_cb5f8,reward_d537f,reward_0f28c'
 })
 
-response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/rewards",
+response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/redemptions",
                         headers = headers, data = payload)
 ```
 
@@ -1231,19 +1231,19 @@ This API will return reward details of the reward ID passed or all the rewards i
 
 **HTTP Request**
 
-`GET  https://api.zinrelo.com/v1/loyalty/rewards`
+`GET  https://api.zinrelo.com/v1/loyalty/redemptions`
 
 **Query Parameters**
 
 Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
-reward_ids | string | No | Tier IDs separated by comma eg. silver, gold, platinum
+redemption_ids | string | No | Redemption IDs separated by comma eg. reward_se23,reward_304f
 
 **Response Body**
 
 Attribute | Type | Description
 --------- | ---- | -----------
-associated_levels | array | Tiers on which this reward is available. 
+associated_levels | array | Tiers on which this redemption is available. 
 
 
 ## Tiers
