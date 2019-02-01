@@ -1192,39 +1192,28 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/redemptions",
 {
     "data": [
         {
-            "giftcard_description": "$15 Off Coupon for 1400 points",
-            "redemption_name": "$15 OFF COUPON",
+            "giftcard_description": "$5 Off Coupon for 500 points",
+            "redemption_name": "$5 OFF COUPON",
             "is_active": true,
-            "associated_levels": [
-                "all"
-            ],
-            "allowed_redeem_points": 1400,
             "redemption_type": "Fixed Amount Discount",
-            "redemption_id": "reward_0f28c",
+            "allowed_redeem_points": 500,
+            "redemption_id": "reward_cb5f8",
             "created_time": "17-Dec-2018 10:11:42",
-            "coupon_expiry": null,
-            "updated_time": "17-Dec-2018 11:02:11",
-            "redemption_value": "15"
+            "redemption_value": "5"
         },
         {
             "giftcard_description": "$10 Off Coupon for 1000 points",
             "redemption_name": "$10 OFF COUPON",
             "is_active": true,
-            "associated_levels": [
-                "all"
-            ],
-            "allowed_redeem_points": 1000,
             "redemption_type": "Fixed Amount Discount",
+            "allowed_redeem_points": 1000,
             "redemption_id": "reward_d537f",
             "created_time": "17-Dec-2018 10:11:42",
-            "coupon_expiry": null,
-            "updated_time": "17-Dec-2018 11:01:34",
             "redemption_value": "10"
         }
     ],
     "success": true
 }
-
 
 ```
 This API will return reward details of the reward ID passed or all the rewards if no ID is passed.
@@ -1243,7 +1232,8 @@ redemption_ids | string | No | Redemption IDs separated by comma eg. reward_se23
 
 Attribute | Type | Description
 --------- | ---- | -----------
-associated_levels | array | Tiers on which this redemption is available. 
+allowed_redeem_points | integer | Points required to redeem the redemption. 
+redemption_value | string | Monetary value of the redemption 
 
 
 ## Tiers
