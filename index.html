@@ -1816,12 +1816,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 <h3 id="get-user-redemptions">Get User Redemptions</h3>
 <pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: cad458dc4e"</span> 
 --header <span class="s2">"api-key: c921e097e6679d21c0cad26a45bfec20"</span>
---data <span class="s2">"is_still_valid=true"</span>,
---data <span class="s2">"order_by=allowed_redeem_points"</span>,
---data <span class="s2">"count=10"</span>,
---data <span class="s2">"start_index=0"</span>,
---data <span class="s2">"fetch_eligible_redemptions=true"</span>
-<span class="s2">"https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/redemptions"</span>
+<span class="s2">"https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/redemptions?is_still_valid=true&amp;order_by=allowed_redeem_points&amp;count=10&amp;start_index=0&amp;fetch_eligible_redemptions=true"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -1849,44 +1844,40 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
    </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
    </span><span class="nt">"redemptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
        </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"giftcard_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$25 Off Coupon for 2100 points"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"redemption_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$25 OFF COUPON"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"redemption_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25% OFF COUPON"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"giftcard_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25% Off Coupon for 2100 points"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"redemption_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Percentage Discount"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"allowed_redeem_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">2100</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"redemption_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"associated_levels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
                               </span><span class="s2">"all"</span><span class="w">
                               </span><span class="p">],</span><span class="w">
-        </span><span class="nt">"allowed_redeem_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">2100</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18-May-2017 13:03:05"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"paypal_cashback_enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
         </span><span class="nt">"redemption_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"reward_3063f"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18-May-2017 13:03:05"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"coupon_expiry"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"redemption_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18-May-2017 13:03:05"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"coupon_status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                          </span><span class="nt">"uploaded_coupons"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-                          </span><span class="nt">"remaining_coupons"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+                          </span><span class="nt">"uploaded_coupons"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+                          </span><span class="nt">"remaining_coupons"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="w">
                          </span><span class="p">}</span><span class="w">
        </span><span class="p">},</span><span class="w">
 
        </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"giftcard_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$20 Off Coupon for 1800 points"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"redemption_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$20 OFF COUPON"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"giftcard_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$20 Off Coupon for 1800 points"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"redemption_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fixed Amount Discount"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"allowed_redeem_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">1800</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"redemption_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"associated_levels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
                               </span><span class="s2">"all"</span><span class="w">
                              </span><span class="p">],</span><span class="w">
-        </span><span class="nt">"allowed_redeem_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">1800</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18-May-2017 13:03:05"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"paypal_cashback_enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
         </span><span class="nt">"redemption_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"reward_eb549"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"created_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18-May-2017 13:03:05"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"coupon_expiry"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"redemption_value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18-May-2017 13:03:05"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"coupon_status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                          </span><span class="nt">"uploaded_coupons"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-                          </span><span class="nt">"remaining_coupons"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+                          </span><span class="nt">"uploaded_coupons"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+                          </span><span class="nt">"remaining_coupons"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w">
                          </span><span class="p">}</span><span class="w">
        </span><span class="p">},</span><span class="w">
 
