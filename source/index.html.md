@@ -1192,24 +1192,24 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/redemptions",
 {
     "data": [
         {
-            "giftcard_description": "$5 Off Coupon for 500 points",
             "redemption_name": "$5 OFF COUPON",
+            "redemption_id": "reward_cb5f8",
+            "giftcard_description": "$5 Off Coupon for 500 points",
             "is_active": true,
             "redemption_type": "Fixed Amount Discount",
             "allowed_redeem_points": 500,
-            "redemption_id": "reward_cb5f8",
-            "created_time": "17-Dec-2018 10:11:42",
-            "redemption_value": "5"
+            "redemption_value": "5",
+            "created_time": "17-Dec-2018 10:11:42"
         },
         {
-            "giftcard_description": "$10 Off Coupon for 1000 points",
             "redemption_name": "$10 OFF COUPON",
+            "redemption_id": "reward_d537f",
+            "giftcard_description": "$10 Off Coupon for 1000 points",
             "is_active": true,
             "redemption_type": "Fixed Amount Discount",
             "allowed_redeem_points": 1000,
-            "redemption_id": "reward_d537f",
-            "created_time": "17-Dec-2018 10:11:42",
-            "redemption_value": "10"
+            "redemption_value": "10",
+            "created_time": "17-Dec-2018 10:11:42"
         }
     ],
     "success": true
@@ -1234,6 +1234,7 @@ Attribute | Type | Description
 --------- | ---- | -----------
 allowed_redeem_points | integer | Points required to redeem the redemption. 
 redemption_value | string | Monetary value of the redemption 
+redemption_type | string | Redemption types can be free shipping,fixed amount discount,percentage discount 
 
 
 ## Tiers
