@@ -990,12 +990,7 @@ loyalty_enroll_time | string | Date (mm/dd/yyyy) when the user enrolled into the
 ```shell
 curl -X GET --header "partner-id: cad458dc4e" 
 --header "api-key: c921e097e6679d21c0cad26a45bfec20"
---data "is_still_valid=true",
---data "order_by=allowed_redeem_points",
---data "count=10",
---data "start_index=0",
---data "fetch_eligible_redemptions=true"
-"https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/redemptions"
+"https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/redemptions?is_still_valid=true&order_by=allowed_redeem_points&count=10&start_index=0&fetch_eligible_redemptions=true"
 ```
 
 ```python
@@ -1026,44 +1021,40 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
    "total": 2,
    "redemptions": [
        {
-        "giftcard_description": "$25 Off Coupon for 2100 points",
-        "redemption_name": "$25 OFF COUPON",
-        "is_active": false,
+        "redemption_name": "25% OFF COUPON",
+        "giftcard_description": "25% Off Coupon for 2100 points",
         "redemption_type": "Percentage Discount",
+        "is_active": false,
+        "allowed_redeem_points": 2100,
+        "redemption_value": "25",
         "associated_levels": [
                               "all"
                               ],
-        "allowed_redeem_points": 2100,
-        "updated_time": "18-May-2017 13:03:05",
-        "paypal_cashback_enabled": false,
         "redemption_id": "reward_3063f",
         "created_time": "18-May-2017 13:03:05",
-        "coupon_expiry": null,
-        "redemption_value": "25",
+        "updated_time": "18-May-2017 13:03:05",
         "coupon_status": {
-                          "uploaded_coupons": 0,
-                          "remaining_coupons": 0
+                          "uploaded_coupons": 8,
+                          "remaining_coupons": 6
                          }
        },
 
        {
-        "giftcard_description": "$20 Off Coupon for 1800 points",
         "redemption_name": "$20 OFF COUPON",
-        "is_active": false,
+        "giftcard_description": "$20 Off Coupon for 1800 points",
         "redemption_type": "Fixed Amount Discount",
+        "is_active": true,
+        "allowed_redeem_points": 1800,
+        "redemption_value": "20",
         "associated_levels": [
                               "all"
                              ],
-        "allowed_redeem_points": 1800,
-        "updated_time": "18-May-2017 13:03:05",
-        "paypal_cashback_enabled": false,
         "redemption_id": "reward_eb549",
         "created_time": "18-May-2017 13:03:05",
-        "coupon_expiry": null,
-        "redemption_value": "20",
+        "updated_time": "18-May-2017 13:03:05",
         "coupon_status": {
-                          "uploaded_coupons": 0,
-                          "remaining_coupons": 0
+                          "uploaded_coupons": 25,
+                          "remaining_coupons": 4
                          }
        },
 
