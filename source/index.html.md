@@ -445,20 +445,21 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/transactions",
     "transactions":[{
       "first_name": "bob",
       "last_name": "baker",
-      "order_id": "12345ddfd67",
-      "auto_approval_date": null,
-      "points_status": "approved",
-      "points_used": 0,
-      "redemption_value": null,
-      "points_passed": 100,
-      "points_expiration_date": "2017-07-09 12:42:05.484000",
-      "redemption_name": null,
-      "points": 300,
-      "approved_by": null,
       "user_email": "bob@zinrelo.com",
-      "created_time": "09-May-2017 12:21:53",
       "activity_name": "Purchase on website",
       "transaction_type": "award",
+      "order_id": "12345ddfd67",
+      "points_status": "approved",
+      "points_passed": 100,
+      "points": 300,
+      "points_used": 0,
+      "redemption_name": null,
+      "redemption_value": null,
+      "approved_by": null,
+      "created_time": "09-May-2017 12:21:53",
+      "approved_time": "2017-05-09 12:21:53.138000",
+      "auto_approval_date": null,
+      "points_expiration_date": "2017-07-09 12:42:05.484000",
       "additional_data": {
           "zrl_products": [
               {
@@ -479,7 +480,6 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/transactions",
               }
           ]
       },
-      "approved_time": "2017-05-09 12:21:53.138000",
       "returned_for_order_id": null
       }, 
     {...}],
@@ -575,20 +575,21 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
   		"transactions": [{
             "first_name": "bob",
             "last_name": "baker",
-            "order_id": "12345ddfd67",
-            "auto_approval_date": null,
-            "points_status": "approved",
-            "points_used": 0,
-            "redemption_value": null,
-            "points_passed": 100,
-            "points_expiration_date": "2017-07-09 12:42:05.484000",
-            "redemption_name": null,
-            "points": 300,
-            "approved_by": null,
             "user_email": "bob@zinrelo.com",
-            "created_time": "09-May-2017 12:21:53",
             "activity_name": "Purchase on website",
             "transaction_type": "award",
+            "order_id": "12345ddfd67",
+            "points_status": "approved",
+            "points_passed": 100,
+            "points": 300,
+            "points_used": 0,
+            "redemption_value": null,
+            "redemption_name": null,
+            "approved_by": null,
+            "created_time": "09-May-2017 12:21:53",
+            "approved_time": "2017-05-09 12:21:53.138000",
+            "auto_approval_date": null,
+            "points_expiration_date": "2017-07-09 12:42:05.484000",
             "additional_data": {
                 "zrl_products": [
                     {
@@ -609,7 +610,6 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
                     }
                 ]
             },
-            "approved_time": "2017-05-09 12:21:53.138000",
             "returned_for_order_id": null
   		}],
   		"more": false
