@@ -1813,6 +1813,106 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 </tr>
 </tbody></table>
 
+<h3 id="get-eligible-activities">Get Eligible Activities</h3>
+<pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: cad458dc4e"</span> 
+--header <span class="s2">"api-key: c921e097e6679d21c0cad26a45bfec20"</span>
+<span class="s2">"https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/eligible_activities"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="s">'cad458dc4e'</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="s">'c921e097e6679d21c0cad26a45bfec20'</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/eligible_activities"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created_an_account"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+      </span><span class="nt">"is_activity_available_to_user"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Account Creation"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Earn points when you create your loyalty account."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"points"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"made_a_purchase"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+      </span><span class="nt">"is_activity_available_to_user"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Purchase on website"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bonus_multiplier"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Earn points for every dollar you spend in purchases."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"bonus_multiplier"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"activity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"write_a_review"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"frequency"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"range"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DAY"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"actions_completed"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"is_activity_available_to_user"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"bonus_multiplier"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Write a Review"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Earn points for writing a review."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bonus_multiplier"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This will return information about the activities available to the user. User&rsquo;s email ID will be used to search and return user specific information.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">GET  https://api.zinrelo.com/v1/loyalty/users/{user_email}/eligible_activities</code></p>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>is_activity_available_to_user</td>
+<td>boolean</td>
+<td>Is the Activity available to the user to perform (true/false)</td>
+</tr>
+<tr>
+<td>activity_type</td>
+<td>string</td>
+<td>The activity type of the Activity (fixed/bonus_multiplier)</td>
+</tr>
+<tr>
+<td>bonus_multiplier</td>
+<td>float</td>
+<td>It is the bonus multiplier applied when the activity is performed. Will be available if the activity_type is bonus_multiplier.</td>
+</tr>
+<tr>
+<td>points</td>
+<td>integer</td>
+<td>It is the number of points earned when the activity is performed. Will be available if the activity_type is fixed.</td>
+</tr>
+<tr>
+<td>rules</td>
+<td>object</td>
+<td>Contains details about the activity rules.</td>
+</tr>
+</tbody></table>
+
 <h3 id="get-user-redemptions">Get User Redemptions</h3>
 <pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: cad458dc4e"</span> 
 --header <span class="s2">"api-key: c921e097e6679d21c0cad26a45bfec20"</span>
