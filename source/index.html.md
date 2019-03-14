@@ -366,6 +366,7 @@ response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/users/deduct"
 ```json
 {
   "data":{
+          "user_email": "bob@zinrelo.com",
           "first_name": "Bob",
           "last_name": "Baker",
           "points_status": "deducted",
@@ -373,8 +374,7 @@ response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/users/deduct"
           "available_points": 1500,
           "reason": "invalid transaction",
           "points": 1000,
-          "created_time": "30-Mar-15 19:20:22",
-          "user_email": "bob@zinrelo.com"
+          "created_time": "30-Mar-15 19:20:22"
          },
   "success":true
 }
