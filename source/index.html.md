@@ -985,6 +985,87 @@ has_opted_out | boolean | Indicates whether the user has opted out of the loyalt
 referrer_email | string | Email address of the friend who has referred the current user
 loyalty_enroll_time | string | Date (mm/dd/yyyy) when the user enrolled into the loyalty program
 
+
+### Get Eligible Activities
+
+```shell
+curl -X GET --header "partner-id: cad458dc4e" 
+--header "api-key: c921e097e6679d21c0cad26a45bfec20"
+"https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/eligible_activities"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': 'cad458dc4e', 
+           'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
+
+response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/eligible_activities",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": [
+    {
+      "activity_id": "created_an_account",
+      "rules": {},
+      "is_activity_available_to_user": true,
+      "activity_name": "Account Creation",
+      "activity_type": "fixed",
+      "activity_description": "Earn points when you create your loyalty account.",
+      "points": 100
+    },
+    {
+      "activity_id": "made_a_purchase",
+      "rules": {},
+      "is_activity_available_to_user": true,
+      "activity_name": "Purchase on website",
+      "activity_type": "bonus_multiplier",
+      "activity_description": "Earn points for every dollar you spend in purchases.",
+      "bonus_multiplier": 1
+    },
+    {
+      "activity_id": "write_a_review",
+      "rules": {
+        "frequency": {
+          "range": "DAY",
+          "limit": "3",
+          "actions_completed": 0
+        }
+      },
+      "is_activity_available_to_user": true,
+      "bonus_multiplier": 1,
+      "activity_name": "Write a Review",
+      "activity_description": "Earn points for writing a review.",
+      "activity_type": "bonus_multiplier"
+    }
+  ],
+  "success": true
+}
+```
+This will return information about the activities available to the user. User's email ID will be used to search and return user specific information.
+
+
+**HTTP Request**
+
+`GET  https://api.zinrelo.com/v1/loyalty/users/{user_email}/eligible_activities`
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+is_activity_available_to_user | boolean | Is the Activity available to the user to perform (true/false)
+activity_type | string | The activity type of the Activity (fixed/bonus_multiplier)
+bonus_multiplier | float | It is the bonus multiplier applied when the activity is performed. Will be available if the activity_type is bonus_multiplier.
+points | integer | It is the number of points earned when the activity is performed. Will be available if the activity_type is fixed.
+rules | object | Contains details about the activity rules.
+
+
 ### Get User Redemptions
 
 ```shell
