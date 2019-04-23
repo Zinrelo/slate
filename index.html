@@ -1501,6 +1501,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
        </span><span class="nt">"phone_country_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+1"</span><span class="p">,</span><span class="w">
        </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"66656324213"</span><span class="p">,</span><span class="w">
        </span><span class="nt">"referral_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BOB1234"</span><span class="p">,</span><span class="w">
+       </span><span class="nt">"referral_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://test.zinrelo.com/raf/BOB1234"</span><span class="p">,</span><span class="w">
        </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user123"</span><span class="p">,</span><span class="w">
        </span><span class="nt">"has_opted_out"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
        </span><span class="nt">"referrer_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
@@ -1644,6 +1645,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
    </span><span class="nt">"phone_country_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+21"</span><span class="p">,</span><span class="w">
    </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"66656324213"</span><span class="p">,</span><span class="w">
    </span><span class="nt">"referral_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BOB1234"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"referral_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://test.zinrelo.com/raf/BOB1234"</span><span class="p">,</span><span class="w">
    </span><span class="nt">"referrer_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
    </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user123"</span><span class="p">,</span><span class="w">
    </span><span class="nt">"loyalty_enroll_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01/18/2019"</span><span class="p">,</span><span class="w">
@@ -1797,6 +1799,11 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 <td>Referral code of the user</td>
 </tr>
 <tr>
+<td>referral_url</td>
+<td>string</td>
+<td>Referral URL of the user</td>
+</tr>
+<tr>
 <td>has_opted_out</td>
 <td>boolean</td>
 <td>Indicates whether the user has opted out of the loyalty program</td>
@@ -1840,6 +1847,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
       </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Account Creation"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fixed"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Earn points when you create your loyalty account."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"points_earning_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
       </span><span class="nt">"points"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -1849,6 +1857,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
       </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Purchase on website"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bonus_multiplier"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Earn points for every dollar you spend in purchases."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"points_earning_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Make a purchase and earn points"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"bonus_multiplier"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -1864,6 +1873,7 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
       </span><span class="nt">"bonus_multiplier"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="nt">"activity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Write a Review"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"activity_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Earn points for writing a review."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"points_earning_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Write a review and earn points"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"activity_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bonus_multiplier"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
@@ -1910,6 +1920,11 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 <td>rules</td>
 <td>object</td>
 <td>Contains details about the activity rules.</td>
+</tr>
+<tr>
+<td>points_earning_description</td>
+<td>string</td>
+<td>The content shown to the user on clicking the activity card (only for purchase on website, write a review and custom activities)</td>
 </tr>
 </tbody></table>
 
