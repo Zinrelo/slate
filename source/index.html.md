@@ -828,6 +828,7 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users",
        "phone_country_code": "+1",
        "phone_number": "66656324213",
        "referral_code": "BOB1234",
+       "referral_url": "https://test.zinrelo.com/raf/BOB1234",
        "uid": "user123",
        "has_opted_out": false,
        "referrer_email": "",
@@ -922,6 +923,7 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
    "phone_country_code": "+21",
    "phone_number": "66656324213",
    "referral_code": "BOB1234",
+   "referral_url": "https://test.zinrelo.com/raf/BOB1234",
    "referrer_email": "",
    "uid": "user123",
    "loyalty_enroll_time": "01/18/2019",
@@ -981,6 +983,7 @@ loyalty_tier_name | string | Name of the loyalty tier currently assigned to the 
 tier_details | array | Details regarding the period of the tier and points earned during that period
 expiration_schedule | array | Array of expiration schedules
 referral_code | string | Referral code of the user
+referral_url | string | Referral URL of the user
 has_opted_out | boolean | Indicates whether the user has opted out of the loyalty program
 referrer_email | string | Email address of the friend who has referred the current user
 loyalty_enroll_time | string | Date (mm/dd/yyyy) when the user enrolled into the loyalty program
