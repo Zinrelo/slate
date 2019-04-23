@@ -1021,6 +1021,7 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
       "activity_name": "Account Creation",
       "activity_type": "fixed",
       "activity_description": "Earn points when you create your loyalty account.",
+      "points_earning_description": "",
       "points": 100
     },
     {
@@ -1030,6 +1031,7 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
       "activity_name": "Purchase on website",
       "activity_type": "bonus_multiplier",
       "activity_description": "Earn points for every dollar you spend in purchases.",
+      "points_earning_description": "Make a purchase and earn points",
       "bonus_multiplier": 1
     },
     {
@@ -1045,6 +1047,7 @@ response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/users/bob@zinr
       "bonus_multiplier": 1,
       "activity_name": "Write a Review",
       "activity_description": "Earn points for writing a review.",
+      "points_earning_description": "Write a review and earn points",
       "activity_type": "bonus_multiplier"
     }
   ],
@@ -1067,6 +1070,7 @@ activity_type | string | The activity type of the Activity (fixed/bonus_multipli
 bonus_multiplier | float | It is the bonus multiplier applied when the activity is performed. Will be available if the activity_type is bonus_multiplier.
 points | integer | It is the number of points earned when the activity is performed. Will be available if the activity_type is fixed.
 rules | object | Contains details about the activity rules.
+points_earning_description | string | The content shown to the user on clicking the activity card (only for purchase on website, write a review and custom activities)
 
 
 ### Get User Redemptions
