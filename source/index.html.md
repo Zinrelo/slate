@@ -1237,6 +1237,127 @@ Attribute | Type | Description
 --------- | ---- | -----------
 tier_rewards | array | Reward IDs of the rewards available in the tier 
 
+### Unsubscribe User
+
+```shell
+curl -X POST --header "partner-id: cad458dc4e"
+--header "api-key: c921e097e6679d21c0cad26a45bfec20"
+--data "user_email=bob@zinrelo.com"
+"https://api.zinrelo.com/v1/loyalty/unsubscribe_email"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': 'cad458dc4e',
+           'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
+
+payload = {
+  "user_email" : "bob@zinrelo.com"
+}
+
+response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/unsubscribe_email",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+    "user_email": "bob@zinrelo.com",
+    "status": "unsubscribed"
+  },
+  "success": true
+}
+```
+Unsubscribes a user from the loyalty emails.
+
+
+**HTTP Request**
+
+`POST  https://api.zinrelo.com/v1/loyalty/unsubscribe_email`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | ------------
+user_email | string | Yes | Email of the user
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+user_email | string | Email of the user
+status | string | 'Unsubscribed' status.
+
+### Get All Unsubscribed Users
+
+```shell
+curl -X GET --header "partner-id: cad458dc4e"
+--header "api-key: c921e097e6679d21c0cad26a45bfec20" 
+"https://api.zinrelo.com/v1/loyalty/unsubscribed_users?from_date=01/01/2016&to_date=12/31/2016&start_index=0&count=1000"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': 'cad458dc4e',
+           'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
+
+payload = json.dumps({
+  "from_date" : "01/01/2016",
+  "to_date" : "12/31/2016",
+  "start_index" : 0,
+  "count" : 1000
+})
+
+response = requests.get(url = "https://api.zinrelo.com/v1/loyalty/unsubscribed_users",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+    "total": 1,
+    "unsubscribed_emails": [{
+       "email": "bob@zinrelo.com",
+       "unsubscribed_on": "10/20/2017"
+    }],
+    "more": false
+  },
+  "success": true
+}
+```
+This will get the list of all users who have unsubscribed from loyalty emails
+
+**HTTP Request**
+
+`GET  https://api.zinrelo.com/v1/loyalty/unsubscribed_users`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+from_date | string | No | The start date
+to_date | string | No | The end date
+start_index | integer | No | The start index to fetch the data from (defaults to 0)
+count | integer | No | Number of records to fetch (defaults to 1000)
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+next_start_index | integer | Next index of record to fetch 
+total | integer | Total number of unsubscribed_emails for this merchant
+unsubscribed_emails | array | Array of users based on time range, filters and start_index
+more | boolean | Indicates if more number of users are available (true/false)
 
 ## Redemptions
 
