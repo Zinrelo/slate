@@ -415,7 +415,7 @@ user_email| string | The person’s email address
 ```shell
 curl -X GET --header "partner-id: cad458dc4e" 
 --header "api-key: c921e097e6679d21c0cad26a45bfec20" 
-"https://api.zinrelo.com/v1/loyalty/transactions?from_date=01/01/2016&to_date=31/12/2017&points_status=['approved, auto_approved']&start_index=0"
+"https://api.zinrelo.com/v1/loyalty/transactions?from_date=01/01/2016&to_date=31/12/2017&points_status=['approved']&start_index=0"
 ```
 
 ```python
@@ -427,7 +427,7 @@ headers = {'partner-id': 'cad458dc4e',
 
 payload = { "from_date": "01/01/2016",
             "to_date": "05/23/2017",	
-            "points_status": '["approved","auto_approved"]',
+            "points_status": '["approved"]',
             "start_index": 7
           }
 
@@ -501,7 +501,7 @@ Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
 from_date | string | Yes | The start date (format is MM/DD/YYYY)
 to_date | string | Yes | The end date (format is MM/DD/YYYY)
-points_status | list of strings | No | The status of the transaction (pending/approved/auto_approved/<br>redeemed/rejected/<br>deducted/expired)
+points_status | list of strings | No | The status of the transaction (pending/approved/<br>redeemed/rejected/<br>deducted/expired)
 start_index | integer | No | The index from where data needs to be fetched (defaults to 0)
 
 **Response Body**
@@ -630,7 +630,7 @@ Parameter | Type | Mandatory | Description
 --------- | ---- | -------- | -----------
 from_date | string | Yes | The start date
 to_date | string | Yes | The end date
-points_status | string | No | Status of transaction to fetch (pending/auto_approved/approved/<br>redeemed/rejected/<br>expired/deducted)
+points_status | string | No | Status of transaction to fetch (pending/approved/<br>redeemed/rejected/<br>expired/deducted)
 start_index | integer | No | The start index to fetch the data from (defaults to 0)
 
 **Response Body**
