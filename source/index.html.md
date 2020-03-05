@@ -189,7 +189,7 @@ payload = {"user_email": "bob@zinrelo.com",
 	   "order_id":"75a2726d13artibb10",
 	   "currency":"USD",
 	   "coupon_code":"CODE101",
-	   "products"=json.dumps(products)}
+	   "products":json.dumps(products)}
 
 response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/purchase",
                         headers = headers, data = payload)
