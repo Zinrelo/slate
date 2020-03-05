@@ -354,7 +354,7 @@ Points will be awarded based on the user&rsquo;s email address.</p>
        <span class="s">"order_id"</span><span class="p">:</span><span class="s">"75a2726d13artibb10"</span><span class="p">,</span>
        <span class="s">"currency"</span><span class="p">:</span><span class="s">"USD"</span><span class="p">,</span>
        <span class="s">"coupon_code"</span><span class="p">:</span><span class="s">"CODE101"</span><span class="p">,</span>
-       <span class="s">"products"</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">products</span><span class="p">)}</span>
+       <span class="s">"products"</span><span class="p">:</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">products</span><span class="p">)}</span>
 
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.zinrelo.com/v1/loyalty/purchase"</span><span class="p">,</span>
                         <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">)</span>
