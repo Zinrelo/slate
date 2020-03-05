@@ -184,11 +184,11 @@ products = [{"category": "Mugs",
 		    "url": "http://www.website.com/product1.html"}] 
 
 payload = {"user_email": "bob@zinrelo.com",
-	   "total=100", 
-	   "subtotal=80", 
-	   "order_id=75a2726d13artibb10",
-	   "currency=USD",
-	   "coupon_code=CODE101",
+	   "total":"100", 
+	   "subtotal":"80", 
+	   "order_id":"75a2726d13artibb10",
+	   "currency":"USD",
+	   "coupon_code":"CODE101",
 	   "products"=json.dumps(products)}
 
 response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/purchase",
