@@ -75,6 +75,7 @@ curl -X POST --header "partner-id: cad458dc4e"
 --data "points_passed=100" 
 --data "activity_id=made_a_purchase"
 --data "order_id=75a2726d13artibb10"
+--data "reason=awarded points for missing order"
 
 "https://api.zinrelo.com/v1/loyalty/award"
 ```
@@ -89,7 +90,8 @@ headers = {'partner-id': 'cad458dc4e',
 payload = {"user_email": "bob@zinrelo.com",
            "points_passed": 100,
            "activity_id": "made_a_purchase",
-           "order_id":"75a2726d13artibb10"}
+           "order_id":"75a2726d13artibb10",
+           "reason":"awarded points for missing order"}
 
 response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/award",
                         headers = headers, data = payload)
@@ -109,7 +111,8 @@ response = requests.post(url = "https://api.zinrelo.com/v1/loyalty/award",
           "transaction_type":"award",
           "points": 100,
           "points_status": "auto_approved",
-          "created_time": "30-Mar-16 19:20:22"
+          "created_time": "30-Mar-16 19:20:22",
+          "reason": "awarded points for missing order"
   },
   "success":true
 }
@@ -130,6 +133,7 @@ user_email | string | Yes | The email of the user to whom points have to be awar
 points_passed | integer | No (if activity type is fixed) Yes (if activity type is bonus multiplier) | If the activity is configured to award fixed number of points, the points passed will override the value set in the configuration. If the activity is configured to use a multiplier to award points, this becomes a mandatory parameter as the points cannot be awarded without the base value.
 activity_id | string | Yes | The activity for which points needs to be awarded. The activity ID is available in the merchant center in the activity configuration.
 order_id | string | No | When points are being awarded for purchase activity, it is recommended to pass order ID of the purchase transaction .This ensures that points for a particular transaction are awarded only once. 
+reason | string | No | The reason for which the points are being awarded to the user.  
 
 **Response Body**
 
@@ -144,6 +148,7 @@ transaction_type| string | This will always be "award"
 points| integer | The number of points awarded
 points_status| string | The status of the award transaction
 created_time| string | The time when the record was created
+reason| string | The reason for which the points are awarded to the user.
 
 ### Purchase
 
