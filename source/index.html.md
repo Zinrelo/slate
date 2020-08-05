@@ -1364,6 +1364,66 @@ total | integer | Total number of unsubscribed_emails for this merchant
 unsubscribed_emails | array | Array of users based on time range, filters and start_index
 more | boolean | Indicates if more number of users are available (true/false)
 
+### Update User Email
+
+```shell
+curl -X GET --header "partner-id: cad458dc4e" 
+--header "api-key: c921e097e6679d21c0cad26a45bfec20"
+--data "old_email_address=bobold@zinrelo.com",
+--data "new_email_address=bobnew@zinrelo.com"
+"https://app.zinrelo.com/v1/loyalty/update_user_email"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': 'cad458dc4e', 
+           'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
+
+payload = json.dumps({
+  "old_email_address" : "bobold@zinrelo.com",
+  "new_email_address" : "bobnew@zinrelo.com",
+})
+
+response = requests.post(url = "https://app.zinrelo.com/v1/loyalty/update_user_email",
+                        headers = headers, data = payload)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+    "merchant_id": "cad458dc4e",
+    "old_email_address": "bobold@zinrelo.com",
+    "new_email_address": "bobnew@zinrelo.com"
+  },
+  "success": true
+}
+```
+This will update user email is Zinrelo with the new email provided
+
+**HTTP Request**
+
+`POST  https://app.zinrelo.com/v1/loyalty/update_user_email`
+
+**Query Parameters**
+
+Parameter | Type | Mandatory | Description
+--------- | ---- | -------- | -----------
+old_email_address | string | Yes | Old email address of the customer
+new_email_address | string | Yes | New email address of the customer
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+merchant_id | string | Partner ID of your account
+old_email_address | string | Old email address of the customer
+new_email_address | string | New email address of the customer
+
 ## Redemptions
 
 ### Get Redemptions
