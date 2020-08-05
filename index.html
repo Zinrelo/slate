@@ -2344,6 +2344,97 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 </tr>
 </tbody></table>
 
+<h3 id="update-user-email">Update User Email</h3>
+<pre class="highlight shell"><code>curl -X GET --header <span class="s2">"partner-id: cad458dc4e"</span> 
+--header <span class="s2">"api-key: c921e097e6679d21c0cad26a45bfec20"</span>
+--data <span class="s2">"old_email_address=bobold@zinrelo.com"</span>,
+--data <span class="s2">"new_email_address=bobnew@zinrelo.com"</span>
+<span class="s2">"https://app.zinrelo.com/v1/loyalty/update_user_email"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="s">'cad458dc4e'</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="s">'c921e097e6679d21c0cad26a45bfec20'</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+  <span class="s">"old_email_address"</span> <span class="p">:</span> <span class="s">"bobold@zinrelo.com"</span><span class="p">,</span>
+  <span class="s">"new_email_address"</span> <span class="p">:</span> <span class="s">"bobnew@zinrelo.com"</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://app.zinrelo.com/v1/loyalty/update_user_email"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"merchant_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cad458dc4e"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"old_email_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bobold@zinrelo.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"new_email_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bobnew@zinrelo.com"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This will update user email is Zinrelo with the new email provided</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">POST  https://app.zinrelo.com/v1/loyalty/update_user_email</code></p>
+
+<p><strong>Query Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>old_email_address</td>
+<td>string</td>
+<td>Yes</td>
+<td>Old email address of the customer</td>
+</tr>
+<tr>
+<td>new_email_address</td>
+<td>string</td>
+<td>Yes</td>
+<td>New email address of the customer</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>merchant_id</td>
+<td>string</td>
+<td>Partner ID of your account</td>
+</tr>
+<tr>
+<td>old_email_address</td>
+<td>string</td>
+<td>Old email address of the customer</td>
+</tr>
+<tr>
+<td>new_email_address</td>
+<td>string</td>
+<td>New email address of the customer</td>
+</tr>
+</tbody></table>
+
 <h2 id="redemptions">Redemptions</h2>
 
 <h3 id="get-redemptions">Get Redemptions</h3>
