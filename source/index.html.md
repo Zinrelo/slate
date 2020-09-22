@@ -1489,7 +1489,7 @@ response = requests.put(url = "https://app.zinrelo.com/v1/loyalty/users/bob@zinr
   "success":true
 }
 ```
-This will block the user from the loyalty program.
+Blocks the user from the loyalty program.
 
 **HTTP Request**
 
@@ -1499,19 +1499,18 @@ This will block the user from the loyalty program.
 
 Attribute | Type | Description
 --------- | ---- | -----------
-merchant_id | string | Partner ID of your account
 user_email | string | Email of the user
 first_name | string | First name of the user
 last_name | string | Last name of the user
 dob | string | Date of birth of user, if available
 address_line1 | string | User address, if available
 address_line2 | string | User address, if available
-city | string | name of city, if available
-state | string | state name, if available
-country | string | country name, if available
-phone_country_code | string | international country code for phone, if available
-phone_number | string | user’s phone number, if available
-zipcode | string | location’s zipcode, if available
+city | string | Name of city, if available
+state | string | State name, if available
+country | string | Country name, if available
+phone_country_code | string | International country code for phone, if available
+phone_number | string | User’s phone number, if available
+zipcode | string | Location’s zipcode, if available
 user_id | string | Unique identifier for user passed by merchant
 user _status | string | Current status of the user
 redeemed_points | integer | Points redeemed by the user
