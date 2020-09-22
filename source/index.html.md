@@ -1424,6 +1424,110 @@ merchant_id | string | Partner ID of your account
 old_email_address | string | Old email address of the customer
 new_email_address | string | New email address of the customer
 
+### Block User
+
+```shell
+curl -X PUT --header "partner-id: cad458dc4e" 
+--header "api-key: c921e097e6679d21c0cad26a45bfec20"
+"https://app.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/block"
+```
+
+```python
+import requests
+import json
+
+headers = {'partner-id': 'cad458dc4e', 
+           'api-key': 'c921e097e6679d21c0cad26a45bfec20'}
+
+response = requests.put(url = "https://app.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/block",
+                        headers = headers)
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+   "last_name": "Baker",
+   "first_name": "Bob",
+   "user_email": "bob@zinrelo.com",
+   "dob": "12/12/1988",
+   "address_line1": "H1-201,Persian Drive",
+   "address_line2": "Suite #101",
+   "city": "Sunnyvale",
+   "zipcode": "94089",
+   "state": "CA",
+   "country": "United States",
+   "phone_country_code": "+21",
+   "phone_number": "66656324213",
+   "referral_code": "BOB1234",
+   "referral_url": "https://test.zinrelo.com/raf/BOB1234",
+   "referrer_email": "",
+   "uid": "user123",
+   "user_id": "56263eac2d6f2a7715b3d2d1",
+   "user_status": "blocked",
+   "loyalty_enroll_time": "01/18/2019",
+   "loyalty_tier_id": "zrl_platinum",
+   "loyalty_tier_name": "Platinum",
+   "tier_details": {
+        "period_start": "01/01/2019",
+        "points": 6100,
+        "period_end": "12/31/2019"
+    },
+    "available_points": 6100,
+    "redeemed_points": 0,
+    "awarded_points": 6100,
+    "pending_points": 0,
+    "expiration_schedule": [
+    {
+        "expiration_date": "18-Jan-2020  11:17:12",
+        "points": 6100
+    }],
+    "has_opted_out": false
+  },
+  "success":true
+}
+```
+This will block the user from the loyalty program.
+
+**HTTP Request**
+
+`PUT  https://app.zinrelo.com/v1/loyalty/users/{user_email}/block`
+
+**Response Body**
+
+Attribute | Type | Description
+--------- | ---- | -----------
+merchant_id | string | Partner ID of your account
+user_email | string | Email of the user
+first_name | string | First name of the user
+last_name | string | Last name of the user
+dob | string | Date of birth of user, if available
+address_line1 | string | User address, if available
+address_line2 | string | User address, if available
+city | string | name of city, if available
+state | string | state name, if available
+country | string | country name, if available
+phone_country_code | string | international country code for phone, if available
+phone_number | string | user’s phone number, if available
+zipcode | string | location’s zipcode, if available
+user_id | string | Unique identifier for user passed by merchant
+user _status | string | Current status of the user
+redeemed_points | integer | Points redeemed by the user
+available_points | integer | Points currently available to the user
+awarded_points | integer | Total number of points that have been awarded to the user
+pending_points | integer | Points pending for approval
+loyalty_tier_id | string | ID of the loyalty tier currently assigned to the user
+loyalty_tier_name | string | Name of the loyalty tier currently assigned to the user
+tier_details | array | Details regarding the period of the tier and points earned during that period
+expiration_schedule | array | Array of expiration schedules
+referral_code | string | Referral code of the user
+referral_url | string | Referral URL of the user
+has_opted_out | boolean | Indicates whether the user has opted out of the loyalty program
+referrer_email | string | Email address of the friend who has referred the current user
+loyalty_enroll_time | string | Date (mm/dd/yyyy) when the user enrolled into the loyalty program
+
 ## Redemptions
 
 ### Get Redemptions
