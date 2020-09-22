@@ -2435,6 +2435,219 @@ Based on the redemption option chosen, points will be deducted from the user&rsq
 </tr>
 </tbody></table>
 
+<h3 id="block-user">Block User</h3>
+<pre class="highlight shell"><code>curl -X PUT --header <span class="s2">"partner-id: cad458dc4e"</span> 
+--header <span class="s2">"api-key: c921e097e6679d21c0cad26a45bfec20"</span>
+<span class="s2">"https://app.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/block"</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'partner-id'</span><span class="p">:</span> <span class="s">'cad458dc4e'</span><span class="p">,</span> 
+           <span class="s">'api-key'</span><span class="p">:</span> <span class="s">'c921e097e6679d21c0cad26a45bfec20'</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://app.zinrelo.com/v1/loyalty/users/bob@zinrelo.com/block"</span><span class="p">,</span>
+                        <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+   </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Baker"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bob"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"user_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bob@zinrelo.com"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"dob"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12/12/1988"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"address_line1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"H1-201,Persian Drive"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"address_line2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Suite #101"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sunnyvale"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"94089"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CA"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United States"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"phone_country_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+21"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"66656324213"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"referral_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BOB1234"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"referral_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://test.zinrelo.com/raf/BOB1234"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"referrer_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user123"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56263eac2d6f2a7715b3d2d1"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"user_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"blocked"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"loyalty_enroll_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01/18/2019"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"loyalty_tier_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zrl_platinum"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"loyalty_tier_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Platinum"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"tier_details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"period_start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01/01/2019"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"points"</span><span class="p">:</span><span class="w"> </span><span class="mi">6100</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"period_end"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12/31/2019"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"available_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">6100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"redeemed_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"awarded_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">6100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"pending_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expiration_schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18-Jan-2020  11:17:12"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"points"</span><span class="p">:</span><span class="w"> </span><span class="mi">6100</span><span class="w">
+    </span><span class="p">}],</span><span class="w">
+    </span><span class="nt">"has_opted_out"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Blocks the user from the loyalty program.</p>
+
+<p><strong>HTTP Request</strong></p>
+
+<p><code class="prettyprint">PUT  https://app.zinrelo.com/v1/loyalty/users/{user_email}/block</code></p>
+
+<p><strong>Response Body</strong></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>user_email</td>
+<td>string</td>
+<td>Email of the user</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>string</td>
+<td>First name of the user</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>string</td>
+<td>Last name of the user</td>
+</tr>
+<tr>
+<td>dob</td>
+<td>string</td>
+<td>Date of birth of user, if available</td>
+</tr>
+<tr>
+<td>address_line1</td>
+<td>string</td>
+<td>User address, if available</td>
+</tr>
+<tr>
+<td>address_line2</td>
+<td>string</td>
+<td>User address, if available</td>
+</tr>
+<tr>
+<td>city</td>
+<td>string</td>
+<td>Name of city, if available</td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>State name, if available</td>
+</tr>
+<tr>
+<td>country</td>
+<td>string</td>
+<td>Country name, if available</td>
+</tr>
+<tr>
+<td>phone_country_code</td>
+<td>string</td>
+<td>International country code for phone, if available</td>
+</tr>
+<tr>
+<td>phone_number</td>
+<td>string</td>
+<td>User’s phone number, if available</td>
+</tr>
+<tr>
+<td>zipcode</td>
+<td>string</td>
+<td>Location’s zipcode, if available</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>string</td>
+<td>Unique identifier for user passed by merchant</td>
+</tr>
+<tr>
+<td>user _status</td>
+<td>string</td>
+<td>Current status of the user</td>
+</tr>
+<tr>
+<td>redeemed_points</td>
+<td>integer</td>
+<td>Points redeemed by the user</td>
+</tr>
+<tr>
+<td>available_points</td>
+<td>integer</td>
+<td>Points currently available to the user</td>
+</tr>
+<tr>
+<td>awarded_points</td>
+<td>integer</td>
+<td>Total number of points that have been awarded to the user</td>
+</tr>
+<tr>
+<td>pending_points</td>
+<td>integer</td>
+<td>Points pending for approval</td>
+</tr>
+<tr>
+<td>loyalty_tier_id</td>
+<td>string</td>
+<td>ID of the loyalty tier currently assigned to the user</td>
+</tr>
+<tr>
+<td>loyalty_tier_name</td>
+<td>string</td>
+<td>Name of the loyalty tier currently assigned to the user</td>
+</tr>
+<tr>
+<td>tier_details</td>
+<td>array</td>
+<td>Details regarding the period of the tier and points earned during that period</td>
+</tr>
+<tr>
+<td>expiration_schedule</td>
+<td>array</td>
+<td>Array of expiration schedules</td>
+</tr>
+<tr>
+<td>referral_code</td>
+<td>string</td>
+<td>Referral code of the user</td>
+</tr>
+<tr>
+<td>referral_url</td>
+<td>string</td>
+<td>Referral URL of the user</td>
+</tr>
+<tr>
+<td>has_opted_out</td>
+<td>boolean</td>
+<td>Indicates whether the user has opted out of the loyalty program</td>
+</tr>
+<tr>
+<td>referrer_email</td>
+<td>string</td>
+<td>Email address of the friend who has referred the current user</td>
+</tr>
+<tr>
+<td>loyalty_enroll_time</td>
+<td>string</td>
+<td>Date (mm/dd/yyyy) when the user enrolled into the loyalty program</td>
+</tr>
+</tbody></table>
+
 <h2 id="redemptions">Redemptions</h2>
 
 <h3 id="get-redemptions">Get Redemptions</h3>
